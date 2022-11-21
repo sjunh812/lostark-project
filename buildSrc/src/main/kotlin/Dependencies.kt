@@ -1,15 +1,15 @@
 object Version {
     const val COROUTINE = "1.6.1"
 
-    const val CORE = "1.8.0"
-    const val APPCOMPAT = "1.4.2"
+    const val CORE = "1.7.0"
+    const val APPCOMPAT = "1.5.1"
     const val CONSTRAINT_LAYOUT = "2.1.4"
-    const val ANDROID_JUNIT = "1.1.3"
-    const val ESPRESSO = "3.4.0"
+    const val ANDROID_JUNIT = "1.1.4"
+    const val ESPRESSO = "3.5.0"
 
     const val JUNIT = "4.13.2"
 
-    const val MATERIAL = "1.8.0-alpha02"
+    const val MATERIAL = "1.7.0"
 
     const val HILT = "2.42"
 
