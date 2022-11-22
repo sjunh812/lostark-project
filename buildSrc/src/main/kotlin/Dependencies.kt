@@ -4,6 +4,9 @@ object Version {
     const val CORE = "1.7.0"
     const val APPCOMPAT = "1.5.1"
     const val CONSTRAINT_LAYOUT = "2.1.4"
+    const val VIEWMODEL = "2.5.1"
+    const val ACTIVITY_KTX = "1.5.1"
+    const val FRAGMENT_KTX = "1.5.4"
     const val ANDROID_JUNIT = "1.1.4"
     const val ESPRESSO = "3.5.0"
 
@@ -31,6 +34,9 @@ object Library {
         const val CORE = "androidx.core:core-ktx:${Version.CORE}"
         const val APPCOMPAT = "androidx.appcompat:appcompat:${Version.APPCOMPAT}"
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Version.CONSTRAINT_LAYOUT}"
+        const val VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.VIEWMODEL}"
+        const val ACTIVITY_KTX = "androidx.activity:activity-ktx:${Version.ACTIVITY_KTX}"
+        const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Version.FRAGMENT_KTX}"
         const val ANDROID_JUNIT = "androidx.test.ext:junit:${Version.ANDROID_JUNIT}"
         const val ESPRESSO = "androidx.test.espresso:espresso-core:${Version.ESPRESSO}"
     }

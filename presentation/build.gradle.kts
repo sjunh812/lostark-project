@@ -2,10 +2,12 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = AppConfig.NAMESPACE
+    compileSdk = AppConfig.COMPILE_SDK
 
     defaultConfig {
         applicationId = AppConfig.APPLICATION_ID
@@ -43,11 +45,15 @@ android {
 }
 
 dependencies {
-    implementation(":domain")
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(Library.AndroidX.CORE)
     implementation(Library.AndroidX.APPCOMPAT)
     implementation(Library.AndroidX.CONSTRAINT_LAYOUT)
+    implementation(Library.AndroidX.VIEWMODEL)
+    implementation(Library.AndroidX.ACTIVITY_KTX)
+    implementation(Library.AndroidX.FRAGMENT_KTX)
     androidTestImplementation(Library.AndroidX.ANDROID_JUNIT)
     androidTestImplementation(Library.AndroidX.ESPRESSO)
 
