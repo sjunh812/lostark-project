@@ -1,9 +1,9 @@
-package org.sjhstudio.data.di
+package org.sjhstudio.lostark.data.di
 
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sjhstudio.data.api.LostArkService
+import org.sjhstudio.lostark.data.api.LostArkService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

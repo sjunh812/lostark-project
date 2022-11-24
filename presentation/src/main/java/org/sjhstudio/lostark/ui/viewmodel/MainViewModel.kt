@@ -1,12 +1,12 @@
-package org.sjhstudio.lostark
+package org.sjhstudio.lostark.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.sjhstudio.domain.model.UserInfo
-import org.sjhstudio.domain.repository.UserInfoRepository
+import org.sjhstudio.lostark.domain.model.UserInfo
+import org.sjhstudio.lostark.domain.repository.UserInfoRepository
 import org.sjhstudio.lostark.base.UiState
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class MainViewModel @Inject constructor(
     val userInfoUiState = _userInfoUiState.asStateFlow()
 
     init {
-        getUserInfo("아가벽력일섬")
+        getUserInfo("아가망치부인")
     }
 
     fun getUserInfo(userName: String) = viewModelScope.launch {

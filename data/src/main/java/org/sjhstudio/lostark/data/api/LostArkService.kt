@@ -1,6 +1,6 @@
-package org.sjhstudio.data.api
+package org.sjhstudio.lostark.data.api
 
-import org.sjhstudio.data.model.UserInfoDto
+import org.sjhstudio.lostark.data.model.UserInfoDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

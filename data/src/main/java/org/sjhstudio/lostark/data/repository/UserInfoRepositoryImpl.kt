@@ -1,12 +1,12 @@
-package org.sjhstudio.data.repository
+package org.sjhstudio.lostark.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import org.sjhstudio.data.mapperToUserInfo
-import org.sjhstudio.data.source.UserInfoDataSource
-import org.sjhstudio.domain.model.LostArkResult
-import org.sjhstudio.domain.model.UserInfo
-import org.sjhstudio.domain.repository.UserInfoRepository
+import org.sjhstudio.lostark.data.mapperToUserInfo
+import org.sjhstudio.lostark.data.source.UserInfoDataSource
+import org.sjhstudio.lostark.domain.model.LostArkResult
+import org.sjhstudio.lostark.domain.model.UserInfo
+import org.sjhstudio.lostark.domain.repository.UserInfoRepository
 import javax.inject.Inject
 
 internal class UserInfoRepositoryImpl @Inject constructor(

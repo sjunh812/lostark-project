@@ -1,7 +1,8 @@
-package org.sjhstudio.data
+package org.sjhstudio.lostark.data
 
-import org.sjhstudio.data.model.UserInfoDto
+import org.sjhstudio.lostark.data.model.UserInfoDto
 import org.sjhstudio.domain.model.*
+import org.sjhstudio.lostark.domain.model.*
 
 internal fun mapperToUserInfo(userInfoDto: UserInfoDto): UserInfo {
     return UserInfo(

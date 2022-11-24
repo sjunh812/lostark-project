@@ -1,4 +1,4 @@
-package org.sjhstudio.domain.model
+package org.sjhstudio.lostark.domain.model
 
 
 data class UserInfo(

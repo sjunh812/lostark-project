@@ -1,4 +1,4 @@
-package org.sjhstudio.data.model
+package org.sjhstudio.lostark.data.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -9,12 +9,14 @@ internal data class UserInfoDto(
     @Json(name = "Avatar_img") val avatarImgUrl: String? = null,
     @Json(name = "Basic") val basic: Basic? = null,
     @Json(name = "Card") val card: List<CardInfo>? = null,
+    @Json(name = "CardList") val cardList: List<Card>? = null,
     @Json(name = "CharacterList") val characterList: List<Character>? = null,
     @Json(name = "Collections") val collections: List<Map<String, String>>? = null,
     @Json(name = "Detailed_Tri") val detailedTri: Map<String, List<TriInfo>>? = null,
     @Json(name = "Gold") val gold: Gold? = null,
     @Json(name = "Items") val items: Items? = null,
     @Json(name = "Jewl") val jewl: List<JewlInfo>? = null,
+    @Json(name = "Sasa") val sasa: Sasa? = null,
     @Json(name = "Skill") val skill: Skill? = null
 )
 
@@ -78,6 +80,13 @@ internal data class CardInfo(
 )
 
 @JsonClass(generateAdapter = true)
+internal data class Card(
+    @Json(name = "Awake") val awake: String,
+    @Json(name = "Name") val name: String,
+    @Json(name = "Tier") val tier: String
+)
+
+@JsonClass(generateAdapter = true)
 internal data class Character(
     @Json(name = "Class") val classInfo: String,
     @Json(name = "Level") val level: String,
@@ -104,21 +113,6 @@ internal data class Gold(
         @Json(name = "Name") val name: String
     )
 }
-
-/*@JsonClass(generateAdapter = true)
-internal data class Item(
-    @Json(name = "Basic") val basic: String? = null,
-    @Json(name = "Name") val name: String,
-    @Json(name = "Plus") val plus: List<String>? = null,
-    @Json(name = "Quality") val quality: String? = null,
-    @Json(name = "Engrave") val engrave: List<EngraveInfo>? = null,
-) {
-    @JsonClass(generateAdapter = true)
-    internal data class EngraveInfo(
-        @Json(name = "Effect") val effect: String,
-        @Json(name = "EngraveName") val engraveName: String
-    )
-}*/
 
 @JsonClass(generateAdapter = true)
 internal data class Items(
@@ -176,6 +170,12 @@ internal data class JewlInfo(
     @Json(name = "Effect") val effect: String,
     @Json(name = "JewlName") val jewlName: String,
     @Json(name = "SkillName") val skillName: String
+)
+
+@JsonClass(generateAdapter = true)
+internal data class Sasa(
+    @Json(name = "SasaList") val sasaList: List<String>,
+    @Json(name = "SasaUrl") val sasaUrl: String
 )
 
 @JsonClass(generateAdapter = true)

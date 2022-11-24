@@ -1,9 +1,9 @@
-package org.sjhstudio.data.source
+package org.sjhstudio.lostark.data.source
 
-import org.sjhstudio.data.api.LostArkService
-import org.sjhstudio.data.exception.EmptyBodyException
-import org.sjhstudio.data.exception.NetworkErrorException
-import org.sjhstudio.data.model.UserInfoDto
+import org.sjhstudio.lostark.data.api.LostArkService
+import org.sjhstudio.lostark.data.exception.EmptyBodyException
+import org.sjhstudio.lostark.data.exception.NetworkErrorException
+import org.sjhstudio.lostark.data.model.UserInfoDto
 import javax.inject.Inject
 
 internal interface UserInfoDataSource {

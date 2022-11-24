@@ -63,4 +63,7 @@ dependencies {
 
     implementation(Library.Hilt.ANDROID)
     kapt(Library.Hilt.ANDROID_COMPILER)
+
+    implementation(Library.Glide.GLIDE)
+    kapt(Library.Glide.GLIDE_COMPILER)
 }

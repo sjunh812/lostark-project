@@ -1,4 +1,4 @@
-package org.sjhstudio.data.di
+package org.sjhstudio.lostark.data.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

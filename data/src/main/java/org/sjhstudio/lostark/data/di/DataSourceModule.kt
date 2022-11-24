@@ -1,10 +1,10 @@
-package org.sjhstudio.data.di
+package org.sjhstudio.lostark.data.di
 
 import dagger.Binds
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sjhstudio.data.source.UserInfoDataSource
-import org.sjhstudio.data.source.UserInfoDataSourceImpl
+import org.sjhstudio.lostark.data.source.UserInfoDataSource
+import org.sjhstudio.lostark.data.source.UserInfoDataSourceImpl
 import javax.inject.Singleton
 
 @dagger.Module
