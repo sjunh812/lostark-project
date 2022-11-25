@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">lostark-project</string>
+
+    <string name="hint_nickname">검색할 닉네임을 입력해주세요.</string>
 </resources>
