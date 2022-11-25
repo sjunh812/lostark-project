@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-internal data class UserInfoDto(
+internal data class CharacterInfoDto(
     @Json(name = "Result") val result: String,
     @Json(name = "Avatar_img") val avatarImgUrl: String? = null,
     @Json(name = "Basic") val basic: Basic? = null,
@@ -116,19 +116,19 @@ internal data class Gold(
 
 @JsonClass(generateAdapter = true)
 internal data class Items(
-    @Json(name = "머리 방어구") val headArmor: Armor,
-    @Json(name = "어깨 방어구") val shoulderArmor: Armor,
-    @Json(name = "상의") val top: Armor,
-    @Json(name = "하의") val pants: Armor,
-    @Json(name = "장갑") val glove: Armor,
-    @Json(name = "무기") val weapon: Armor,
-    @Json(name = "목걸이") val necklace: Accessory,
-    @Json(name = "귀걸이1") val earring1: Accessory,
-    @Json(name = "귀걸이2") val earring2: Accessory,
-    @Json(name = "반지1") val ring1: Accessory,
-    @Json(name = "반지2") val ring2: Accessory,
-    @Json(name = "팔찌") val bracelet: Bracelet,
-    @Json(name = "어빌리티 스톤") val abilityStone: AbilityStone
+    @Json(name = "머리 방어구") val headArmor: Armor? = null,
+    @Json(name = "어깨 방어구") val shoulderArmor: Armor? = null,
+    @Json(name = "상의") val top: Armor? = null,
+    @Json(name = "하의") val pants: Armor? = null,
+    @Json(name = "장갑") val glove: Armor? = null,
+    @Json(name = "무기") val weapon: Armor? = null,
+    @Json(name = "목걸이") val necklace: Accessory? = null,
+    @Json(name = "귀걸이1") val earring1: Accessory? = null,
+    @Json(name = "귀걸이2") val earring2: Accessory? = null,
+    @Json(name = "반지1") val ring1: Accessory? = null,
+    @Json(name = "반지2") val ring2: Accessory? = null,
+    @Json(name = "팔찌") val bracelet: Bracelet? = null,
+    @Json(name = "어빌리티 스톤") val abilityStone: AbilityStone? = null
 ) {
     @JsonClass(generateAdapter = true)
     internal data class EngraveInfo(
@@ -153,7 +153,7 @@ internal data class Items(
     @JsonClass(generateAdapter = true)
     internal data class Bracelet(
         @Json(name = "Name") val name: String,
-        @Json(name = "Plus") val plus: List<String>
+        @Json(name = "Plus") val plus: List<String>? = null
     )
 
     @JsonClass(generateAdapter = true)
@@ -167,9 +167,9 @@ internal data class Items(
 
 @JsonClass(generateAdapter = true)
 internal data class JewlInfo(
-    @Json(name = "Effect") val effect: String,
-    @Json(name = "JewlName") val jewlName: String,
-    @Json(name = "SkillName") val skillName: String
+    @Json(name = "Effect") val effect: String? = null,
+    @Json(name = "JewlName") val jewlName: String? = null,
+    @Json(name = "SkillName") val skillName: String? = null
 )
 
 @JsonClass(generateAdapter = true)

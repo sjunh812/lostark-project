@@ -1,13 +1,12 @@
 package org.sjhstudio.lostark.data
 
-import org.sjhstudio.lostark.data.model.UserInfoDto
-import org.sjhstudio.domain.model.*
+import org.sjhstudio.lostark.data.model.CharacterInfoDto
 import org.sjhstudio.lostark.domain.model.*
 
-internal fun mapperToUserInfo(userInfoDto: UserInfoDto): UserInfo {
-    return UserInfo(
-        avatarImgUrl = userInfoDto.avatarImgUrl,
-        basic = userInfoDto.basic?.let { basic ->
+internal fun mapperToUserInfo(dto: CharacterInfoDto): CharacterInfo {
+    return CharacterInfo(
+        avatarImgUrl = dto.avatarImgUrl,
+        basic = dto.basic?.let { basic ->
             Basic(
                 classInfo = Basic.Class(
                     iconUrl = basic.classInfo.iconUrl,
@@ -45,13 +44,13 @@ internal fun mapperToUserInfo(userInfoDto: UserInfoDto): UserInfo {
                 )
             )
         },
-        card = userInfoDto.card?.map { cardInfo ->
+        card = dto.card?.map { cardInfo ->
             CardInfo(
                 effect = cardInfo.effect,
                 name = cardInfo.name
             )
         },
-        characterList = userInfoDto.characterList?.map { character ->
+        characterList = dto.characterList?.map { character ->
             Character(
                 classInfo = character.classInfo,
                 level = character.level,
@@ -59,8 +58,8 @@ internal fun mapperToUserInfo(userInfoDto: UserInfoDto): UserInfo {
                 server = character.server
             )
         },
-        collections = userInfoDto.collections,
-        detailedTri = userInfoDto.detailedTri?.mapValues { entry ->
+        collections = dto.collections,
+        detailedTri = dto.detailedTri?.mapValues { entry ->
             entry.value.map { triInfo ->
                 TriInfo(
                     level = triInfo.level,
@@ -68,7 +67,7 @@ internal fun mapperToUserInfo(userInfoDto: UserInfoDto): UserInfo {
                 )
             }
         },
-        gold = userInfoDto.gold?.let { gold ->
+        gold = dto.gold?.let { gold ->
             Gold(
                 goldList = gold.goldList.map { goldInfo ->
                     Gold.GoldInfo(
@@ -81,73 +80,99 @@ internal fun mapperToUserInfo(userInfoDto: UserInfoDto): UserInfo {
                 totalGold = gold.totalGold
             )
         },
-        items = userInfoDto.items?.let { items ->
+        items = dto.items?.let { items ->
             Items(
-                headArmor = Items.Armor(items.headArmor.name, items.headArmor.quality),
-                shoulderArmor = Items.Armor(items.headArmor.name, items.headArmor.quality),
-                top = Items.Armor(items.headArmor.name, items.headArmor.quality),
-                pants = Items.Armor(items.headArmor.name, items.headArmor.quality),
-                glove = Items.Armor(items.headArmor.name, items.headArmor.quality),
-                weapon = Items.Armor(items.headArmor.name, items.headArmor.quality),
-                necklace = Items.Accessory(
-                    engrave = items.necklace.engrave.map { engraveInfo ->
-                        Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
-                    },
-                    name = items.necklace.name,
-                    plus = items.necklace.plus,
-                    quality = items.necklace.quality
-                ),
-                earring1 = Items.Accessory(
-                    engrave = items.earring1.engrave.map { engraveInfo ->
-                        Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
-                    },
-                    name = items.earring1.name,
-                    plus = items.earring1.plus,
-                    quality = items.earring1.quality
-                ),
-                earring2 = Items.Accessory(
-                    engrave = items.earring2.engrave.map { engraveInfo ->
-                        Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
-                    },
-                    name = items.earring2.name,
-                    plus = items.earring2.plus,
-                    quality = items.earring2.quality
-                ),
-                ring1 = Items.Accessory(
-                    engrave = items.ring1.engrave.map { engraveInfo ->
-                        Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
-                    },
-                    name = items.ring1.name,
-                    plus = items.ring1.plus,
-                    quality = items.ring1.quality
-                ),
-                ring2 = Items.Accessory(
-                    engrave = items.ring2.engrave.map { engraveInfo ->
-                        Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
-                    },
-                    name = items.ring2.name,
-                    plus = items.ring2.plus,
-                    quality = items.ring2.quality
-                ),
-                bracelet = Items.Bracelet(items.bracelet.name, items.bracelet.plus),
-                abilityStone = Items.AbilityStone(
-                    basic = items.abilityStone.basic,
-                    engrave = items.abilityStone.engrave.map { engraveInfo ->
-                        Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
-                    },
-                    name = items.abilityStone.name,
-                    plus = items.abilityStone.plus
-                )
+                headArmor = items.headArmor?.let { armor ->
+                    Items.Armor(armor.name, armor.quality)
+                },
+                shoulderArmor = items.headArmor?.let { armor ->
+                    Items.Armor(armor.name, armor.quality)
+                },
+                top = items.headArmor?.let { armor ->
+                    Items.Armor(armor.name, armor.quality)
+                },
+                pants = items.headArmor?.let { armor ->
+                    Items.Armor(armor.name, armor.quality)
+                },
+                glove = items.headArmor?.let { armor ->
+                    Items.Armor(armor.name, armor.quality)
+                },
+                weapon = items.headArmor?.let { armor ->
+                    Items.Armor(armor.name, armor.quality)
+                },
+                necklace = items.necklace?.let { necklace ->
+                    Items.Accessory(
+                        engrave = necklace.engrave.map { engraveInfo ->
+                            Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
+                        },
+                        name = necklace.name,
+                        plus = necklace.plus,
+                        quality = necklace.quality
+                    )
+                },
+                earring1 = items.earring1?.let { earring ->
+                    Items.Accessory(
+                        engrave = earring.engrave.map { engraveInfo ->
+                            Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
+                        },
+                        name = earring.name,
+                        plus = earring.plus,
+                        quality = earring.quality
+                    )
+                },
+                earring2 = items.earring2?.let { earring ->
+                    Items.Accessory(
+                        engrave = earring.engrave.map { engraveInfo ->
+                            Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
+                        },
+                        name = earring.name,
+                        plus = earring.plus,
+                        quality = earring.quality
+                    )
+                },
+                ring1 = items.ring1?.let { ring ->
+                    Items.Accessory(
+                        engrave = ring.engrave.map { engraveInfo ->
+                            Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
+                        },
+                        name = ring.name,
+                        plus = ring.plus,
+                        quality = ring.quality
+                    )
+                },
+                ring2 = items.ring2?.let { ring ->
+                    Items.Accessory(
+                        engrave = ring.engrave.map { engraveInfo ->
+                            Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
+                        },
+                        name = ring.name,
+                        plus = ring.plus,
+                        quality = ring.quality
+                    )
+                },
+                bracelet = items.bracelet?.let { bracelet ->
+                    Items.Bracelet(bracelet.name, bracelet.plus)
+                },
+                abilityStone = items.abilityStone?.let { abilityStone ->
+                    Items.AbilityStone(
+                        basic = abilityStone.basic,
+                        engrave = abilityStone.engrave.map { engraveInfo ->
+                            Items.EngraveInfo(engraveInfo.effect, engraveInfo.engraveName)
+                        },
+                        name = abilityStone.name,
+                        plus = abilityStone.plus
+                    )
+                }
             )
         },
-        jewl = userInfoDto.jewl?.map { jewlInfo ->
+        jewl = dto.jewl?.map { jewlInfo ->
             JewlInfo(
                 effect = jewlInfo.effect,
                 jewlName = jewlInfo.jewlName,
                 skillName = jewlInfo.skillName
             )
         },
-        skill = userInfoDto.skill?.let { skill ->
+        skill = dto.skill?.let { skill ->
             Skill(
                 skillList = skill.skillList.map { skillInfo ->
                     Skill.SkillInfo(

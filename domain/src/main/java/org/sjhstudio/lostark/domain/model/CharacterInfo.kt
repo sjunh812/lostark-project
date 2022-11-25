@@ -1,7 +1,6 @@
 package org.sjhstudio.lostark.domain.model
 
-
-data class UserInfo(
+data class CharacterInfo(
     val avatarImgUrl: String?,
     val basic: Basic?,
     val card: List<CardInfo>?,
@@ -91,19 +90,19 @@ data class Gold(
 }
 
 data class Items(
-    val headArmor: Armor,
-    val shoulderArmor: Armor,
-    val top: Armor,
-    val pants: Armor,
-    val glove: Armor,
-    val weapon: Armor,
-    val necklace: Accessory,
-    val earring1: Accessory,
-    val earring2: Accessory,
-    val ring1: Accessory,
-    val ring2: Accessory,
-    val bracelet: Bracelet,
-    val abilityStone: AbilityStone
+    val headArmor: Armor?,
+    val shoulderArmor: Armor?,
+    val top: Armor?,
+    val pants: Armor?,
+    val glove: Armor?,
+    val weapon: Armor?,
+    val necklace: Accessory?,
+    val earring1: Accessory?,
+    val earring2: Accessory?,
+    val ring1: Accessory?,
+    val ring2: Accessory?,
+    val bracelet: Bracelet?,
+    val abilityStone: AbilityStone?
 ) {
     data class EngraveInfo(
         val effect: String,
@@ -124,7 +123,7 @@ data class Items(
 
     data class Bracelet(
         val name: String,
-        val plus: List<String>
+        val plus: List<String>?
     )
 
     data class AbilityStone(
@@ -136,9 +135,9 @@ data class Items(
 }
 
 data class JewlInfo(
-    val effect: String,
-    val jewlName: String,
-    val skillName: String
+    val effect: String?,
+    val jewlName: String?,
+    val skillName: String?
 )
 
 data class Skill(

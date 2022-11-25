@@ -1,27 +1,26 @@
 package org.sjhstudio.lostark.data.source
 
 import org.sjhstudio.lostark.data.api.LostArkService
+import org.sjhstudio.lostark.data.exception.ClientErrorException
 import org.sjhstudio.lostark.data.exception.EmptyBodyException
 import org.sjhstudio.lostark.data.exception.NetworkErrorException
-import org.sjhstudio.lostark.data.model.UserInfoDto
+import org.sjhstudio.lostark.data.model.CharacterInfoDto
 import javax.inject.Inject
 
-internal interface UserInfoDataSource {
+internal interface CharacterInfoDataSource {
 
-    suspend fun getUserInfo(userName: String): UserInfoDto
+    suspend fun getCharacterInfo(userName: String): CharacterInfoDto
 }
 
-internal class UserInfoDataSourceImpl @Inject constructor(
+internal class CharacterInfoDataSourceImpl @Inject constructor(
     private val lostArkApi: LostArkService
-) : UserInfoDataSource {
+) : CharacterInfoDataSource {
 
-    override suspend fun getUserInfo(userName: String): UserInfoDto {
-        println("xxx getUserInfo($userName)")
+    override suspend fun getCharacterInfo(userName: String): CharacterInfoDto {
         try {
-            val response = lostArkApi.getUserInfo(userName)
+            val response = lostArkApi.getCharacterInfo(userName)
 
             if (response.isSuccessful) {
-                println("xxx hi")
                 return response.body()
                     ?: throw EmptyBodyException("[${response.code()}] : ${response.raw()}")
             } else {
@@ -30,8 +29,7 @@ internal class UserInfoDataSourceImpl @Inject constructor(
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            println("xxx $e")
-            throw NetworkErrorException(e.message)
+            throw ClientErrorException(e.message)
         }
     }
 }
