@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="profile"
+            type="org.sjhstudio.lostark.domain.model.response.Profile" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <FrameLayout
+            android:id="@+id/layout_character_image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/avatar_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_character"
+                android:layout_width="wrap_content"
+                android:layout_height="280dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginBottom="10dp"
+                android:adjustViewBounds="true"
+                app:imageFromUrl="@{profile.characterImageUrl}" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_server"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_gray_transparent_5dp"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="3dp"
+            android:text="@{profile.serverName}"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="카단" />
+
+        <TextView
+            android:id="@+id/tv_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/bg_gray_transparent_5dp"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="3dp"
+            android:text="@{profile.characterClassName}"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_server"
+            app:layout_constraintStart_toEndOf="@id/tv_server"
+            app:layout_constraintTop_toTopOf="@id/tv_server"
+            tools:text="기상술사" />
+
+        <TextView
+            android:id="@+id/tv_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:text="@{profile.characterName}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_server"
+            tools:text="아가벽력일섬" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:text="@{profile.title}"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_character"
+            tools:text="필살" />
+
+        <TextView
+            android:id="@+id/tv_guild_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_gray_transparent_5dp"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="3dp"
+            android:text="@string/label_guild"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="길드" />
+
+        <TextView
+            android:id="@+id/tv_guild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@{profile.guildName}"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_guild_title"
+            app:layout_constraintStart_toEndOf="@id/tv_guild_title"
+            app:layout_constraintTop_toTopOf="@id/tv_guild_title"
+            tools:text="아가랜드" />
+
+        <TextView
+            android:id="@+id/tv_wisdom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/bg_gray_transparent_5dp"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="3dp"
+            android:text="@string/label_town"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_guild_title"
+            tools:text="영지" />
+
+        <TextView
+            android:id="@+id/tv_wisdom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_wisdom_title"
+            app:layout_constraintStart_toEndOf="@id/tv_wisdom_title"
+            app:layout_constraintTop_toTopOf="@id/tv_wisdom_title"
+            app:townLevel="@{profile.townLevel}"
+            app:townName="@{profile.townName}"
+            tools:text="Lv.36 아가마을" />
+
+        <TextView
+            android:id="@+id/tv_item_level_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/label_item"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
+
+        <TextView
+            android:id="@+id/tv_item_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:text="@{profile.itemLevel}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_level_title"
+            tools:text="1553.3" />
+
+        <TextView
+            android:id="@+id/tv_battle_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/label_battle"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_level"
+            app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
+
+        <TextView
+            android:id="@+id/tv_battle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:text="@{profile.characterLevel}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_level"
+            app:layout_constraintTop_toBottomOf="@id/tv_battle_title"
+            tools:text="Lv.60" />
+
+        <TextView
+            android:id="@+id/tv_expedition_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/label_expedition"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_battle"
+            app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
+
+        <TextView
+            android:id="@+id/tv_expedition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:text="@{profile.expeditionLevel}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/tv_battle"
+            app:layout_constraintTop_toBottomOf="@id/tv_expedition_title"
+            tools:text="Lv.100" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_basic_stat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:padding="20dp"
+            android:background="@drawable/bg_gray_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_character_image"
+            app:layout_constraintWidth_percent="0.5">
+
+            <TextView
+                android:id="@+id/tv_basic_stat_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_basic_stat"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_attack_point_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/label_attack_point"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_basic_stat_title" />
+
+            <TextView
+                android:id="@+id/tv_attack_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_attack_point_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_attack_point_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_attack_point_title"
+                tools:text="37797"/>
+
+            <TextView
+                android:id="@+id/tv_health_point_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_health_point"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_attack_point" />
+
+            <TextView
+                android:id="@+id/tv_health_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/tv_health_point_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_health_point_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_health_point_title"
+                tools:text="138127"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_battle_stat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:padding="20dp"
+            android:background="@drawable/bg_gray_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_basic_stat"
+            app:layout_constraintWidth_percent="0.5">
+
+            <TextView
+                android:id="@+id/tv_battle_stat_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_battle_stat"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_critical_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/label_critical"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_battle_stat_title" />
+
+            <TextView
+                android:id="@+id/tv_critical"
+                android:layout_width="0dp"
+                android:layout_marginEnd="40dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:gravity="end"
+                app:layout_constraintStart_toEndOf="@id/tv_critical_title"
+                app:layout_constraintTop_toTopOf="@id/tv_critical_title"
+                app:layout_constraintEnd_toStartOf="@id/tv_specialization_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_critical_title"
+                tools:text="644"/>
+
+            <TextView
+                android:id="@+id/tv_specialization_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_specialization"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@id/tv_critical"
+                app:layout_constraintEnd_toStartOf="@id/tv_specialization"
+                app:layout_constraintTop_toTopOf="@id/tv_critical"
+                app:layout_constraintBottom_toBottomOf="@id/tv_critical"/>
+
+            <TextView
+                android:id="@+id/tv_specialization"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:gravity="end"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/tv_specialization_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_specialization_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_specialization_title"
+                tools:text="48"/>
+
+            <TextView
+                android:id="@+id/tv_domination_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="@string/label_domination"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_critical" />
+
+            <TextView
+                android:id="@+id/tv_domination"
+                android:layout_width="0dp"
+                android:layout_marginEnd="40dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:gravity="end"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/tv_domination_title"
+                app:layout_constraintTop_toTopOf="@id/tv_domination_title"
+                app:layout_constraintEnd_toStartOf="@id/tv_swiftness_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_domination_title"
+                tools:text="38"/>
+
+            <TextView
+                android:id="@+id/tv_swiftness_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_swiftness"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@id/tv_domination"
+                app:layout_constraintEnd_toStartOf="@id/tv_swiftness"
+                app:layout_constraintTop_toTopOf="@id/tv_domination"
+                app:layout_constraintBottom_toBottomOf="@id/tv_domination"/>
+
+            <TextView
+                android:id="@+id/tv_swiftness"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:gravity="end"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/tv_swiftness_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_swiftness_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_swiftness_title"
+                tools:text="1762"/>
+
+            <TextView
+                android:id="@+id/tv_endurance_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="@string/label_endurance"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_domination" />
+
+            <TextView
+                android:id="@+id/tv_endurance"
+                android:layout_width="0dp"
+                android:layout_marginEnd="40dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:gravity="end"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/tv_endurance_title"
+                app:layout_constraintTop_toTopOf="@id/tv_endurance_title"
+                app:layout_constraintEnd_toStartOf="@id/tv_expertise_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_endurance_title"
+                tools:text="43"/>
+
+            <TextView
+                android:id="@+id/tv_expertise_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_expertise"
+                android:textColor="@color/gray_e2"
+                android:textSize="11sp"
+                app:layout_constraintStart_toEndOf="@id/tv_endurance"
+                app:layout_constraintEnd_toStartOf="@id/tv_expertise"
+                app:layout_constraintTop_toTopOf="@id/tv_endurance"
+                app:layout_constraintBottom_toBottomOf="@id/tv_endurance"/>
+
+            <TextView
+                android:id="@+id/tv_expertise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:gravity="end"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/tv_expertise_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_expertise_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_expertise_title"
+                tools:text="42"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

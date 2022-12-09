@@ -2,30 +2,34 @@ package org.sjhstudio.lostark.ui.view
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.base.BaseActivity
-import org.sjhstudio.lostark.base.successOrNull
 import org.sjhstudio.lostark.databinding.ActivityMainBinding
-import org.sjhstudio.lostark.ui.JewlAdapter
-import org.sjhstudio.lostark.ui.common.PrgDialog
+import org.sjhstudio.lostark.domain.model.response.Profile
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val viewModel: MainViewModel by viewModels()
-    private val jewlAdapter: JewlAdapter by lazy { JewlAdapter() }
-    private val prgDialog: PrgDialog by lazy { PrgDialog.newInstance() }
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bind()
         initView()
         observeData()
+    }
+
+    private fun bind() {
+        with(binding) {
+            viewModel = mainViewModel
+        }
     }
 
     private fun initView() {
@@ -33,45 +37,65 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (!prgDialog.isAdded) {
-                        prgDialog.show(supportFragmentManager, "PrgDialog")
-                    }
-                    viewModel.getUserInfo(inputNickname)
+                    mainViewModel.getProfile(inputNickname)
                 }
                 false
             }
-            layoutJewl.rvJewl.adapter = jewlAdapter
         }
     }
 
     private fun observeData() {
-        with(viewModel) {
+        with(mainViewModel) {
             lifecycleScope.launchWhenStarted {
-                characterInfoUiState.collectLatest { uiState ->
-                    if (prgDialog.isAdded) prgDialog.dismiss()
+                profile.collectLatest { apiResult ->
+                    apiResult?.let { result ->
+                        if (result.success) {
+                            binding.layoutProfile.container.isVisible = true
 
-                    uiState.successOrNull()?.let { userInfo ->
-                        println("xxx $userInfo")
-                        binding.tvServer.text = userInfo.basic?.server
-                        binding.tvClassName.text = userInfo.basic?.classInfo?.name
-                        binding.tvNickname.text = userInfo.basic?.name
-                        binding.tvTitle.text = userInfo.basic?.title
-                        binding.tvGuild.text = userInfo.basic?.guild
-                        binding.tvItemLevel.text = userInfo.basic?.levelInfo?.item?.substring(3)
-                        binding.tvBattle.text = userInfo.basic?.levelInfo?.battle
-                        binding.tvExpedition.text = userInfo.basic?.levelInfo?.expedition
-                        binding.tvWisdom.text =
-                            "${userInfo.basic?.wisdom?.level} ${userInfo.basic?.wisdom?.name}"
+                            updateStatView(result.data?.stats)
 
-                        Glide.with(this@MainActivity)
-                            .load(userInfo.basic?.classInfo?.iconUrl)
-                            .into(binding.ivClassIcon)
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Response success!!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(this@MainActivity, "Client error", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-                        Glide.with(this@MainActivity)
-                            .load(userInfo.avatarImgUrl)
-                            .into(binding.ivAvatar)
-
-                        jewlAdapter.submitList(userInfo.jewl)
+    private fun updateStatView(stats: List<Profile.Stat>?) {
+        with(binding.layoutProfile) {
+            stats?.forEach { stat ->
+                when (stat.type) {
+                    getString(R.string.label_attack_point) -> { // 공격력
+                        tvAttackPoint.text = stat.value
+                    }
+                    getString(R.string.label_health_point) -> { // 최대 생명력
+                        tvHealthPoint.text = stat.value
+                    }
+                    getString(R.string.label_critical) -> { // 치명
+                        tvCritical.text = stat.value
+                    }
+                    getString(R.string.label_specialization) -> {   // 특화
+                        tvSpecialization.text = stat.value
+                    }
+                    getString(R.string.label_domination) -> {   // 제압
+                        tvDomination.text = stat.value
+                    }
+                    getString(R.string.label_swiftness) -> {    // 신속
+                        tvSwiftness.text = stat.value
+                    }
+                    getString(R.string.label_endurance) -> {    // 인내
+                        tvEndurance.text = stat.value
+                    }
+                    getString(R.string.label_expertise) -> {    // 숙련
+                        tvExpertise.text = stat.value
                     }
                 }
             }

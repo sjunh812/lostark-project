@@ -2,4 +2,20 @@
     <string name="app_name">lostark-project</string>
 
     <string name="hint_nickname">검색할 닉네임을 입력해주세요.</string>
+
+    <string name="label_guild">길드</string>
+    <string name="label_town">영지</string>
+    <string name="label_item">아이템</string>
+    <string name="label_battle">전투</string>
+    <string name="label_expedition">원정대</string>
+    <string name="label_basic_stat">기본 특성</string>
+    <string name="label_attack_point">공격력</string>
+    <string name="label_health_point">최대 생명력</string>
+    <string name="label_battle_stat">전투 특성</string>
+    <string name="label_critical">치명</string>
+    <string name="label_specialization">특화</string>
+    <string name="label_domination">제압</string>
+    <string name="label_swiftness">신속</string>
+    <string name="label_endurance">인내</string>
+    <string name="label_expertise">숙련</string>
 </resources>
