@@ -5,32 +5,30 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.sjhstudio.lostark.base.UiState
-import org.sjhstudio.lostark.domain.model.CharacterInfo
-import org.sjhstudio.lostark.domain.repository.CharacterInfoRepository
+import org.sjhstudio.lostark.domain.model.LostArkApiResult
+import org.sjhstudio.lostark.domain.model.response.Profile
+import org.sjhstudio.lostark.domain.repository.ArmoryRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val characterInfoRepository: CharacterInfoRepository
+    private val armoryRepository: ArmoryRepository
 ) : ViewModel() {
 
-    private var _characterInfoUiState = MutableStateFlow<UiState<CharacterInfo>>(UiState.Loading)
-    val characterInfoUiState = _characterInfoUiState.asStateFlow()
+    private var _profile = MutableStateFlow<LostArkApiResult<Profile>?>(null)
+    val profile = _profile.asStateFlow()
 
     init {
-        getUserInfo("아가벽력일섬")
+        getProfile("흑당곡물라떼")
     }
 
-    fun getUserInfo(userName: String) = viewModelScope.launch {
-        characterInfoRepository.getCharacterInfo(userName)
+    fun getProfile(characterName: String) = viewModelScope.launch {
+        armoryRepository.getProfile(characterName)
             .onStart { }
             .onCompletion { }
             .catch { }
             .collectLatest { apiResult ->
-                apiResult.data?.let { data ->
-                    _characterInfoUiState.emit(UiState.Success(data))
-                } ?: _characterInfoUiState.emit(UiState.Fail("error"))
+                _profile.emit(apiResult)
             }
     }
 }

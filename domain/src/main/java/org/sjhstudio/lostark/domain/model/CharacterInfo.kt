@@ -135,10 +135,17 @@ data class Items(
 }
 
 data class JewlInfo(
+    val type: String?,
+    val level: Int?,
     val effect: String?,
     val jewlName: String?,
     val skillName: String?
-)
+) {
+    companion object {
+        const val DAMAGE_JEWL = "damage jewl"
+        const val COOL_DOWN_JEWL = "cool_down_jewl"
+    }
+}
 
 data class Skill(
     val skillList: List<SkillInfo>,

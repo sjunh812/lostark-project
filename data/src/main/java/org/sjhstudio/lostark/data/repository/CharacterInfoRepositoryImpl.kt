@@ -21,6 +21,8 @@ internal class CharacterInfoRepositoryImpl @Inject constructor(
                 data = if (userInfoDto.result == "Success") mapperToUserInfo(userInfoDto) else null
             )
 
+            println("xxx jewl : ${result.data?.jewl}")
+
             emit(result)
         }
 }
