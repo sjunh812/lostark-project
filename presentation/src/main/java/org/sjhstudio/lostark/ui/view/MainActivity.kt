@@ -54,14 +54,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                             updateStatView(result.data?.stats)
 
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Response success!!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            println("xxx 프로필 불러오기 성공!!")
                         } else {
-                            Toast.makeText(this@MainActivity, "Client error", Toast.LENGTH_SHORT)
-                                .show()
+                            println("xxx 프로필 불러오기 실패..")
+                        }
+                    }
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
+                engraving.collectLatest { apiResult ->
+                    apiResult?.let { result ->
+                        if (result.success) {
+                            println("xxx 각인 불러오기 성공!!")
+                        } else {
+                            println("xxx 각인 불러오기 실패..")
                         }
                     }
                 }

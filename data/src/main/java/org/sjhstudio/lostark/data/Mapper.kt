@@ -1,6 +1,8 @@
 package org.sjhstudio.lostark.data
 
+import org.sjhstudio.lostark.data.model.armory.EngravingDto
 import org.sjhstudio.lostark.data.model.armory.ProfileDto
+import org.sjhstudio.lostark.domain.model.response.Engraving
 import org.sjhstudio.lostark.domain.model.response.Profile
 
 internal fun mapperToProfile(profileDto: ProfileDto) =
@@ -11,8 +13,8 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
         townLevel = profileDto.townLevel.toString(),
         townName = profileDto.townName,
         title = profileDto.title,
-        guildMemberGrade = profileDto.guildMemberGrade,
-        guildName = profileDto.guildName,
+        guildMemberGrade = profileDto.guildMemberGrade ?: "",
+        guildName = profileDto.guildName ?: "",
         stats = profileDto.stats.map { statDto ->
             Profile.Stat(
                 type = statDto.type,
@@ -32,4 +34,22 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
         characterLevel = profileDto.characterLevel.toString(),
         characterClassName = profileDto.characterClassName,
         itemLevel = profileDto.itemAvgLevel
+    )
+
+internal fun mapperToEngraving(engravingDto: EngravingDto) =
+    Engraving(
+        slots = engravingDto.engravings.map { slotDto ->
+            Engraving.Slot(
+                index = slotDto.slot,
+                name = slotDto.name,
+                iconUrl = slotDto.icon,
+                tooltip = slotDto.tooltip
+            )
+        },
+        effects = engravingDto.effects.map { effectDto ->
+            Engraving.Effect(
+                name = effectDto.name,
+                description = effectDto.description
+            )
+        }
     )
