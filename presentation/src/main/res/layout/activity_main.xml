@@ -56,7 +56,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_et_nickname"
-                app:profile="@{viewModel.profile.data}" />
+                app:profile="@{viewModel.profile.data}"
+                app:engraving="@{viewModel.engraving.data}" />
 
             <!--            <include-->
             <!--                layout="@layout/layout_jewl"-->

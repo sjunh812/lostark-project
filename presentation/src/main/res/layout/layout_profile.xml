@@ -8,13 +8,17 @@
         <variable
             name="profile"
             type="org.sjhstudio.lostark.domain.model.response.Profile" />
+
+        <variable
+            name="engraving"
+            type="org.sjhstudio.lostark.domain.model.response.Engraving" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <FrameLayout
             android:id="@+id/layout_character_image"
@@ -245,11 +249,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:padding="20dp"
             android:background="@drawable/bg_gray_8dp"
+            android:padding="20dp"
+            app:layout_constraintEnd_toStartOf="@id/layout_engraving"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_character_image"
-            app:layout_constraintWidth_percent="0.5">
+            app:layout_constraintTop_toBottomOf="@id/layout_character_image">
 
             <TextView
                 android:id="@+id/tv_basic_stat_title"
@@ -278,14 +283,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_attack_point_title"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toEndOf="@id/tv_attack_point_title"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_attack_point_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_attack_point_title"
-                tools:text="37797"/>
+                tools:text="37797" />
 
             <TextView
                 android:id="@+id/tv_health_point_title"
@@ -303,14 +308,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_health_point_title"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toEndOf="@id/tv_health_point_title"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_health_point_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_health_point_title"
-                tools:text="138127"/>
+                tools:text="138127" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -319,11 +324,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:padding="20dp"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/bg_gray_8dp"
+            android:padding="20dp"
+            app:layout_constraintEnd_toStartOf="@id/layout_engraving"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_basic_stat"
-            app:layout_constraintWidth_percent="0.5">
+            app:layout_constraintTop_toBottomOf="@id/layout_basic_stat">
 
             <TextView
                 android:id="@+id/tv_battle_stat_title"
@@ -351,17 +357,17 @@
             <TextView
                 android:id="@+id/tv_critical"
                 android:layout_width="0dp"
-                android:layout_marginEnd="40dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="12sp"
+                android:layout_marginEnd="25dp"
                 android:gravity="end"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_critical_title"
+                app:layout_constraintEnd_toStartOf="@id/tv_specialization_title"
                 app:layout_constraintStart_toEndOf="@id/tv_critical_title"
                 app:layout_constraintTop_toTopOf="@id/tv_critical_title"
-                app:layout_constraintEnd_toStartOf="@id/tv_specialization_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_critical_title"
-                tools:text="644"/>
+                tools:text="644" />
 
             <TextView
                 android:id="@+id/tv_specialization_title"
@@ -370,24 +376,24 @@
                 android:text="@string/label_specialization"
                 android:textColor="@color/gray_e2"
                 android:textSize="11sp"
-                app:layout_constraintStart_toEndOf="@id/tv_critical"
+                app:layout_constraintBottom_toBottomOf="@id/tv_critical"
                 app:layout_constraintEnd_toStartOf="@id/tv_specialization"
-                app:layout_constraintTop_toTopOf="@id/tv_critical"
-                app:layout_constraintBottom_toBottomOf="@id/tv_critical"/>
+                app:layout_constraintStart_toEndOf="@id/tv_critical"
+                app:layout_constraintTop_toTopOf="@id/tv_critical" />
 
             <TextView
                 android:id="@+id/tv_specialization"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:gravity="end"
+                android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@id/tv_specialization_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_specialization_title"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_specialization_title"
-                tools:text="48"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_specialization_title"
+                app:layout_constraintTop_toTopOf="@id/tv_specialization_title"
+                tools:text="48" />
 
             <TextView
                 android:id="@+id/tv_domination_title"
@@ -404,17 +410,17 @@
             <TextView
                 android:id="@+id/tv_domination"
                 android:layout_width="0dp"
-                android:layout_marginEnd="40dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:layout_marginEnd="25dp"
                 android:gravity="end"
+                android:textColor="@color/white"
                 android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_domination_title"
+                app:layout_constraintEnd_toStartOf="@id/tv_swiftness_title"
                 app:layout_constraintStart_toEndOf="@id/tv_domination_title"
                 app:layout_constraintTop_toTopOf="@id/tv_domination_title"
-                app:layout_constraintEnd_toStartOf="@id/tv_swiftness_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_domination_title"
-                tools:text="38"/>
+                tools:text="38" />
 
             <TextView
                 android:id="@+id/tv_swiftness_title"
@@ -423,24 +429,24 @@
                 android:text="@string/label_swiftness"
                 android:textColor="@color/gray_e2"
                 android:textSize="11sp"
-                app:layout_constraintStart_toEndOf="@id/tv_domination"
+                app:layout_constraintBottom_toBottomOf="@id/tv_domination"
                 app:layout_constraintEnd_toStartOf="@id/tv_swiftness"
-                app:layout_constraintTop_toTopOf="@id/tv_domination"
-                app:layout_constraintBottom_toBottomOf="@id/tv_domination"/>
+                app:layout_constraintStart_toEndOf="@id/tv_domination"
+                app:layout_constraintTop_toTopOf="@id/tv_domination" />
 
             <TextView
                 android:id="@+id/tv_swiftness"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:gravity="end"
+                android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@id/tv_swiftness_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_swiftness_title"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_swiftness_title"
-                tools:text="1762"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_swiftness_title"
+                app:layout_constraintTop_toTopOf="@id/tv_swiftness_title"
+                tools:text="1762" />
 
             <TextView
                 android:id="@+id/tv_endurance_title"
@@ -457,17 +463,17 @@
             <TextView
                 android:id="@+id/tv_endurance"
                 android:layout_width="0dp"
-                android:layout_marginEnd="40dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:layout_marginEnd="25dp"
                 android:gravity="end"
+                android:textColor="@color/white"
                 android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tv_endurance_title"
+                app:layout_constraintEnd_toStartOf="@id/tv_expertise_title"
                 app:layout_constraintStart_toEndOf="@id/tv_endurance_title"
                 app:layout_constraintTop_toTopOf="@id/tv_endurance_title"
-                app:layout_constraintEnd_toStartOf="@id/tv_expertise_title"
-                app:layout_constraintBottom_toBottomOf="@id/tv_endurance_title"
-                tools:text="43"/>
+                tools:text="43" />
 
             <TextView
                 android:id="@+id/tv_expertise_title"
@@ -476,24 +482,90 @@
                 android:text="@string/label_expertise"
                 android:textColor="@color/gray_e2"
                 android:textSize="11sp"
-                app:layout_constraintStart_toEndOf="@id/tv_endurance"
+                app:layout_constraintBottom_toBottomOf="@id/tv_endurance"
                 app:layout_constraintEnd_toStartOf="@id/tv_expertise"
-                app:layout_constraintTop_toTopOf="@id/tv_endurance"
-                app:layout_constraintBottom_toBottomOf="@id/tv_endurance"/>
+                app:layout_constraintStart_toEndOf="@id/tv_endurance"
+                app:layout_constraintTop_toTopOf="@id/tv_endurance" />
 
             <TextView
                 android:id="@+id/tv_expertise"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:gravity="end"
+                android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintStart_toEndOf="@id/tv_expertise_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_expertise_title"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_expertise_title"
-                tools:text="42"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_expertise_title"
+                app:layout_constraintTop_toTopOf="@id/tv_expertise_title"
+                tools:text="42" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_engraving"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_gray_8dp"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/layout_battle_stat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layout_basic_stat"
+            app:layout_constraintTop_toBottomOf="@id/layout_character_image"
+            app:layout_constraintTop_toTopOf="@id/layout_basic_stat">
+
+            <TextView
+                android:id="@+id/tv_engraving_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="각인"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginVertical="12dp"
+                app:layout_constraintBottom_toTopOf="@id/iv_engraving_slot_1"
+                app:layout_constraintTop_toBottomOf="@id/tv_engraving_title" />
+
+            <TextView
+                android:id="@+id/tv_mounted_engraving_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="장착 각인"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/iv_engraving_slot_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_engraving_slot_1" />
+
+            <ImageView
+                android:id="@+id/iv_engraving_slot_1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                app:engravingSlot1Image="@{engraving.slots}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_engraving_slot_2"
+                app:layout_constraintStart_toEndOf="@id/tv_mounted_engraving_title"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <ImageView
+                android:id="@+id/iv_engraving_slot_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                app:engravingSlot2Image="@{engraving.slots}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_engraving_slot_1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
