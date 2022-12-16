@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="15dp"
-            android:background="@color/avatar_background"
+            android:background="@color/background_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -163,43 +163,16 @@
             tools:text="Lv.36 아가마을" />
 
         <TextView
-            android:id="@+id/tv_item_level_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/label_item"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
-
-        <TextView
-            android:id="@+id/tv_item_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
-            android:text="@{profile.itemLevel}"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_level_title"
-            tools:text="1553.3" />
-
-        <TextView
             android:id="@+id/tv_battle_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="@string/label_battle"
             android:textColor="@color/gray_e2"
             android:textSize="11sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_item_level"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
 
         <TextView
@@ -210,9 +183,9 @@
             android:layout_marginTop="1dp"
             android:text="@{profile.characterLevel}"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/tv_item_level"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_battle_title"
             tools:text="Lv.60" />
 
@@ -221,7 +194,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="@string/label_expedition"
             android:textColor="@color/gray_e2"
             android:textSize="11sp"
@@ -237,11 +210,38 @@
             android:layout_marginTop="1dp"
             android:text="@{profile.expeditionLevel}"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/tv_battle"
             app:layout_constraintTop_toBottomOf="@id/tv_expedition_title"
             tools:text="Lv.100" />
+
+        <TextView
+            android:id="@+id/tv_item_level_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/label_item"
+            android:textColor="@color/gray_e2"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_battle" />
+
+        <TextView
+            android:id="@+id/tv_item_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="1dp"
+            android:text="@{profile.itemLevel}"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_level_title"
+            tools:text="1553.3" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_basic_stat"
@@ -520,7 +520,7 @@
                 android:id="@+id/tv_engraving_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="각인"
+                android:text="@string/label_engraving"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -528,9 +528,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_engraving"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginVertical="12dp"
+                android:layout_marginVertical="8dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/iv_engraving_slot_1"
                 app:layout_constraintTop_toBottomOf="@id/tv_engraving_title" />
 
@@ -538,7 +541,7 @@
                 android:id="@+id/tv_mounted_engraving_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="장착 각인"
+                android:text="@string/label_mounted_engraving"
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:textStyle="bold"
