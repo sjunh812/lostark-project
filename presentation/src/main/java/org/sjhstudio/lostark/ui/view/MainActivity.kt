@@ -12,12 +12,14 @@ import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.base.BaseActivity
 import org.sjhstudio.lostark.databinding.ActivityMainBinding
 import org.sjhstudio.lostark.domain.model.response.Profile
+import org.sjhstudio.lostark.ui.adatper.EngravingAdapter
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mainViewModel: MainViewModel by viewModels()
+    private val engravingAdapter: EngravingAdapter by lazy { EngravingAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +41,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     mainViewModel.getProfile(inputNickname)
                 }
+
                 false
             }
+            layoutProfile.rvEngraving.adapter = engravingAdapter
         }
     }
 
@@ -51,9 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             binding.layoutProfile.container.isVisible = true
-
                             updateStatView(result.data?.stats)
-
                             println("xxx 프로필 불러오기 성공!!")
                         } else {
                             println("xxx 프로필 불러오기 실패..")
@@ -66,9 +68,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 engraving.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
+                            engravingAdapter.submitList(result.data?.effects)
                             println("xxx 각인 불러오기 성공!!")
                         } else {
                             println("xxx 각인 불러오기 실패..")
+                        }
+                    }
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
+                equipment.collectLatest { apiResult ->
+                    apiResult?.let { result ->
+                        if (result.success) {
+                            println("xxx equipment list : ${result.data}")
+                            println("xxx 장비 불러오기 성공!!")
+                        } else {
+                            println("xxx 장비 불러오기 실패..")
                         }
                     }
                 }

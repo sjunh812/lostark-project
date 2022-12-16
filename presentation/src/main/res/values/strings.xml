@@ -18,4 +18,6 @@
     <string name="label_swiftness">신속</string>
     <string name="label_endurance">인내</string>
     <string name="label_expertise">숙련</string>
+    <string name="label_engraving">각인</string>
+    <string name="label_mounted_engraving">장착 각인</string>
 </resources>

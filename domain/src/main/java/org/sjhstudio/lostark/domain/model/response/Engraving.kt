@@ -14,6 +14,7 @@ data class Engraving(
 
     data class Effect(
         val name: String,
-        val description: String
+        val description: String,
+        var isExpanded: Boolean = false
     )
 }
