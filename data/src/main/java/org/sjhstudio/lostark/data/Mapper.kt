@@ -59,13 +59,18 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
 
 internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
     dtoList.map { dto ->
+        val level = mapperToEquipmentLevel(dto.type, dto.name)
+        val setInfo = mapperToEquipmentSet(dto.tooltip)
         Equipment(
             type = dto.type,
             name = dto.name,
             iconUrl = dto.icon,
             grade = dto.grade,
             quality = mapperToEquipmentQuality(dto.tooltip),
-            level = mapperToEquipmentLevel(dto.type, dto.name)
+            level = level,
+            setName = setInfo?.get(0) ?: "",
+            setLevel = setInfo?.get(1) ?: "",
+            summary = mapperToEquipmentSummary(dto.type, level)
         )
     }
 
@@ -81,7 +86,27 @@ internal fun mapperToEquipmentQuality(tooltip: String): String {
 
 internal fun mapperToEquipmentLevel(type: String, name: String): String {
     return when (type) {
-        "무기", "투구", "견갑", "상의", "하의", "장갑" -> name.split(" ")[0].substring(1)
+        "무기", "투구", "어깨", "상의", "하의", "장갑" -> name.split(" ")[0].substring(1)
          else -> "-1"
     }
+}
+
+internal fun mapperToEquipmentSet(tooltip: String): ArrayList<String>? {
+    val set = arrayListOf<String>()
+    val startIndexOfWord = tooltip.indexOf("Lv.")
+    val startIndexOfSetName = startIndexOfWord - 25
+
+    return try {
+        set.add(tooltip.substring(startIndexOfSetName, startIndexOfSetName + 2))
+        set.add(tooltip[startIndexOfWord + 3].toString())
+        set
+    } catch (e: Exception) {
+        null
+    }
+}
+
+internal fun mapperToEquipmentSummary(type: String, level: String): String {
+    var summary = type
+    if (level != "-1") summary += " $level"
+    return summary
 }

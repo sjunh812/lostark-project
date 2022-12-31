@@ -26,8 +26,11 @@ class MainViewModel @Inject constructor(
     private var _equipment = MutableStateFlow<LostArkApiResult<List<Equipment>>?>(null)
     val equipment = _equipment.asStateFlow()
 
+    private var _equipmentDetail = MutableStateFlow<Boolean>(false)
+    val equipmentDetail = _equipmentDetail.asStateFlow()
+
     init {
-        search("백두사단")
+        search("신묘한하나")
     }
 
     fun search(characterName: String) {
@@ -64,5 +67,9 @@ class MainViewModel @Inject constructor(
             .collectLatest { apiResult ->
                 _equipment.emit(apiResult)
             }
+    }
+
+    fun changeEquipmentDetail() = viewModelScope.launch {
+        _equipmentDetail.emit(!equipmentDetail.value)
     }
 }
