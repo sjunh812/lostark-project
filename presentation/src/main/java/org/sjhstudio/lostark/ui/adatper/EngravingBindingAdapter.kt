@@ -1,21 +1,11 @@
 package org.sjhstudio.lostark.ui.adatper
 
-import android.annotation.SuppressLint
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import org.sjhstudio.lostark.domain.model.response.Engraving
-
-@SuppressLint("SetTextI18n")
-@BindingAdapter(value = ["townLevel", "townName"])
-fun TextView.bindTownFullName(townLevel: String?, townName: String?) {
-    if (!townLevel.isNullOrEmpty() && !townName.isNullOrEmpty()) {
-        text = "Lv.$townLevel $townName"
-    }
-}
 
 @BindingAdapter("engravingSlot1Image")
 fun ImageView.bindEngravingSlot1Image(slots: List<Engraving.Slot>?) {

@@ -12,9 +12,13 @@
     <color name="sub_color">#464C56</color>
     <color name="background">#121212</color>
     <color name="background_avatar">#15181D</color>
-    <color name="ancient">#D9C697</color>
-    <color name="relic">#A03F06</color>
-    <color name="legend">#9B5D04</color>
+    <color name="ancient_start">#453B2B</color>
+    <color name="ancient_end">#D9C697</color>
+    <color name="relic_start">#3A1C09</color>
+    <color name="relic_end">#A03F06</color>
+    <color name="legend_start">#3F2503</color>
+    <color name="legend_end">#9B5D04</color>
+    <color name="equipment_default">#15181D</color>
 
     <color name="quality_1">#EA6811</color>
     <color name="quality_2">#DF18E3</color>
@@ -22,6 +26,7 @@
     <color name="quality_4">#09AE09</color>
     <color name="quality_5">#A79300</color>
     <color name="quality_6">#FF0000</color>
+    <color name="quality_7">#2B313A</color>
 
     <color name="gray_e2">#E2E2E2</color>
 </resources>
