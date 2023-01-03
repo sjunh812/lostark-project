@@ -6,7 +6,6 @@ import org.sjhstudio.lostark.data.model.armory.ProfileDto
 import org.sjhstudio.lostark.domain.model.response.Engraving
 import org.sjhstudio.lostark.domain.model.response.Equipment
 import org.sjhstudio.lostark.domain.model.response.Profile
-import kotlin.math.exp
 
 internal fun mapperToProfile(profileDto: ProfileDto) =
     Profile(
@@ -78,16 +77,19 @@ internal fun mapperToEquipmentQuality(tooltip: String): String {
     // ex) qualityValue": 96,
     val startIndexOfWord = tooltip.indexOf("qualityValue")
     val startIndexOfQuality = startIndexOfWord + 15
-    val expectQuality = tooltip.substring(startIndexOfQuality, startIndexOfQuality + 3)
+    var quality = ""
 
-    return if (expectQuality.last() == ',') expectQuality.substring(0, expectQuality.lastIndex)
-    else expectQuality
+    for (i in startIndexOfQuality..startIndexOfQuality + 3) {
+        if (tooltip[i].isDigit()) quality += tooltip[i]
+    }
+
+    return quality
 }
 
 internal fun mapperToEquipmentLevel(type: String, name: String): String {
     return when (type) {
         "무기", "투구", "어깨", "상의", "하의", "장갑" -> name.split(" ")[0].substring(1)
-         else -> "-1"
+        else -> "-1"
     }
 }
 
