@@ -10,7 +10,7 @@ internal data class ProfileDto(
     @Json(name = "PvpGradeName") val pvpGradeName: String,
     @Json(name = "TownLevel") val townLevel: Int,
     @Json(name = "TownName") val townName: String,
-    @Json(name = "Title") val title: String,
+    @Json(name = "Title") val title: String?,
     @Json(name = "GuildMemberGrade") val guildMemberGrade: String?,
     @Json(name = "GuildName") val guildName: String?,
     @Json(name = "Stats") val stats: List<Stat>,

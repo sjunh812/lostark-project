@@ -26,11 +26,11 @@ class MainViewModel @Inject constructor(
     private var _equipment = MutableStateFlow<LostArkApiResult<List<Equipment>>?>(null)
     val equipment = _equipment.asStateFlow()
 
-    private var _equipmentDetail = MutableStateFlow<Boolean>(false)
-    val equipmentDetail = _equipmentDetail.asStateFlow()
+    private var _collapseEquipment = MutableStateFlow<Boolean>(true)
+    val collapseEquipment = _collapseEquipment.asStateFlow()
 
     init {
-        search("신묘한하나")
+        search("백두사단")
     }
 
     fun search(characterName: String) {
@@ -51,9 +51,9 @@ class MainViewModel @Inject constructor(
 
     fun getEngraving(characterName: String) = viewModelScope.launch {
         armoryRepository.getEngraving(characterName)
-            .onStart {  }
-            .onCompletion {  }
-            .catch {  }
+            .onStart { }
+            .onCompletion { }
+            .catch { }
             .collectLatest { apiResult ->
                 _engraving.emit(apiResult)
             }
@@ -61,15 +61,16 @@ class MainViewModel @Inject constructor(
 
     fun getEquipment(characterName: String) = viewModelScope.launch {
         armoryRepository.getEquipment(characterName)
-            .onStart {  }
-            .onCompletion {  }
-            .catch {  }
+            .onStart { }
+            .onCompletion { }
+            .catch { }
             .collectLatest { apiResult ->
                 _equipment.emit(apiResult)
             }
     }
 
     fun changeEquipmentDetail() = viewModelScope.launch {
-        _equipmentDetail.emit(!equipmentDetail.value)
+        println("xxx ??")
+        _collapseEquipment.emit(!collapseEquipment.value)
     }
 }

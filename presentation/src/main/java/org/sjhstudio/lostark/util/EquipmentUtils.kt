@@ -9,6 +9,17 @@ import com.bumptech.glide.Glide
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.domain.model.response.Equipment
 
+data class EquipmentSet(
+    var setName: String,
+    var count: Int
+) : Comparable<EquipmentSet> {
+
+    override fun compareTo(other: EquipmentSet): Int {
+        if (this.setName != other.setName) return this.count.compareTo(other.count)
+        return this.setName.compareTo(other.setName)
+    }
+}
+
 fun ImageView.setEquipmentImage(equipment: Equipment) {
     background = when (equipment.grade) {
         "고대" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_ancient)
@@ -46,4 +57,27 @@ fun TextView.setEquipmentSet(equipment: Equipment) {
     } else {
         isVisible = false
     }
+}
+
+fun setEquipmentSetList(list: MutableList<EquipmentSet>, equipment: Equipment) {
+    var contain = false
+
+    list.takeIf { it.isNotEmpty() }?.forEach { set ->
+        if (set.setName == equipment.setName) {
+            set.count++
+            return
+        }
+    }
+
+    list.add(EquipmentSet(equipment.setName, 1))
+}
+
+fun getEquipmentSetSummary(list: MutableList<EquipmentSet>): String {
+    var summary = ""
+
+    list.takeIf { it.isNotEmpty() }?.forEach { set ->
+        summary += "${set.setName} ${set.count} "
+    }
+
+    return summary.trim()
 }
