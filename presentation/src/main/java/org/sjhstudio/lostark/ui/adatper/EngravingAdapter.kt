@@ -33,7 +33,6 @@ class EngravingAdapter :
             with(binding) {
                 data = effect
                 tvEngravingDescription.isVisible = effect.isExpanded
-                println("xxx effect : $effect" )
             }
         }
     }

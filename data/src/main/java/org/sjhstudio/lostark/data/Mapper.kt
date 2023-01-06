@@ -7,6 +7,7 @@ import org.sjhstudio.lostark.domain.model.response.Engraving
 import org.sjhstudio.lostark.domain.model.response.Equipment
 import org.sjhstudio.lostark.domain.model.response.Profile
 
+// 프로필 매핑
 internal fun mapperToProfile(profileDto: ProfileDto) =
     Profile(
         characterImageUrl = profileDto.characterImage,
@@ -38,6 +39,7 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
         itemLevel = profileDto.itemAvgLevel
     )
 
+// 각인 매핑
 internal fun mapperToEngraving(engravingDto: EngravingDto) =
     Engraving(
         slots = engravingDto.engravings.map { slotDto ->
@@ -56,6 +58,7 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
         }
     )
 
+// 장비(악세 포함) 매핑
 internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
     dtoList.map { dto ->
         val level = mapperToEquipmentLevel(dto.type, dto.name)
@@ -65,7 +68,7 @@ internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
             name = dto.name,
             iconUrl = dto.icon,
             grade = dto.grade,
-            quality = mapperToEquipmentQuality(dto.tooltip),
+            quality = mapperToEquipmentQuality(dto.type, dto.tooltip),
             level = level,
             setName = setInfo?.get(0) ?: "",
             setLevel = setInfo?.get(1) ?: "",
@@ -73,14 +76,25 @@ internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
         )
     }
 
-internal fun mapperToEquipmentQuality(tooltip: String): String {
-    // ex) qualityValue": 96,
-    val startIndexOfWord = tooltip.indexOf("qualityValue")
-    val startIndexOfQuality = startIndexOfWord + 15
+internal fun mapperToEquipmentQuality(type: String, tooltip: String): String {
     var quality = ""
 
-    for (i in startIndexOfQuality..startIndexOfQuality + 3) {
-        if (tooltip[i].isDigit()) quality += tooltip[i]
+    when (type) {
+        "팔찌" -> {   // 팔찌의 경우 특성 표시
+
+        }
+        "어빌리티 스톤" -> {  // 어빌리티 스톤의 경우 세공 결과 표시
+
+        }
+        else -> {
+            // ex) qualityValue": 96,
+            val startIndexOfWord = tooltip.indexOf("qualityValue")
+            val startIndexOfQuality = startIndexOfWord + 15
+
+            for (i in startIndexOfQuality..startIndexOfQuality + 3) {
+                if (tooltip[i].isDigit()) quality += tooltip[i]
+            }
+        }
     }
 
     return quality
@@ -111,4 +125,30 @@ internal fun mapperToEquipmentSummary(type: String, level: String): String {
     var summary = type
     if (level != "-1") summary += " $level"
     return summary
+}
+
+// 악세(어빌리티 스톤 포함)에 부여된 각인 효과 매핑
+internal fun mapperAccessoryEngravingList(tooltip: String): List<Equipment.Engraving> {
+    val list = arrayListOf<Equipment.Engraving>()
+    val index = tooltip.indexOf("[<FONT COLOR='#FFFFAC'>")
+
+    while (index != -1) {
+        val i = index + 23
+        var name = ""
+        var active = ""
+        var nameFlag = true
+
+        while (tooltip[i] != '}') {
+            if (tooltip[i] == '<') {
+                if (nameFlag) nameFlag = false
+                else break
+            }
+            if (nameFlag) name += tooltip[i]
+            if (tooltip[i].isDigit()) active += tooltip[i]
+        }
+
+        list.add(Equipment.Engraving(name, active))
+    }
+
+    return list
 }

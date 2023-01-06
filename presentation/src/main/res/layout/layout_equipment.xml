@@ -15,7 +15,7 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/bg_gray_8dp"
-            android:padding="20dp"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -31,6 +31,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tv_equipment_set_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_gray_transparent_5dp"
+                android:gravity="center"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="3dp"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/tv_equipment_title"
+                app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/tv_equipment_title"
+                app:layout_constraintTop_toTopOf="@id/tv_equipment_title"
+                tools:text="6 환각" />
+
             <ImageView
                 android:id="@+id/iv_arrow"
                 android:layout_width="wrap_content"
@@ -44,7 +64,7 @@
                 android:id="@+id/layout_equipment_summary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,8 +72,8 @@
 
                 <ImageView
                     android:id="@+id/iv_weapon"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -63,11 +83,10 @@
 
                 <TextView
                     android:id="@+id/tv_weapon_quality"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -79,11 +98,12 @@
 
                 <TextView
                     android:id="@+id/tv_weapon_summary"
-                    android:layout_width="45dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
+                    android:maxWidth="40dp"
                     android:padding="3dp"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -95,9 +115,9 @@
 
                 <ImageView
                     android:id="@+id/iv_head"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="17dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -107,11 +127,10 @@
 
                 <TextView
                     android:id="@+id/tv_head_quality"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -123,11 +142,12 @@
 
                 <TextView
                     android:id="@+id/tv_head_summary"
-                    android:layout_width="45dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
+                    android:maxWidth="40dp"
                     android:padding="3dp"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -139,9 +159,9 @@
 
                 <ImageView
                     android:id="@+id/iv_shoulder"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -151,11 +171,10 @@
 
                 <TextView
                     android:id="@+id/tv_shoulder_quality"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -167,11 +186,12 @@
 
                 <TextView
                     android:id="@+id/tv_shoulder_summary"
-                    android:layout_width="45dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
+                    android:maxWidth="40dp"
                     android:padding="3dp"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -183,9 +203,9 @@
 
                 <ImageView
                     android:id="@+id/iv_top"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -195,11 +215,10 @@
 
                 <TextView
                     android:id="@+id/tv_top_quality"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -211,11 +230,12 @@
 
                 <TextView
                     android:id="@+id/tv_top_summary"
-                    android:layout_width="45dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
+                    android:maxWidth="40dp"
                     android:padding="3dp"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -227,9 +247,9 @@
 
                 <ImageView
                     android:id="@+id/iv_bottom"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -239,11 +259,10 @@
 
                 <TextView
                     android:id="@+id/tv_bottom_quality"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -255,11 +274,12 @@
 
                 <TextView
                     android:id="@+id/tv_bottom_summary"
-                    android:layout_width="45dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
+                    android:maxWidth="40dp"
                     android:padding="3dp"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -271,9 +291,9 @@
 
                 <ImageView
                     android:id="@+id/iv_glove"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -283,11 +303,10 @@
 
                 <TextView
                     android:id="@+id/tv_glove_quality"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -299,11 +318,12 @@
 
                 <TextView
                     android:id="@+id/tv_glove_summary"
-                    android:layout_width="45dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
+                    android:maxWidth="40dp"
                     android:padding="3dp"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -318,7 +338,7 @@
                 android:id="@+id/layout_equipment_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -326,8 +346,8 @@
 
                 <ImageView
                     android:id="@+id/iv_weapon_2"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -337,11 +357,10 @@
 
                 <TextView
                     android:id="@+id/tv_weapon_quality_2"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -355,7 +374,7 @@
                     android:id="@+id/tv_weapon_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
@@ -369,7 +388,7 @@
                     android:id="@+id/tv_weapon_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
@@ -385,9 +404,9 @@
 
                 <ImageView
                     android:id="@+id/iv_head_2"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="7dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -396,11 +415,10 @@
 
                 <TextView
                     android:id="@+id/tv_head_quality_2"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -414,7 +432,7 @@
                     android:id="@+id/tv_head_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
@@ -428,7 +446,7 @@
                     android:id="@+id/tv_head_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
@@ -444,8 +462,8 @@
 
                 <ImageView
                     android:id="@+id/iv_shoulder_2"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -455,11 +473,10 @@
 
                 <TextView
                     android:id="@+id/tv_shoulder_quality_2"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -473,7 +490,7 @@
                     android:id="@+id/tv_shoulder_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
@@ -487,7 +504,7 @@
                     android:id="@+id/tv_shoulder_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
@@ -503,8 +520,8 @@
 
                 <ImageView
                     android:id="@+id/iv_top_2"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -514,11 +531,10 @@
 
                 <TextView
                     android:id="@+id/tv_top_quality_2"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -532,7 +548,7 @@
                     android:id="@+id/tv_top_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
@@ -546,7 +562,7 @@
                     android:id="@+id/tv_top_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
@@ -562,8 +578,8 @@
 
                 <ImageView
                     android:id="@+id/iv_bottom_2"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -573,11 +589,10 @@
 
                 <TextView
                     android:id="@+id/tv_bottom_quality_2"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -591,7 +606,7 @@
                     android:id="@+id/tv_bottom_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
@@ -605,7 +620,7 @@
                     android:id="@+id/tv_bottom_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
@@ -621,8 +636,8 @@
 
                 <ImageView
                     android:id="@+id/iv_glove_2"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
@@ -632,11 +647,10 @@
 
                 <TextView
                     android:id="@+id/tv_glove_quality_2"
-                    android:layout_width="45dp"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equiment_quality_7"
                     android:gravity="center"
-                    android:padding="1dp"
                     android:text="-"
                     android:textColor="@color/white"
                     android:textSize="12dp"
@@ -650,7 +664,7 @@
                     android:id="@+id/tv_glove_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
@@ -664,7 +678,7 @@
                     android:id="@+id/tv_glove_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/bg_gray_transparent_5dp"
                     android:gravity="center"
@@ -687,7 +701,7 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/bg_gray_8dp"
-            android:padding="20dp"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_equipment">
@@ -702,6 +716,300 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_accessory_summary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_accessory_title">
+
+                <ImageView
+                    android:id="@+id/iv_necklace"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_equipment_default"
+                    android:paddingHorizontal="2dp"
+                    android:paddingTop="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_necklace_quality"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_equiment_quality_7"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_necklace"
+                    app:layout_constraintStart_toStartOf="@id/iv_necklace"
+                    app:layout_constraintTop_toBottomOf="@id/iv_necklace"
+                    tools:text="94" />
+
+                <TextView
+                    android:id="@+id/tv_necklace_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_gray_transparent_5dp"
+                    android:gravity="center"
+                    android:maxWidth="40dp"
+                    android:padding="3dp"
+                    android:text="목걸이"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/tv_necklace_quality"
+                    app:layout_constraintStart_toStartOf="@id/tv_necklace_quality"
+                    app:layout_constraintTop_toBottomOf="@id/tv_necklace_quality" />
+
+                <ImageView
+                    android:id="@+id/iv_earring1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_equipment_default"
+                    android:paddingHorizontal="2dp"
+                    android:paddingTop="2dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_necklace"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_earring1_quality"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_equiment_quality_7"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_earring1"
+                    app:layout_constraintStart_toStartOf="@id/iv_earring1"
+                    app:layout_constraintTop_toBottomOf="@id/iv_earring1"
+                    tools:text="94" />
+
+                <ImageView
+                    android:id="@+id/iv_earring2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_equipment_default"
+                    android:paddingHorizontal="2dp"
+                    android:paddingTop="2dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_earring1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_earring2_quality"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_equiment_quality_7"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_earring2"
+                    app:layout_constraintStart_toStartOf="@id/iv_earring2"
+                    app:layout_constraintTop_toBottomOf="@id/iv_earring2"
+                    tools:text="94" />
+
+                <TextView
+                    android:id="@+id/tv_earring_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_gray_transparent_5dp"
+                    android:gravity="center"
+                    android:maxWidth="40dp"
+                    android:padding="3dp"
+                    android:text="귀걸이"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/tv_earring2_quality"
+                    app:layout_constraintStart_toStartOf="@id/tv_earring1_quality"
+                    app:layout_constraintTop_toBottomOf="@id/tv_earring2_quality" />
+
+                <ImageView
+                    android:id="@+id/iv_ring1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_equipment_default"
+                    android:paddingHorizontal="2dp"
+                    android:paddingTop="2dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_earring2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_ring1_quality"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_equiment_quality_7"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_ring1"
+                    app:layout_constraintStart_toStartOf="@id/iv_ring1"
+                    app:layout_constraintTop_toBottomOf="@id/iv_ring1"
+                    tools:text="94" />
+
+                <ImageView
+                    android:id="@+id/iv_ring2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_equipment_default"
+                    android:paddingHorizontal="2dp"
+                    android:paddingTop="2dp"
+                    app:layout_constraintStart_toEndOf="@id/tv_ring1_quality"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_ring2_quality"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_equiment_quality_7"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_ring2"
+                    app:layout_constraintStart_toStartOf="@id/iv_ring2"
+                    app:layout_constraintTop_toBottomOf="@id/iv_ring2"
+                    tools:text="94" />
+
+                <TextView
+                    android:id="@+id/tv_ring_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_gray_transparent_5dp"
+                    android:gravity="center"
+                    android:maxWidth="40dp"
+                    android:padding="3dp"
+                    android:text="반지"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/tv_ring2_quality"
+                    app:layout_constraintStart_toStartOf="@id/tv_ring1_quality"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ring2_quality" />
+
+                <ImageView
+                    android:id="@+id/iv_bracelet"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_equipment_default"
+                    android:paddingHorizontal="2dp"
+                    android:paddingTop="2dp"
+                    app:layout_constraintStart_toEndOf="@id/tv_ring2_quality"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_bracelet_quality"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_equiment_quality_7"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_bracelet"
+                    app:layout_constraintStart_toStartOf="@id/iv_bracelet"
+                    app:layout_constraintTop_toBottomOf="@id/iv_bracelet"
+                    tools:text="94" />
+
+                <TextView
+                    android:id="@+id/tv_bracelet_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_gray_transparent_5dp"
+                    android:gravity="center"
+                    android:maxWidth="40dp"
+                    android:padding="3dp"
+                    android:text="팔찌"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/tv_bracelet_quality"
+                    app:layout_constraintStart_toStartOf="@id/tv_bracelet_quality"
+                    app:layout_constraintTop_toBottomOf="@id/tv_bracelet_quality" />
+
+                <ImageView
+                    android:id="@+id/iv_stone"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_equipment_default"
+                    android:paddingHorizontal="2dp"
+                    android:paddingTop="2dp"
+                    app:layout_constraintStart_toEndOf="@id/iv_bracelet"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_stone_quality"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_equiment_quality_7"
+                    android:gravity="center"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/iv_stone"
+                    app:layout_constraintStart_toStartOf="@id/iv_stone"
+                    app:layout_constraintTop_toBottomOf="@id/iv_stone"
+                    tools:text="94" />
+
+                <TextView
+                    android:id="@+id/tv_stone_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:background="@drawable/bg_gray_transparent_5dp"
+                    android:gravity="center"
+                    android:maxWidth="40dp"
+                    android:padding="3dp"
+                    android:text="돌"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/tv_stone_quality"
+                    app:layout_constraintStart_toStartOf="@id/tv_stone_quality"
+                    app:layout_constraintTop_toBottomOf="@id/tv_stone_quality" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_accessory_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_accessory_title">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

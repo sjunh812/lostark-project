@@ -1,9 +1,7 @@
 package org.sjhstudio.lostark.ui.view
 
 import android.os.Bundle
-import android.text.Html
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -16,10 +14,7 @@ import org.sjhstudio.lostark.domain.model.response.Equipment
 import org.sjhstudio.lostark.domain.model.response.Profile
 import org.sjhstudio.lostark.ui.adatper.EngravingAdapter
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
-import org.sjhstudio.lostark.util.setEquipmentImage
-import org.sjhstudio.lostark.util.setEquipmentQuality
-import org.sjhstudio.lostark.util.setEquipmentSet
-import org.sjhstudio.lostark.util.setEquipmentSummary
+import org.sjhstudio.lostark.util.*
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -46,12 +41,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mainViewModel.getProfile(inputNickname)
-                }
+                if (actionId == EditorInfo.IME_ACTION_DONE) mainViewModel.getProfile(inputNickname)
                 false
             }
-
             layoutEquipment.layoutEquipmentSummary.setOnClickListener { mainViewModel.changeEquipmentDetail() }
             layoutEquipment.layoutEquipmentDetail.setOnClickListener { mainViewModel.changeEquipmentDetail() }
         }
@@ -63,11 +55,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 profile.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
+                            println("xxx 프로필 불러오기 성공!!")
                             binding.layoutProfile.container.isVisible = true
                             updateStatView(result.data?.stats)
-                            println("xxx 프로필 불러오기 성공!!")
                         } else {
                             println("xxx 프로필 불러오기 실패..")
+                            binding.layoutProfile.container.isVisible = false
                         }
                     }
                 }
@@ -77,8 +70,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 engraving.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            engravingAdapter.submitList(result.data?.effects)
                             println("xxx 각인 불러오기 성공!!")
+                            engravingAdapter.submitList(result.data?.effects)
                         } else {
                             println("xxx 각인 불러오기 실패..")
                         }
@@ -90,61 +83,51 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 equipment.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
+                            println("xxx 장비 불러오기 성공!!")
+                            println("xxx equipment list : ${result.data}")
                             binding.layoutEquipment.container.isVisible = true
                             updateEquipmentView(result.data)
-                            println("xxx equipment list : ${result.data}")
-                            println("xxx 장비 불러오기 성공!!")
                         } else {
                             println("xxx 장비 불러오기 실패..")
+                            binding.layoutEquipment.container.isVisible = false
                         }
                     }
                 }
             }
 
             lifecycleScope.launchWhenStarted {
-                equipmentDetail.collectLatest { isDetail ->
-                    binding.layoutEquipment.layoutEquipmentDetail.isVisible = isDetail
-                    binding.layoutEquipment.layoutEquipmentSummary.isVisible = !isDetail
+                collapseEquipment.collectLatest { collapse ->
+                    println("xxx $collapse")
+                    binding.layoutEquipment.layoutEquipmentDetail.isVisible = !collapse
+                    binding.layoutEquipment.layoutEquipmentSummary.isVisible = collapse
                 }
             }
         }
     }
 
+    // 전투 특성 갱신
     private fun updateStatView(stats: List<Profile.Stat>?) {
         with(binding.layoutProfile) {
             stats?.forEach { stat ->
                 when (stat.type) {
-                    getString(R.string.label_attack_point) -> { // 공격력
-                        tvAttackPoint.text = stat.value
-                    }
-                    getString(R.string.label_health_point) -> { // 최대 생명력
-                        tvHealthPoint.text = stat.value
-                    }
-                    getString(R.string.label_critical) -> { // 치명
-                        tvCritical.text = stat.value
-                    }
-                    getString(R.string.label_specialization) -> {   // 특화
-                        tvSpecialization.text = stat.value
-                    }
-                    getString(R.string.label_domination) -> {   // 제압
-                        tvDomination.text = stat.value
-                    }
-                    getString(R.string.label_swiftness) -> {    // 신속
-                        tvSwiftness.text = stat.value
-                    }
-                    getString(R.string.label_endurance) -> {    // 인내
-                        tvEndurance.text = stat.value
-                    }
-                    getString(R.string.label_expertise) -> {    // 숙련
-                        tvExpertise.text = stat.value
-                    }
+                    getString(R.string.label_attack_point) -> tvAttackPoint.text = stat.value
+                    getString(R.string.label_health_point) -> tvHealthPoint.text = stat.value
+                    getString(R.string.label_critical) -> tvCritical.text = stat.value
+                    getString(R.string.label_specialization) -> tvSpecialization.text = stat.value
+                    getString(R.string.label_domination) -> tvDomination.text = stat.value
+                    getString(R.string.label_swiftness) -> tvSwiftness.text = stat.value
+                    getString(R.string.label_endurance) -> tvEndurance.text = stat.value
+                    getString(R.string.label_expertise) -> tvExpertise.text = stat.value
                 }
             }
         }
     }
 
+    // 장비 갱신
     private fun updateEquipmentView(equipments: List<Equipment>?) {
         with(binding.layoutEquipment) {
+            val equipmentSetList = arrayListOf<EquipmentSet>()
+
             equipments?.forEach { equipment ->
                 when (equipment.type) {
                     "무기" -> {
@@ -155,6 +138,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         tvWeaponSummary.setEquipmentSummary(equipment)
                         tvWeaponSet.setEquipmentSet(equipment)
                         tvWeaponName.text = equipment.name
+                        setEquipmentSetList(equipmentSetList, equipment)
                     }
                     "투구" -> {
                         ivHead.setEquipmentImage(equipment)
@@ -164,6 +148,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         tvHeadSummary.setEquipmentSummary(equipment)
                         tvHeadSet.setEquipmentSet(equipment)
                         tvHeadName.text = equipment.name
+                        setEquipmentSetList(equipmentSetList, equipment)
                     }
                     "상의" -> {
                         ivTop.setEquipmentImage(equipment)
@@ -173,6 +158,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         tvTopSummary.setEquipmentSummary(equipment)
                         tvTopSet.setEquipmentSet(equipment)
                         tvTopName.text = equipment.name
+                        setEquipmentSetList(equipmentSetList, equipment)
                     }
                     "하의" -> {
                         ivBottom.setEquipmentImage(equipment)
@@ -182,6 +168,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         tvBottomSummary.setEquipmentSummary(equipment)
                         tvBottomSet.setEquipmentSet(equipment)
                         tvBottomName.text = equipment.name
+                        setEquipmentSetList(equipmentSetList, equipment)
                     }
                     "장갑" -> {
                         ivGlove.setEquipmentImage(equipment)
@@ -191,6 +178,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         tvGloveSummary.setEquipmentSummary(equipment)
                         tvGloveSet.setEquipmentSet(equipment)
                         tvGloveName.text = equipment.name
+                        setEquipmentSetList(equipmentSetList, equipment)
                     }
                     "어깨" -> {
                         ivShoulder.setEquipmentImage(equipment)
@@ -200,8 +188,43 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         tvShoulderSummary.setEquipmentSummary(equipment)
                         tvShoulderSet.setEquipmentSet(equipment)
                         tvShoulderName.text = equipment.name
+                        setEquipmentSetList(equipmentSetList, equipment)
+                    }
+                    "목걸이" -> {
+                        ivNecklace.setEquipmentImage(equipment)
+                        tvNecklaceQuality.setEquipmentQuality(equipment)
+                    }
+                    "귀걸이" -> {
+                        if (tvEarring1Quality.text == "-") {
+                            ivEarring1.setEquipmentImage(equipment)
+                            tvEarring1Quality.setEquipmentQuality(equipment)
+                        } else {
+                            ivEarring2.setEquipmentImage(equipment)
+                            tvEarring2Quality.setEquipmentQuality(equipment)
+                        }
+                    }
+                    "반지" -> {
+                        if (tvRing1Quality.text == "-") {
+                            ivRing1.setEquipmentImage(equipment)
+                            tvRing1Quality.setEquipmentQuality(equipment)
+                        } else {
+                            ivRing2.setEquipmentImage(equipment)
+                            tvRing2Quality.setEquipmentQuality(equipment)
+                        }
+                    }
+                    "팔찌" -> {
+                        ivBracelet.setEquipmentImage(equipment)
+                    }
+                    "어빌리티 스톤" -> {
+                        ivStone.setEquipmentImage(equipment)
                     }
                 }
+            }
+
+            tvEquipmentSetSummary.apply {
+                val equipmentSetSummary = getEquipmentSetSummary(equipmentSetList)
+                isVisible = equipmentSetSummary.isNotEmpty()
+                text = equipmentSetSummary
             }
         }
     }
