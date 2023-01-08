@@ -34,7 +34,7 @@ fun ImageView.setEquipmentImage(equipment: Equipment) {
 
 fun TextView.setEquipmentQuality(equipment: Equipment) {
     text = equipment.quality
-    background = when (equipment.quality.toInt()) {
+    background = when (equipment.quality.toIntOrNull()) {
         100 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_1)
         in 90..99 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_2)
         in 70..89 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_3)
@@ -60,8 +60,6 @@ fun TextView.setEquipmentSet(equipment: Equipment) {
 }
 
 fun setEquipmentSetList(list: MutableList<EquipmentSet>, equipment: Equipment) {
-    var contain = false
-
     list.takeIf { it.isNotEmpty() }?.forEach { set ->
         if (set.setName == equipment.setName) {
             set.count++

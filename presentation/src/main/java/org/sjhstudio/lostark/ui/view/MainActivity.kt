@@ -41,7 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
-                if (actionId == EditorInfo.IME_ACTION_DONE) mainViewModel.getProfile(inputNickname)
+                if (actionId == EditorInfo.IME_ACTION_DONE) mainViewModel.search(inputNickname)
                 false
             }
             layoutEquipment.layoutEquipmentSummary.setOnClickListener { mainViewModel.changeEquipmentDetail() }
@@ -217,6 +217,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "어빌리티 스톤" -> {
                         ivStone.setEquipmentImage(equipment)
+                        tvStoneQuality.setEquipmentQuality(equipment)
                     }
                 }
             }
