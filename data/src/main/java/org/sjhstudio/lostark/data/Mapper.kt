@@ -63,20 +63,26 @@ internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
     dtoList.map { dto ->
         val level = mapperToEquipmentLevel(dto.type, dto.name)
         val setInfo = mapperToEquipmentSet(dto.tooltip)
+        val engravingList = mapperToAccessoryEngravingList(dto.type, dto.tooltip)
         Equipment(
             type = dto.type,
             name = dto.name,
             iconUrl = dto.icon,
             grade = dto.grade,
-            quality = mapperToEquipmentQuality(dto.type, dto.tooltip),
+            quality = mapperToEquipmentQuality(dto.type, dto.tooltip, engravingList),
             level = level,
             setName = setInfo?.get(0) ?: "",
             setLevel = setInfo?.get(1) ?: "",
-            summary = mapperToEquipmentSummary(dto.type, level)
+            summary = mapperToEquipmentSummary(dto.type, level),
+            engravings = engravingList
         )
     }
 
-internal fun mapperToEquipmentQuality(type: String, tooltip: String): String {
+internal fun mapperToEquipmentQuality(
+    type: String,
+    tooltip: String,
+    engravingList: List<Equipment.Engraving>?
+): String {
     var quality = ""
 
     when (type) {
@@ -84,7 +90,11 @@ internal fun mapperToEquipmentQuality(type: String, tooltip: String): String {
 
         }
         "어빌리티 스톤" -> {  // 어빌리티 스톤의 경우 세공 결과 표시
-
+            engravingList?.let { engravings ->
+                engravings.forEach { engraving ->
+                    quality += "${engraving.active} "
+                }
+            }
         }
         else -> {
             // ex) qualityValue": 96,
@@ -97,7 +107,7 @@ internal fun mapperToEquipmentQuality(type: String, tooltip: String): String {
         }
     }
 
-    return quality
+    return quality.trim()
 }
 
 internal fun mapperToEquipmentLevel(type: String, name: String): String {
@@ -128,27 +138,40 @@ internal fun mapperToEquipmentSummary(type: String, level: String): String {
 }
 
 // 악세(어빌리티 스톤 포함)에 부여된 각인 효과 매핑
-internal fun mapperAccessoryEngravingList(tooltip: String): List<Equipment.Engraving> {
-    val list = arrayListOf<Equipment.Engraving>()
-    val index = tooltip.indexOf("[<FONT COLOR='#FFFFAC'>")
+// 감소 효과 각인은 리스트의 마지막 원소로 삽입!
+internal fun mapperToAccessoryEngravingList(
+    type: String,
+    tooltip: String
+): List<Equipment.Engraving>? {
+    return when (type) {
+        "목걸이", "귀걸이", "반지", "어빌리티 스톤" -> {
+            val list = arrayListOf<Equipment.Engraving>()
+            var index = tooltip.indexOf("[<FONT COLOR='#FFFFAC'>")
 
-    while (index != -1) {
-        val i = index + 23
-        var name = ""
-        var active = ""
-        var nameFlag = true
+            while (index != -1) {
+                var i = index + 23
+                var name = ""
+                var active = ""
+                var nameFlag = true
 
-        while (tooltip[i] != '}') {
-            if (tooltip[i] == '<') {
-                if (nameFlag) nameFlag = false
-                else break
+                while (tooltip[i] != '}') {
+                    if (tooltip[i] == '<') {
+                        if (nameFlag) nameFlag = false
+                        else break
+                    }
+                    if (nameFlag) name += tooltip[i]
+                    if (tooltip[i].isDigit()) active += tooltip[i]
+                    i++
+                }
+
+                list.add(Equipment.Engraving(name, active))
+                index =
+                    if (list.size >= 2) tooltip.indexOf("[<FONT COLOR='#FE2E2E'>", i)
+                    else tooltip.indexOf("[<FONT COLOR='#FFFFAC'>", i)
             }
-            if (nameFlag) name += tooltip[i]
-            if (tooltip[i].isDigit()) active += tooltip[i]
+
+            list
         }
-
-        list.add(Equipment.Engraving(name, active))
+        else -> null
     }
-
-    return list
 }

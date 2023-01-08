@@ -37,6 +37,7 @@ class MainViewModel @Inject constructor(
         getProfile(characterName)
         getEngraving(characterName)
         getEquipment(characterName)
+        changeEquipmentDetail(true)
     }
 
     fun getProfile(characterName: String) = viewModelScope.launch {
@@ -69,8 +70,7 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    fun changeEquipmentDetail() = viewModelScope.launch {
-        println("xxx ??")
-        _collapseEquipment.emit(!collapseEquipment.value)
+    fun changeEquipmentDetail(collapse: Boolean? = null) = viewModelScope.launch {
+        _collapseEquipment.emit(collapse ?: !collapseEquipment.value)
     }
 }
