@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="TextAppearance.LostArk.Chip" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textSize">10dp</item>
+        <item name="android:textColor">@color/gray_e2</item>
+    </style>
+
     <style name="Widget.LostArk.Chip" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="chipMinHeight">22dp</item>
-        <item name="chipCornerRadius">8dp</item>
-        <item name="backgroundColor">@color/sub_color</item>
+        <item name="chipStartPadding">0dp</item>
+        <item name="chipEndPadding">2dp</item>
+        <item name="chipMinHeight">18dp</item>
+        <item name="chipCornerRadius">5dp</item>
+        <item name="chipBackgroundColor">@color/background_chip</item>
         <item name="ensureMinTouchTargetSize">false</item>
-        <item name="android:clickable">false</item>
     </style>
 </resources>

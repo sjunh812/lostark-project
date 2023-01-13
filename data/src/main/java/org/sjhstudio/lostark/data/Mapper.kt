@@ -64,6 +64,7 @@ internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
         val level = mapperToEquipmentLevel(dto.type, dto.name)
         val setInfo = mapperToEquipmentSet(dto.tooltip)
         val engravingList = mapperToAccessoryEngravingList(dto.type, dto.tooltip)
+        val effectList = mapperToAccessoryEffectList(dto.type, dto.tooltip)
         Equipment(
             type = dto.type,
             name = dto.name,
@@ -74,7 +75,8 @@ internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
             setName = setInfo?.get(0) ?: "",
             setLevel = setInfo?.get(1) ?: "",
             summary = mapperToEquipmentSummary(dto.type, level),
-            engravings = engravingList
+            engravings = engravingList,
+            effects = effectList
         )
     }
 
@@ -168,6 +170,48 @@ internal fun mapperToAccessoryEngravingList(
                 index =
                     if (list.size >= 2) tooltip.indexOf("[<FONT COLOR='#FE2E2E'>", i)
                     else tooltip.indexOf("[<FONT COLOR='#FFFFAC'>", i)
+            }
+
+            list
+        }
+        else -> null
+    }
+}
+
+internal fun mapperToAccessoryEffectList(
+    type: String,
+    tooltip: String
+): List<Equipment.Effect>? {
+    val list = arrayListOf<Equipment.Effect>()
+    var index = tooltip.indexOf("Element_001")
+
+    return when (type) {
+        "목걸이", "귀걸이", "반지", "어빌리티 스톤" -> {
+            var start = 0
+            val last = if (type == "어빌리티 스톤") 1 else 2
+
+            while (index != -1 || start <= last) {
+                if (start++ == last) {
+                    var i = index + 15
+                    var str = ""
+
+                    while (tooltip[i] != '"') {
+                        str += tooltip[i]
+                        i++
+                    }
+
+                    str.split("<BR>").forEach { effect ->
+                        list.add(
+                            Equipment.Effect(
+                                name = effect.split(" +")[0],
+                                value = effect.split(" +")[1]
+                            )
+                        )
+                    }
+                    println("xxx $str")
+                }
+
+                index = tooltip.indexOf("Element_001", index + 1)
             }
 
             list

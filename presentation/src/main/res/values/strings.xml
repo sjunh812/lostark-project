@@ -20,4 +20,12 @@
     <string name="label_expertise">숙련</string>
     <string name="label_engraving">각인</string>
     <string name="label_mounted_engraving">장착 각인</string>
+    <string name="label_equipment">장비</string>
+    <string name="label_accessory">장신구</string>
+    <string name="label_default_quality">-</string>
+    <string name="label_necklace">목걸이</string>
+    <string name="label_earring">귀걸이</string>
+    <string name="label_ring">반지</string>
+    <string name="label_bracelet">팔찌</string>
+    <string name="label_stone">돌</string>
 </resources>
