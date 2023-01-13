@@ -6,6 +6,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
+import com.google.android.material.chip.ChipGroup
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.domain.model.response.Equipment
 
@@ -17,6 +20,22 @@ data class EquipmentSet(
     override fun compareTo(other: EquipmentSet): Int {
         if (this.setName != other.setName) return this.count.compareTo(other.count)
         return this.setName.compareTo(other.setName)
+    }
+}
+
+// 장비, 장신구 이미지 초기화
+fun initEquipmentImage(imageViews: List<ImageView>) {
+    imageViews.forEach { imageView ->
+        imageView.setImageResource(0)
+        imageView.background = ContextCompat.getDrawable(imageView.context, R.drawable.bg_equipment_default)
+    }
+}
+
+// 장비, 장신구 품질 초기화
+fun initEquipmentQuality(textViews: List<TextView>) {
+    textViews.forEach { textView ->
+        textView.text = textView.context.getString(R.string.label_default_quality)
+        textView.background = ContextCompat.getDrawable(textView.context, R.drawable.bg_equipment_quality_7)
     }
 }
 
@@ -35,13 +54,13 @@ fun ImageView.setEquipmentImage(equipment: Equipment) {
 fun TextView.setEquipmentQuality(equipment: Equipment) {
     text = equipment.quality
     background = when (equipment.quality.toIntOrNull()) {
-        100 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_1)
-        in 90..99 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_2)
-        in 70..89 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_3)
-        in 30..69 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_4)
-        in 10..29 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_5)
-        in 1..9 -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_6)
-        else -> ContextCompat.getDrawable(context, R.drawable.bg_equiment_quality_7)
+        100 -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_quality_1)
+        in 90..99 -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_quality_2)
+        in 70..89 -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_quality_3)
+        in 30..69 -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_quality_4)
+        in 10..29 -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_quality_5)
+        in 1..9 -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_quality_6)
+        else -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_quality_7)
     }
 }
 
@@ -78,4 +97,40 @@ fun getEquipmentSetSummary(list: MutableList<EquipmentSet>): String {
     }
 
     return summary.trim()
+}
+
+fun TextView.setAccessoryEffectList(equipment: Equipment) {
+    equipment.effects?.let { list ->
+        var str = ""
+
+        list.forEachIndexed { i, effect ->
+            str += "${effect.name} ${effect.value}"
+            if (i != list.lastIndex) str += " "
+        }
+
+        text = str
+    }
+}
+
+@SuppressLint("SetTextI18n")
+fun ChipGroup.setAccessoryEngravingList(equipment: Equipment) {
+    removeAllViews()
+    equipment.engravings?.let { list ->
+        list.forEach { engraving ->
+            val chip: Chip = Chip(context).apply {
+                val drawable = ChipDrawable.createFromAttributes(
+                    context,
+                    null,
+                    0,
+                    R.style.Widget_LostArk_Chip
+                )
+                setChipDrawable(drawable)
+                setTextAppearanceResource(R.style.TextAppearance_LostArk_Chip)
+                text = "${engraving.name} ${engraving.active}"
+                isCheckable = false
+                isClickable = false
+            }
+            addView(chip)
+        }
+    }
 }

@@ -44,8 +44,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) mainViewModel.search(inputNickname)
                 false
             }
-            layoutEquipment.layoutEquipmentSummary.setOnClickListener { mainViewModel.changeEquipmentDetail() }
-            layoutEquipment.layoutEquipmentDetail.setOnClickListener { mainViewModel.changeEquipmentDetail() }
+            layoutEquipment.layoutEquipment.setOnClickListener { mainViewModel.changeEquipmentDetail() }
+            layoutEquipment.layoutAccessory.setOnClickListener { mainViewModel.changeAccessoryDetail() }
         }
     }
 
@@ -97,9 +97,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             lifecycleScope.launchWhenStarted {
                 collapseEquipment.collectLatest { collapse ->
-                    println("xxx $collapse")
-                    binding.layoutEquipment.layoutEquipmentDetail.isVisible = !collapse
                     binding.layoutEquipment.layoutEquipmentSummary.isVisible = collapse
+                    binding.layoutEquipment.layoutEquipmentDetail.isVisible = !collapse
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
+                collapseAccessory.collectLatest { collapse ->
+                    binding.layoutEquipment.layoutAccessorySummary.isVisible = collapse
+                    binding.layoutEquipment.layoutAccessoryDetail.isVisible = !collapse
                 }
             }
         }
@@ -125,16 +131,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     // 장비 갱신
     private fun updateEquipmentView(equipments: List<Equipment>?) {
+        initEquipmentView()
         with(binding.layoutEquipment) {
             val equipmentSetList = arrayListOf<EquipmentSet>()
+            var firstEarring = true
+            var secondRing = true
 
             equipments?.forEach { equipment ->
                 when (equipment.type) {
                     "무기" -> {
                         ivWeapon.setEquipmentImage(equipment)
-                        ivWeapon2.setEquipmentImage(equipment)
+                        ivWeaponDetail.setEquipmentImage(equipment)
                         tvWeaponQuality.setEquipmentQuality(equipment)
-                        tvWeaponQuality2.setEquipmentQuality(equipment)
+                        tvWeaponDetailQuality.setEquipmentQuality(equipment)
                         tvWeaponSummary.setEquipmentSummary(equipment)
                         tvWeaponSet.setEquipmentSet(equipment)
                         tvWeaponName.text = equipment.name
@@ -142,9 +151,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "투구" -> {
                         ivHead.setEquipmentImage(equipment)
-                        ivHead2.setEquipmentImage(equipment)
+                        ivHeadDetail.setEquipmentImage(equipment)
                         tvHeadQuality.setEquipmentQuality(equipment)
-                        tvHeadQuality2.setEquipmentQuality(equipment)
+                        tvHeadDetailQuality.setEquipmentQuality(equipment)
                         tvHeadSummary.setEquipmentSummary(equipment)
                         tvHeadSet.setEquipmentSet(equipment)
                         tvHeadName.text = equipment.name
@@ -152,9 +161,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "상의" -> {
                         ivTop.setEquipmentImage(equipment)
-                        ivTop2.setEquipmentImage(equipment)
+                        ivTopDetail.setEquipmentImage(equipment)
                         tvTopQuality.setEquipmentQuality(equipment)
-                        tvTopQuality2.setEquipmentQuality(equipment)
+                        tvTopDetailQuality.setEquipmentQuality(equipment)
                         tvTopSummary.setEquipmentSummary(equipment)
                         tvTopSet.setEquipmentSet(equipment)
                         tvTopName.text = equipment.name
@@ -162,9 +171,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "하의" -> {
                         ivBottom.setEquipmentImage(equipment)
-                        ivBottom2.setEquipmentImage(equipment)
+                        ivBottomDetail.setEquipmentImage(equipment)
                         tvBottomQuality.setEquipmentQuality(equipment)
-                        tvBottomQuality2.setEquipmentQuality(equipment)
+                        tvBottomDetailQuality.setEquipmentQuality(equipment)
                         tvBottomSummary.setEquipmentSummary(equipment)
                         tvBottomSet.setEquipmentSet(equipment)
                         tvBottomName.text = equipment.name
@@ -172,9 +181,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "장갑" -> {
                         ivGlove.setEquipmentImage(equipment)
-                        ivGlove2.setEquipmentImage(equipment)
+                        ivGloveDetail.setEquipmentImage(equipment)
                         tvGloveQuality.setEquipmentQuality(equipment)
-                        tvGloveQuality2.setEquipmentQuality(equipment)
+                        tvGloveDetailQuality.setEquipmentQuality(equipment)
                         tvGloveSummary.setEquipmentSummary(equipment)
                         tvGloveSet.setEquipmentSet(equipment)
                         tvGloveName.text = equipment.name
@@ -182,9 +191,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "어깨" -> {
                         ivShoulder.setEquipmentImage(equipment)
-                        ivShoulder2.setEquipmentImage(equipment)
+                        ivShoulderDetail.setEquipmentImage(equipment)
                         tvShoulderQuality.setEquipmentQuality(equipment)
-                        tvShoulderQuality2.setEquipmentQuality(equipment)
+                        tvShoulderDetailQuality.setEquipmentQuality(equipment)
                         tvShoulderSummary.setEquipmentSummary(equipment)
                         tvShoulderSet.setEquipmentSet(equipment)
                         tvShoulderName.text = equipment.name
@@ -192,32 +201,66 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "목걸이" -> {
                         ivNecklace.setEquipmentImage(equipment)
+                        ivNecklaceDetail.setEquipmentImage(equipment)
                         tvNecklaceQuality.setEquipmentQuality(equipment)
+                        tvNecklaceDetailQuality.setEquipmentQuality(equipment)
+                        tvNecklaceEffect.setAccessoryEffectList(equipment)
+                        chipGroupNecklace.setAccessoryEngravingList(equipment)
+                        tvNecklaceName.text = equipment.name
                     }
                     "귀걸이" -> {
-                        if (tvEarring1Quality.text == "-") {
+                        if (firstEarring) {
+                            firstEarring = false
                             ivEarring1.setEquipmentImage(equipment)
+                            ivEarring1Detail.setEquipmentImage(equipment)
                             tvEarring1Quality.setEquipmentQuality(equipment)
+                            tvEarring1DetailQuality.setEquipmentQuality(equipment)
+                            tvEarring1Effect.setAccessoryEffectList(equipment)
+                            chipGroupEarring1.setAccessoryEngravingList(equipment)
+                            tvEarring1Name.text = equipment.name
                         } else {
                             ivEarring2.setEquipmentImage(equipment)
+                            ivEarring2Detail.setEquipmentImage(equipment)
                             tvEarring2Quality.setEquipmentQuality(equipment)
+                            tvEarring2DetailQuality.setEquipmentQuality(equipment)
+                            tvEarring2Effect.setAccessoryEffectList(equipment)
+                            chipGroupEarring2.setAccessoryEngravingList(equipment)
+                            tvEarring2Name.text = equipment.name
                         }
                     }
                     "반지" -> {
-                        if (tvRing1Quality.text == "-") {
+                        if (secondRing) {
+                            secondRing = false
                             ivRing1.setEquipmentImage(equipment)
+                            ivRing1Detail.setEquipmentImage(equipment)
                             tvRing1Quality.setEquipmentQuality(equipment)
+                            tvRing1DetailQuality.setEquipmentQuality(equipment)
+                            tvRing1Effect.setAccessoryEffectList(equipment)
+                            chipGroupRing1.setAccessoryEngravingList(equipment)
+                            tvRing1Name.text = equipment.name
                         } else {
                             ivRing2.setEquipmentImage(equipment)
+                            ivRing2Detail.setEquipmentImage(equipment)
                             tvRing2Quality.setEquipmentQuality(equipment)
+                            tvRing2DetailQuality.setEquipmentQuality(equipment)
+                            tvRing2Effect.setAccessoryEffectList(equipment)
+                            chipGroupRing2.setAccessoryEngravingList(equipment)
+                            tvRing2Name.text = equipment.name
                         }
                     }
                     "팔찌" -> {
                         ivBracelet.setEquipmentImage(equipment)
+                        ivBraceletDetail.setEquipmentImage(equipment)
+                        tvBraceletName.text = equipment.name
                     }
                     "어빌리티 스톤" -> {
                         ivStone.setEquipmentImage(equipment)
+                        ivStoneDetail.setEquipmentImage(equipment)
                         tvStoneQuality.setEquipmentQuality(equipment)
+                        tvStoneDetailQuality.setEquipmentQuality(equipment)
+                        tvStoneEffect.setAccessoryEffectList(equipment)
+                        chipGroupStone.setAccessoryEngravingList(equipment)
+                        tvStoneName.text = equipment.name
                     }
                 }
             }
@@ -227,6 +270,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 isVisible = equipmentSetSummary.isNotEmpty()
                 text = equipmentSetSummary
             }
+        }
+    }
+
+    fun initEquipmentView() {
+        with(binding.layoutEquipment) {
+            initEquipmentImage(
+                listOf(
+                    ivWeapon, ivWeaponDetail, ivHead, ivHeadDetail, ivShoulder, ivShoulderDetail,
+                    ivTop, ivTopDetail, ivBottom, ivBottomDetail, ivGlove, ivGloveDetail,
+                    ivNecklace, ivNecklaceDetail, ivEarring1, ivEarring1Detail, ivEarring2, ivEarring2Detail,
+                    ivRing1, ivRing1Detail, ivRing2, ivRing2Detail, ivBracelet, ivBraceletDetail, ivStone, ivStoneDetail
+                )
+            )
+            initEquipmentQuality(
+                listOf(
+                    tvWeaponQuality, tvWeaponDetailQuality, tvHeadQuality, tvHeadDetailQuality, tvShoulderQuality, tvShoulderDetailQuality,
+                    tvTopQuality, tvTopDetailQuality, tvBottomQuality, tvBottomDetailQuality, tvGloveQuality, tvGloveDetailQuality,
+                    tvNecklaceQuality, tvNecklaceDetailQuality, tvEarring1Quality, tvEarring1DetailQuality, tvEarring2Quality, tvEarring2DetailQuality,
+                    tvRing1Quality, tvRing1DetailQuality, tvRing2Quality, tvRing2DetailQuality, tvBraceletQuality, tvBraceletDetailQuality, tvStoneQuality, tvStoneDetailQuality
+                )
+            )
         }
     }
 }

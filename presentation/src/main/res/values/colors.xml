@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray_e2">#E2E2E2</color>
 
     <color name="main_color">#1C1F26</color>
     <color name="sub_color">#464C56</color>
     <color name="background">#121212</color>
     <color name="background_avatar">#15181D</color>
+    <color name="background_chip">#2B313A</color>
     <color name="ancient_start">#453B2B</color>
     <color name="ancient_end">#D9C697</color>
     <color name="relic_start">#3A1C09</color>
@@ -27,6 +24,4 @@
     <color name="quality_5">#A79300</color>
     <color name="quality_6">#FF0000</color>
     <color name="quality_7">#2B313A</color>
-
-    <color name="gray_e2">#E2E2E2</color>
 </resources>

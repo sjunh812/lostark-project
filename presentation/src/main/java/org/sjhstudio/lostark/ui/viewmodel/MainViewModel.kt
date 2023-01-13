@@ -29,8 +29,11 @@ class MainViewModel @Inject constructor(
     private var _collapseEquipment = MutableStateFlow<Boolean>(true)
     val collapseEquipment = _collapseEquipment.asStateFlow()
 
+    private var _collapseAccessory = MutableStateFlow<Boolean>(true)
+    val collapseAccessory = _collapseAccessory.asStateFlow()
+
     init {
-        search("백두사단")
+        search("신묘한하나")
     }
 
     fun search(characterName: String) {
@@ -38,6 +41,7 @@ class MainViewModel @Inject constructor(
         getEngraving(characterName)
         getEquipment(characterName)
         changeEquipmentDetail(true)
+        changeAccessoryDetail(true)
     }
 
     fun getProfile(characterName: String) = viewModelScope.launch {
@@ -72,5 +76,9 @@ class MainViewModel @Inject constructor(
 
     fun changeEquipmentDetail(collapse: Boolean? = null) = viewModelScope.launch {
         _collapseEquipment.emit(collapse ?: !collapseEquipment.value)
+    }
+
+    fun changeAccessoryDetail(collapse: Boolean? = null) = viewModelScope.launch {
+        _collapseAccessory.emit(collapse ?: !collapseAccessory.value)
     }
 }
