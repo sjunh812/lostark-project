@@ -23,6 +23,7 @@ data class Equipment(
     // 악세 부여되는 효과 정보
     data class Effect(
         val name: String,   // 이름
-        val value: String   // 수치
+        val value: String,   // 수치
+        val isSpecial: Boolean = false  // 특수 효과 여부(팔찌)
     )
 }

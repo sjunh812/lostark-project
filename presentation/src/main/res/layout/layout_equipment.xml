@@ -976,7 +976,9 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equipment_quality_7"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:text="@string/label_default_quality"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -1010,8 +1012,10 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.466"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_accessory_title">
+                app:layout_constraintTop_toBottomOf="@id/tv_accessory_title"
+                app:layout_constraintVertical_bias="0.066">
 
                 <ImageView
                     android:id="@+id/iv_necklace_detail"
@@ -1354,7 +1358,9 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_equipment_quality_7"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:text="@string/label_default_quality"
                     android:textColor="@color/white"
                     android:textSize="10dp"
@@ -1390,16 +1396,27 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_bracelet_name"
                     tools:text="신속 120 치명 111" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_bracelet_special_effect"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_bracelet_detail"
+                    app:layout_constraintTop_toBottomOf="@id/tv_bracelet_effect" />
+
                 <ImageView
                     android:id="@+id/iv_stone_detail"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="7dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_bracelet_detail_quality" />
+                    app:layout_constraintTop_toBottomOf="@id/rv_bracelet_special_effect" />
 
                 <TextView
                     android:id="@+id/tv_stone_detail_quality"

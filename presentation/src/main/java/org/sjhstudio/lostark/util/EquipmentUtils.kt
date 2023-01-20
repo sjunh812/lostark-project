@@ -1,6 +1,7 @@
 package org.sjhstudio.lostark.util
 
 import android.annotation.SuppressLint
+import android.media.audiofx.DynamicsProcessing.Eq
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -27,7 +28,8 @@ data class EquipmentSet(
 fun initEquipmentImage(imageViews: List<ImageView>) {
     imageViews.forEach { imageView ->
         imageView.setImageResource(0)
-        imageView.background = ContextCompat.getDrawable(imageView.context, R.drawable.bg_equipment_default)
+        imageView.background =
+            ContextCompat.getDrawable(imageView.context, R.drawable.bg_equipment_default)
     }
 }
 
@@ -35,7 +37,8 @@ fun initEquipmentImage(imageViews: List<ImageView>) {
 fun initEquipmentQuality(textViews: List<TextView>) {
     textViews.forEach { textView ->
         textView.text = textView.context.getString(R.string.label_default_quality)
-        textView.background = ContextCompat.getDrawable(textView.context, R.drawable.bg_equipment_quality_7)
+        textView.background =
+            ContextCompat.getDrawable(textView.context, R.drawable.bg_equipment_quality_7)
     }
 }
 
@@ -104,8 +107,10 @@ fun TextView.setAccessoryEffectList(equipment: Equipment) {
         var str = ""
 
         list.forEachIndexed { i, effect ->
-            str += "${effect.name} ${effect.value}"
-            if (i != list.lastIndex) str += " "
+            if (!effect.isSpecial) {
+                str += "${effect.name} ${effect.value}"
+                if (i != list.lastIndex) str += " "
+            }
         }
 
         text = str
@@ -133,4 +138,14 @@ fun ChipGroup.setAccessoryEngravingList(equipment: Equipment) {
             addView(chip)
         }
     }
+}
+
+fun getBraceletSpecialEffects(equipment: Equipment) : List<Equipment.Effect> {
+    val list = arrayListOf<Equipment.Effect>()
+
+    equipment.effects?.forEach { effect ->
+        if (effect.isSpecial) list.add(effect)
+    }
+
+    return list
 }

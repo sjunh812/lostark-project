@@ -70,7 +70,7 @@ internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
             name = dto.name,
             iconUrl = dto.icon,
             grade = dto.grade,
-            quality = mapperToEquipmentQuality(dto.type, dto.tooltip, engravingList),
+            quality = mapperToEquipmentQuality(dto.type, dto.tooltip, engravingList, effectList),
             level = level,
             setName = setInfo?.get(0) ?: "",
             setLevel = setInfo?.get(1) ?: "",
@@ -83,13 +83,16 @@ internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
 internal fun mapperToEquipmentQuality(
     type: String,
     tooltip: String,
-    engravingList: List<Equipment.Engraving>?
+    engravingList: List<Equipment.Engraving>?,
+    effectList: List<Equipment.Effect>?
 ): String {
     var quality = ""
 
     when (type) {
-        "팔찌" -> {   // 팔찌의 경우 특성 표시
-
+        "팔찌" -> {   // 팔찌의 경우 기본효과 및 전투특성 표시 → ex) 치 특 힘
+            effectList?.forEach { effect ->
+                if (!effect.isSpecial) quality += "${effect.name[0]} "
+            }
         }
         "어빌리티 스톤" -> {  // 어빌리티 스톤의 경우 세공 결과 표시
             engravingList?.let { engravings ->
@@ -186,6 +189,44 @@ internal fun mapperToAccessoryEffectList(
     var index = tooltip.indexOf("Element_001")
 
     return when (type) {
+        "팔찌" -> {
+            index = tooltip.indexOf("</img>")
+
+            while (index != -1) {
+                var i = index + 6
+                var str = ""
+
+                while (!str.contains("<img") && !str.contains("\"\r\n")) {
+                    str += tooltip[i++]
+                }
+                str = str.trim()
+
+                var name: String = ""
+                var value: String   = ""
+                var special: Boolean = false
+
+                if (str.startsWith("[")) {
+                    val end = str.indexOf("]")
+                    name = str.substring(1, end)
+                    value = str.substring(end + 2).replace("<BR><img", "")
+                    special = true
+                } else {
+                    name = str.split(" ")[0]
+                    val valueCandidate = str.split(" ")[1].substring(1)
+                    for (j in valueCandidate.indices) {
+                        if (valueCandidate[j].isDigit()) value += valueCandidate[j]
+                    }
+                    special = false
+                }
+
+
+                list.add(Equipment.Effect(name, value, special))
+                println("xxx 팔찌 : $list")
+                index = tooltip.indexOf("</img>", index + 1)
+            }
+
+            list
+        }
         "목걸이", "귀걸이", "반지", "어빌리티 스톤" -> {
             var start = 0
             val last = if (type == "어빌리티 스톤") 1 else 2
@@ -196,8 +237,7 @@ internal fun mapperToAccessoryEffectList(
                     var str = ""
 
                     while (tooltip[i] != '"') {
-                        str += tooltip[i]
-                        i++
+                        str += tooltip[i++]
                     }
 
                     str.split("<BR>").forEach { effect ->
