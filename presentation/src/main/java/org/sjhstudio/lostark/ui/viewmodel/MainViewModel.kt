@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
     val collapseAccessory = _collapseAccessory.asStateFlow()
 
     init {
-        search("신묘한하나")
+        search("아가벽력일섬")
     }
 
     fun search(characterName: String) {

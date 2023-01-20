@@ -12,6 +12,7 @@ import org.sjhstudio.lostark.base.BaseActivity
 import org.sjhstudio.lostark.databinding.ActivityMainBinding
 import org.sjhstudio.lostark.domain.model.response.Equipment
 import org.sjhstudio.lostark.domain.model.response.Profile
+import org.sjhstudio.lostark.ui.adatper.BraceletEffectAdapter
 import org.sjhstudio.lostark.ui.adatper.EngravingAdapter
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
 import org.sjhstudio.lostark.util.*
@@ -21,6 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mainViewModel: MainViewModel by viewModels()
     private val engravingAdapter: EngravingAdapter by lazy { EngravingAdapter() }
+    private val braceletEffectAdapter: BraceletEffectAdapter by lazy { BraceletEffectAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun initView() {
         with(binding) {
             layoutProfile.rvEngraving.adapter = engravingAdapter
+            layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
@@ -250,7 +253,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     }
                     "팔찌" -> {
                         ivBracelet.setEquipmentImage(equipment)
+                        tvBraceletQuality.setEquipmentQuality(equipment)
                         ivBraceletDetail.setEquipmentImage(equipment)
+                        tvBraceletDetailQuality.setEquipmentQuality(equipment)
+                        tvBraceletEffect.setAccessoryEffectList(equipment)
+                        braceletEffectAdapter.submitList(getBraceletSpecialEffects(equipment))
                         tvBraceletName.text = equipment.name
                     }
                     "어빌리티 스톤" -> {
