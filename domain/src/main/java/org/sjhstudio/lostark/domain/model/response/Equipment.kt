@@ -6,9 +6,9 @@ data class Equipment(
     val iconUrl: String,    // 이미지 url
     val grade: String,  // 등급
     val quality: String,    // 품질
-    val level: String,  // 레벨(악세제외)
-    val setName: String,    // 세트 이름(악세제외)
-    val setLevel: String,   // 세트 레벨(악세제외)
+    val level: String,  // 레벨(장비)
+    val setName: String,    // 세트 이름(장비)
+    val setLevel: String,   // 세트 레벨(장비)
     val summary: String,    // 요약
     val engravings: List<Engraving>? = null, // 악세 각인 리스트(마지막 원소는 감소 각인 효과)
     val effects: List<Effect>? = null   // 악세 효과 리스트

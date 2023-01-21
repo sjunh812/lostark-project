@@ -6,7 +6,7 @@ data class Profile(
     val pvpGradeName: String,   // PvP 등급
     val townLevel: String, // 영지 레벨
     val townName: String,  // 영지명
-    val title: String?,  // 칭호
+    val title: String,  // 칭호
     val guildMemberGrade: String,   // 길드 맴버 등급
     val guildName: String,  // 길드명
     val stats: List<Stat>,  // 특성

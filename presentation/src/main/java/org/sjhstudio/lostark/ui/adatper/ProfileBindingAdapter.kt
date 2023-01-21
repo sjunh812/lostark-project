@@ -8,6 +8,6 @@ import androidx.databinding.BindingAdapter
 @BindingAdapter(value = ["townLevel", "townName"])
 fun TextView.bindTownFullName(townLevel: String?, townName: String?) {
     if (!townLevel.isNullOrEmpty() && !townName.isNullOrEmpty()) {
-        text = "Lv.$townLevel $townName"
+        text = if (townLevel != "null") "Lv.$townLevel $townName" else townName
     }
 }

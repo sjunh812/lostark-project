@@ -64,6 +64,7 @@
                 layout="@layout/layout_equipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:equipmentMap="@{viewModel.equipment.data}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_profile" />

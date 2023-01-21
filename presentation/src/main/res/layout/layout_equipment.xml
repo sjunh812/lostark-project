@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="java.util.HashMap" />
+
+        <import type="org.sjhstudio.lostark.domain.model.response.Equipment" />
+
+        <variable
+            name="equipmentMap"
+            type="HashMap&lt;String, Equipment>" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -78,6 +89,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`무기`}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,9 +104,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_weapon"
                     app:layout_constraintStart_toStartOf="@id/iv_weapon"
                     app:layout_constraintTop_toBottomOf="@id/iv_weapon"
+                    app:qualityType="@{`무기`}"
                     tools:text="94" />
 
                 <TextView
@@ -108,9 +123,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/tv_weapon_quality"
                     app:layout_constraintStart_toStartOf="@id/tv_weapon_quality"
                     app:layout_constraintTop_toBottomOf="@id/tv_weapon_quality"
+                    app:summaryType="@{`무기`}"
                     tools:text="무기 20" />
 
                 <ImageView
@@ -122,6 +139,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`투구`}"
                     app:layout_constraintStart_toEndOf="@id/iv_weapon"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,9 +154,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_head"
                     app:layout_constraintStart_toStartOf="@id/iv_head"
                     app:layout_constraintTop_toBottomOf="@id/iv_head"
+                    app:qualityType="@{`투구`}"
                     tools:text="94" />
 
                 <TextView
@@ -152,9 +173,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/tv_head_quality"
                     app:layout_constraintStart_toStartOf="@id/tv_head_quality"
                     app:layout_constraintTop_toBottomOf="@id/tv_head_quality"
+                    app:summaryType="@{`투구`}"
                     tools:text="투구 18" />
 
                 <ImageView
@@ -166,6 +189,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`어깨`}"
                     app:layout_constraintStart_toEndOf="@id/iv_head"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -179,9 +204,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_shoulder"
                     app:layout_constraintStart_toStartOf="@id/iv_shoulder"
                     app:layout_constraintTop_toBottomOf="@id/iv_shoulder"
+                    app:qualityType="@{`어깨`}"
                     tools:text="94" />
 
                 <TextView
@@ -196,9 +223,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/tv_shoulder_quality"
                     app:layout_constraintStart_toStartOf="@id/tv_shoulder_quality"
                     app:layout_constraintTop_toBottomOf="@id/tv_shoulder_quality"
+                    app:summaryType="@{`어깨`}"
                     tools:text="견갑 18" />
 
                 <ImageView
@@ -210,6 +239,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`상의`}"
                     app:layout_constraintStart_toEndOf="@id/iv_shoulder"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -223,9 +254,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_top"
                     app:layout_constraintStart_toStartOf="@id/iv_top"
                     app:layout_constraintTop_toBottomOf="@id/iv_top"
+                    app:qualityType="@{`상의`}"
                     tools:text="94" />
 
                 <TextView
@@ -240,9 +273,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/tv_top_quality"
                     app:layout_constraintStart_toStartOf="@id/tv_top_quality"
                     app:layout_constraintTop_toBottomOf="@id/tv_top_quality"
+                    app:summaryType="@{`상의`}"
                     tools:text="상의 18" />
 
                 <ImageView
@@ -254,6 +289,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`하의`}"
                     app:layout_constraintStart_toEndOf="@id/iv_top"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -267,9 +304,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_bottom"
                     app:layout_constraintStart_toStartOf="@id/iv_bottom"
                     app:layout_constraintTop_toBottomOf="@id/iv_bottom"
+                    app:qualityType="@{`하의`}"
                     tools:text="94" />
 
                 <TextView
@@ -284,9 +323,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/tv_bottom_quality"
                     app:layout_constraintStart_toStartOf="@id/tv_bottom_quality"
                     app:layout_constraintTop_toBottomOf="@id/tv_bottom_quality"
+                    app:summaryType="@{`하의`}"
                     tools:text="하의 18" />
 
                 <ImageView
@@ -298,6 +339,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`장갑`}"
                     app:layout_constraintStart_toEndOf="@id/iv_bottom"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -311,9 +354,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_glove"
                     app:layout_constraintStart_toStartOf="@id/iv_glove"
                     app:layout_constraintTop_toBottomOf="@id/iv_glove"
+                    app:qualityType="@{`장갑`}"
                     tools:text="94" />
 
                 <TextView
@@ -328,9 +373,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/tv_glove_quality"
                     app:layout_constraintStart_toStartOf="@id/tv_glove_quality"
                     app:layout_constraintTop_toBottomOf="@id/tv_glove_quality"
+                    app:summaryType="@{`장갑`}"
                     tools:text="장갑 18" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -352,6 +399,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`무기`}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -365,9 +414,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_weapon_detail"
                     app:layout_constraintStart_toStartOf="@id/iv_weapon_detail"
                     app:layout_constraintTop_toBottomOf="@id/iv_weapon_detail"
+                    app:qualityType="@{`무기`}"
                     tools:text="94" />
 
                 <TextView
@@ -378,10 +429,12 @@
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toTopOf="@id/tv_weapon_set"
                     app:layout_constraintStart_toEndOf="@id/iv_weapon_detail"
                     app:layout_constraintTop_toTopOf="@id/iv_weapon_detail"
                     app:layout_constraintVertical_chainStyle="packed"
+                    app:nameType="@{`무기`}"
                     tools:text="+20 분열한 환각의 절규 우산" />
 
                 <TextView
@@ -396,9 +449,11 @@
                     android:paddingVertical="2dp"
                     android:textColor="@color/gray_e2"
                     android:textSize="10dp"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_weapon_detail_quality"
                     app:layout_constraintStart_toEndOf="@id/iv_weapon_detail"
                     app:layout_constraintTop_toBottomOf="@id/tv_weapon_name"
+                    app:setType="@{`무기`}"
                     tools:text="환각 Lv.2" />
 
                 <ImageView
@@ -409,6 +464,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`투구`}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_weapon_detail_quality" />
 
@@ -422,9 +479,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_head_detail"
                     app:layout_constraintStart_toStartOf="@id/iv_head_detail"
                     app:layout_constraintTop_toBottomOf="@id/iv_head_detail"
+                    app:qualityType="@{`투구`}"
                     tools:text="94" />
 
                 <TextView
@@ -435,10 +494,12 @@
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toTopOf="@id/tv_head_set"
                     app:layout_constraintStart_toEndOf="@id/iv_head_detail"
                     app:layout_constraintTop_toTopOf="@id/iv_head_detail"
                     app:layout_constraintVertical_chainStyle="packed"
+                    app:nameType="@{`투구`}"
                     tools:text="+18 분열한 환각의 절규 머리장식" />
 
                 <TextView
@@ -453,9 +514,11 @@
                     android:paddingVertical="2dp"
                     android:textColor="@color/gray_e2"
                     android:textSize="10dp"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_head_detail_quality"
                     app:layout_constraintStart_toEndOf="@id/iv_head_detail"
                     app:layout_constraintTop_toBottomOf="@id/tv_head_name"
+                    app:setType="@{`투구`}"
                     tools:text="환각 Lv.2" />
 
                 <ImageView
@@ -466,6 +529,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`어깨`}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_head_detail_quality" />
 
@@ -479,9 +544,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_shoulder_detail"
                     app:layout_constraintStart_toStartOf="@id/iv_shoulder_detail"
                     app:layout_constraintTop_toBottomOf="@id/iv_shoulder_detail"
+                    app:qualityType="@{`어깨`}"
                     tools:text="94" />
 
                 <TextView
@@ -492,10 +559,12 @@
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toTopOf="@id/tv_shoulder_set"
                     app:layout_constraintStart_toEndOf="@id/iv_shoulder_detail"
                     app:layout_constraintTop_toTopOf="@id/iv_shoulder_detail"
                     app:layout_constraintVertical_chainStyle="packed"
+                    app:nameType="@{`어깨`}"
                     tools:text="+18 분열한 환각의 절규 어깨장식" />
 
                 <TextView
@@ -510,9 +579,11 @@
                     android:paddingVertical="2dp"
                     android:textColor="@color/gray_e2"
                     android:textSize="10dp"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_shoulder_detail_quality"
                     app:layout_constraintStart_toEndOf="@id/iv_shoulder_detail"
                     app:layout_constraintTop_toBottomOf="@id/tv_shoulder_name"
+                    app:setType="@{`어깨`}"
                     tools:text="환각 Lv.2" />
 
                 <ImageView
@@ -523,6 +594,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`상의`}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_shoulder_detail_quality" />
 
@@ -536,9 +609,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_top_detail"
                     app:layout_constraintStart_toStartOf="@id/iv_top_detail"
                     app:layout_constraintTop_toBottomOf="@id/iv_top_detail"
+                    app:qualityType="@{`상의`}"
                     tools:text="94" />
 
                 <TextView
@@ -549,10 +624,12 @@
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toTopOf="@id/tv_top_set"
                     app:layout_constraintStart_toEndOf="@id/iv_top_detail"
                     app:layout_constraintTop_toTopOf="@id/iv_top_detail"
                     app:layout_constraintVertical_chainStyle="packed"
+                    app:nameType="@{`상의`}"
                     tools:text="+18 분열한 환각의 절규 상의" />
 
                 <TextView
@@ -567,9 +644,11 @@
                     android:paddingVertical="2dp"
                     android:textColor="@color/gray_e2"
                     android:textSize="10dp"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_top_detail_quality"
                     app:layout_constraintStart_toEndOf="@id/iv_top_detail"
                     app:layout_constraintTop_toBottomOf="@id/tv_top_name"
+                    app:setType="@{`상의`}"
                     tools:text="환각 Lv.2" />
 
                 <ImageView
@@ -580,6 +659,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`하의`}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_top_detail_quality" />
 
@@ -593,9 +674,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_bottom_detail"
                     app:layout_constraintStart_toStartOf="@id/iv_bottom_detail"
                     app:layout_constraintTop_toBottomOf="@id/iv_bottom_detail"
+                    app:qualityType="@{`하의`}"
                     tools:text="94" />
 
                 <TextView
@@ -606,10 +689,12 @@
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toTopOf="@id/tv_bottom_set"
                     app:layout_constraintStart_toEndOf="@id/iv_bottom_detail"
                     app:layout_constraintTop_toTopOf="@id/iv_bottom_detail"
                     app:layout_constraintVertical_chainStyle="packed"
+                    app:nameType="@{`하의`}"
                     tools:text="+18 분열한 환각의 절규 하의" />
 
                 <TextView
@@ -624,9 +709,11 @@
                     android:paddingVertical="2dp"
                     android:textColor="@color/gray_e2"
                     android:textSize="10dp"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_bottom_detail_quality"
                     app:layout_constraintStart_toEndOf="@id/iv_bottom_detail"
                     app:layout_constraintTop_toBottomOf="@id/tv_bottom_name"
+                    app:setType="@{`하의`}"
                     tools:text="환각 Lv.2" />
 
                 <ImageView
@@ -637,6 +724,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:equipmentMap="@{equipmentMap}"
+                    app:imageType="@{`장갑`}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_bottom_detail_quality" />
 
@@ -650,9 +739,11 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_glove_detail"
                     app:layout_constraintStart_toStartOf="@id/iv_glove_detail"
                     app:layout_constraintTop_toBottomOf="@id/iv_glove_detail"
+                    app:qualityType="@{`장갑`}"
                     tools:text="94" />
 
                 <TextView
@@ -663,10 +754,12 @@
                     android:textColor="@color/white"
                     android:textSize="13dp"
                     android:textStyle="bold"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toTopOf="@id/tv_glove_set"
                     app:layout_constraintStart_toEndOf="@id/iv_glove_detail"
                     app:layout_constraintTop_toTopOf="@id/iv_glove_detail"
                     app:layout_constraintVertical_chainStyle="packed"
+                    app:nameType="@{`장갑`}"
                     tools:text="+18 분열한 환각의 절규 장갑" />
 
                 <TextView
@@ -681,9 +774,11 @@
                     android:paddingVertical="2dp"
                     android:textColor="@color/gray_e2"
                     android:textSize="10dp"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintBottom_toBottomOf="@id/tv_glove_detail_quality"
                     app:layout_constraintStart_toEndOf="@id/iv_glove_detail"
                     app:layout_constraintTop_toBottomOf="@id/tv_glove_name"
+                    app:setType="@{`장갑`}"
                     tools:text="환각 Lv.2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -738,6 +833,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:imageType="@{`목걸이`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -751,6 +848,8 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:qualityType="@{`목걸이`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_necklace"
                     app:layout_constraintStart_toStartOf="@id/iv_necklace"
                     app:layout_constraintTop_toBottomOf="@id/iv_necklace"
@@ -782,6 +881,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:imageType="@{`귀걸이`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintStart_toEndOf="@id/iv_necklace"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -795,6 +896,8 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:qualityType="@{`귀걸이`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_earring1"
                     app:layout_constraintStart_toStartOf="@id/iv_earring1"
                     app:layout_constraintTop_toBottomOf="@id/iv_earring1"
@@ -809,6 +912,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:imageType="@{`귀걸이2`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintStart_toEndOf="@id/iv_earring1"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -822,6 +927,8 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:qualityType="@{`귀걸이2`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_earring2"
                     app:layout_constraintStart_toStartOf="@id/iv_earring2"
                     app:layout_constraintTop_toBottomOf="@id/iv_earring2"
@@ -840,6 +947,8 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:summaryType="@{`귀걸이2`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/tv_earring2_quality"
                     app:layout_constraintStart_toStartOf="@id/tv_earring1_quality"
                     app:layout_constraintTop_toBottomOf="@id/tv_earring2_quality" />
@@ -853,6 +962,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:imageType="@{`반지`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintStart_toEndOf="@id/iv_earring2"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -866,6 +977,8 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:qualityType="@{`반지`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_ring1"
                     app:layout_constraintStart_toStartOf="@id/iv_ring1"
                     app:layout_constraintTop_toBottomOf="@id/iv_ring1"
@@ -880,6 +993,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:imageType="@{`반지2`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintStart_toEndOf="@id/tv_ring1_quality"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -893,6 +1008,8 @@
                     android:textColor="@color/white"
                     android:textSize="10dp"
                     android:textStyle="bold"
+                    app:qualityType="@{`반지2`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintEnd_toEndOf="@id/iv_ring2"
                     app:layout_constraintStart_toStartOf="@id/iv_ring2"
                     app:layout_constraintTop_toBottomOf="@id/iv_ring2"
@@ -924,6 +1041,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:imageType="@{`팔찌`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintStart_toEndOf="@id/tv_ring2_quality"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -968,6 +1087,8 @@
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
+                    app:imageType="@{`어빌리티 스톤`}"
+                    app:equipmentMap="@{equipmentMap}"
                     app:layout_constraintStart_toEndOf="@id/iv_bracelet"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -1402,6 +1523,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:layout_marginTop="10dp"
+                    android:minHeight="15dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_bracelet_detail"

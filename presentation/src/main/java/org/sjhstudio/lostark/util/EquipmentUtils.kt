@@ -24,7 +24,7 @@ data class EquipmentSet(
     }
 }
 
-// 장비, 장신구 이미지 초기화
+// 장비, 악세 이미지 초기화
 fun initEquipmentImage(imageViews: List<ImageView>) {
     imageViews.forEach { imageView ->
         imageView.setImageResource(0)
@@ -33,7 +33,7 @@ fun initEquipmentImage(imageViews: List<ImageView>) {
     }
 }
 
-// 장비, 장신구 품질 초기화
+// 장비, 악세 품질 초기화
 fun initEquipmentQuality(textViews: List<TextView>) {
     textViews.forEach { textView ->
         textView.text = textView.context.getString(R.string.label_default_quality)
@@ -41,6 +41,15 @@ fun initEquipmentQuality(textViews: List<TextView>) {
             ContextCompat.getDrawable(textView.context, R.drawable.bg_equipment_quality_7)
     }
 }
+
+// 장비, 악세 TextView 초기화
+fun initEquipmentTextView(textViews: List<TextView>) {
+    textViews.forEach { textView ->
+        textView.text = ""
+    }
+}
+
+// 장비
 
 fun ImageView.setEquipmentImage(equipment: Equipment) {
     background = when (equipment.grade) {
@@ -104,12 +113,13 @@ fun getEquipmentSetSummary(list: MutableList<EquipmentSet>): String {
 
 fun TextView.setAccessoryEffectList(equipment: Equipment) {
     equipment.effects?.let { list ->
+        isVisible = true
         var str = ""
 
         list.forEachIndexed { i, effect ->
             if (!effect.isSpecial) {
                 str += "${effect.name} ${effect.value}"
-                if (i != list.lastIndex) str += " "
+                if (i != list.lastIndex) str += "  "
             }
         }
 

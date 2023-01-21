@@ -5,6 +5,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import org.sjhstudio.lostark.R
@@ -44,7 +45,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
-                if (actionId == EditorInfo.IME_ACTION_DONE) mainViewModel.search(inputNickname)
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    initEngravingView()
+                    mainViewModel.search(inputNickname)
+                }
                 false
             }
             layoutEquipment.layoutEquipment.setOnClickListener { mainViewModel.changeEquipmentDetail() }
@@ -59,10 +63,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             println("xxx 프로필 불러오기 성공!!")
-                            binding.layoutProfile.container.isVisible = true
                             updateStatView(result.data?.stats)
+                            binding.layoutProfile.executePendingBindings()
+                            binding.layoutProfile.container.isVisible = true
                         } else {
                             println("xxx 프로필 불러오기 실패..")
+                            addSearchFailCount()
                             binding.layoutProfile.container.isVisible = false
                         }
                     }
@@ -74,6 +80,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             println("xxx 각인 불러오기 성공!!")
+                            binding.layoutProfile.executePendingBindings()
                             engravingAdapter.submitList(result.data?.effects)
                         } else {
                             println("xxx 각인 불러오기 실패..")
@@ -89,9 +96,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             println("xxx 장비 불러오기 성공!!")
                             println("xxx equipment list : ${result.data}")
                             binding.layoutEquipment.container.isVisible = true
-                            updateEquipmentView(result.data)
+//                            updateEquipmentView(result.data)
                         } else {
                             println("xxx 장비 불러오기 실패..")
+                            addSearchFailCount()
                             binding.layoutEquipment.container.isVisible = false
                         }
                     }
@@ -109,6 +117,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 collapseAccessory.collectLatest { collapse ->
                     binding.layoutEquipment.layoutAccessorySummary.isVisible = collapse
                     binding.layoutEquipment.layoutAccessoryDetail.isVisible = !collapse
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
+                searchFailCount.collectLatest { count ->
+                    if (count >= 2) Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
                 }
             }
         }
@@ -280,7 +294,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    fun initEquipmentView() {
+    private fun initEngravingView() {
+        with(binding.layoutProfile) {
+            engravingAdapter.submitList(null)
+            ivEngravingSlot1.setImageResource(0)
+            ivEngravingSlot2.setImageResource(0)
+        }
+    }
+
+    private fun initEquipmentView() {
         with(binding.layoutEquipment) {
             initEquipmentImage(
                 listOf(
@@ -296,6 +318,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     tvTopQuality, tvTopDetailQuality, tvBottomQuality, tvBottomDetailQuality, tvGloveQuality, tvGloveDetailQuality,
                     tvNecklaceQuality, tvNecklaceDetailQuality, tvEarring1Quality, tvEarring1DetailQuality, tvEarring2Quality, tvEarring2DetailQuality,
                     tvRing1Quality, tvRing1DetailQuality, tvRing2Quality, tvRing2DetailQuality, tvBraceletQuality, tvBraceletDetailQuality, tvStoneQuality, tvStoneDetailQuality
+                )
+            )
+            initEquipmentTextView(
+                listOf(
+                    tvWeaponName, tvHeadName, tvShoulderName, tvTopName, tvBottomName, tvGloveName,
+                    tvNecklaceName, tvEarring1Name, tvEarring2Name, tvRing1Name, tvRing2Name, tvBraceletName, tvStoneName,
+                    tvNecklaceEffect, tvEarring1Effect, tvEarring2Effect, tvRing1Effect, tvRing2Effect, tvBraceletEffect, tvBraceletQuality
                 )
             )
         }
