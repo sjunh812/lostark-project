@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.sjhstudio.lostark.data.mapperToEngraving
 import org.sjhstudio.lostark.data.mapperToEquipmentList
+import org.sjhstudio.lostark.data.mapperToEquipmentMap
 import org.sjhstudio.lostark.data.mapperToProfile
 import org.sjhstudio.lostark.data.source.ArmoryDataSource
 import org.sjhstudio.lostark.domain.model.LostArkApiResult
@@ -39,12 +40,12 @@ internal class ArmoryRepositoryImpl @Inject constructor(
             emit(apiResult)
         }
 
-    override suspend fun getEquipment(characterName: String): Flow<LostArkApiResult<List<Equipment>>> =
+    override suspend fun getEquipment(characterName: String): Flow<LostArkApiResult<HashMap<String, Equipment>>> =
         flow {
             val equipmentListDto = armoryDataSource.getEquipment(characterName)
             val apiResult = LostArkApiResult(
                 success = equipmentListDto != null,
-                data = equipmentListDto?.let { dto -> mapperToEquipmentList(dto) }
+                data = equipmentListDto?.let { dto -> mapperToEquipmentMap(dto) }
             )
 
             emit(apiResult)

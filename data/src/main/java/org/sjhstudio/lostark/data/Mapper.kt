@@ -10,12 +10,12 @@ import org.sjhstudio.lostark.domain.model.response.Profile
 // 프로필 매핑
 internal fun mapperToProfile(profileDto: ProfileDto) =
     Profile(
-        characterImageUrl = profileDto.characterImage,
+        characterImageUrl = profileDto.characterImage ?: "",
         expeditionLevel = profileDto.expeditionLevel.toString(),
         pvpGradeName = profileDto.pvpGradeName,
         townLevel = profileDto.townLevel.toString(),
         townName = profileDto.townName,
-        title = profileDto.title,
+        title = profileDto.title ?: "",
         guildMemberGrade = profileDto.guildMemberGrade ?: "",
         guildName = profileDto.guildName ?: "",
         stats = profileDto.stats.map { statDto ->
@@ -57,6 +57,36 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
             )
         }
     )
+
+internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, Equipment> {
+    val map = hashMapOf<String, Equipment>()
+
+    dtoList.forEach { dto ->
+        var type = dto.type
+        val level = mapperToEquipmentLevel(dto.type, dto.name)
+        val setInfo = mapperToEquipmentSet(dto.tooltip)
+        val engravingList = mapperToAccessoryEngravingList(dto.type, dto.tooltip)
+        val effectList = mapperToAccessoryEffectList(dto.type, dto.tooltip)
+
+        if (map.containsKey(dto.type)) type = "${dto.type}2"
+
+        map[type] = Equipment(
+            type = dto.type,
+            name = dto.name,
+            iconUrl = dto.icon,
+            grade = dto.grade,
+            quality = mapperToEquipmentQuality(dto.type, dto.tooltip, engravingList, effectList),
+            level = level,
+            setName = setInfo?.get(0) ?: "",
+            setLevel = setInfo?.get(1) ?: "",
+            summary = mapperToEquipmentSummary(dto.type, level),
+            engravings = engravingList,
+            effects = effectList
+        )
+    }
+
+    return map
+}
 
 // 장비(악세 포함) 매핑
 internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
@@ -211,10 +241,16 @@ internal fun mapperToAccessoryEffectList(
                     value = str.substring(end + 2).replace("<BR><img", "")
                     special = true
                 } else {
-                    name = str.split(" ")[0]
-                    val valueCandidate = str.split(" ")[1].substring(1)
-                    for (j in valueCandidate.indices) {
-                        if (valueCandidate[j].isDigit()) value += valueCandidate[j]
+                    val words = str.split(" ")
+                    words.forEachIndexed { idx, word ->
+                        if (idx != words.lastIndex) {
+                            name += word
+                        } else {
+                            val valueCandidate = word.substring(1)
+                            for (j in valueCandidate.indices) {
+                                if (valueCandidate[j].isDigit()) value += valueCandidate[j]
+                            }
+                        }
                     }
                     special = false
                 }

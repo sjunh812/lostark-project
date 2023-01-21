@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(
     private var _engraving = MutableStateFlow<LostArkApiResult<Engraving>?>(null)
     val engraving = _engraving.asStateFlow()
 
-    private var _equipment = MutableStateFlow<LostArkApiResult<List<Equipment>>?>(null)
+    private var _equipment = MutableStateFlow<LostArkApiResult<HashMap<String, Equipment>>?>(null)
     val equipment = _equipment.asStateFlow()
 
     private var _collapseEquipment = MutableStateFlow<Boolean>(true)
@@ -32,16 +32,28 @@ class MainViewModel @Inject constructor(
     private var _collapseAccessory = MutableStateFlow<Boolean>(true)
     val collapseAccessory = _collapseAccessory.asStateFlow()
 
+    private var _searchFailCount = MutableStateFlow<Int>(0)
+    val searchFailCount = _searchFailCount.asStateFlow()
+
     init {
-        search("아가벽력일섬")
+        search("백두사단")    // 캐릭터 검색
     }
 
     fun search(characterName: String) {
-        getProfile(characterName)
-        getEngraving(characterName)
-        getEquipment(characterName)
-        changeEquipmentDetail(true)
-        changeAccessoryDetail(true)
+        initSearchFailCount()    // 검색 실패횟수 초기화
+        getProfile(characterName)   // 프로필
+        getEngraving(characterName) // 각인
+        getEquipment(characterName) // 장비
+        changeEquipmentDetail(true) // 장비세부창 접기
+        changeAccessoryDetail(true) // 악세세부창 접기
+    }
+
+    fun initSearchFailCount() = viewModelScope.launch {
+        _searchFailCount.emit(0)
+    }
+
+    fun addSearchFailCount() = viewModelScope.launch {
+        _searchFailCount.emit(searchFailCount.value + 1)
     }
 
     fun getProfile(characterName: String) = viewModelScope.launch {

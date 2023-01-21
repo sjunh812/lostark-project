@@ -12,5 +12,5 @@ interface ArmoryRepository {
 
     suspend fun getEngraving(characterName: String): Flow<LostArkApiResult<Engraving>>
 
-    suspend fun getEquipment(characterName: String): Flow<LostArkApiResult<List<Equipment>>>
+    suspend fun getEquipment(characterName: String): Flow<LostArkApiResult<HashMap<String, Equipment>>>
 }

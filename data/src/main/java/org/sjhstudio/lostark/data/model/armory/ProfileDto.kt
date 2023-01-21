@@ -5,10 +5,10 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 internal data class ProfileDto(
-    @Json(name = "CharacterImage") val characterImage: String,
+    @Json(name = "CharacterImage") val characterImage: String?,
     @Json(name = "ExpeditionLevel") val expeditionLevel: Int,
     @Json(name = "PvpGradeName") val pvpGradeName: String,
-    @Json(name = "TownLevel") val townLevel: Int,
+    @Json(name = "TownLevel") val townLevel: Int?,
     @Json(name = "TownName") val townName: String,
     @Json(name = "Title") val title: String?,
     @Json(name = "GuildMemberGrade") val guildMemberGrade: String?,
