@@ -46,7 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    initEngravingView()
+                    initAdapter()
                     mainViewModel.search(inputNickname)
                 }
                 false
@@ -95,7 +95,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         if (result.success) {
                             println("xxx 장비 불러오기 성공!!")
                             println("xxx equipment list : ${result.data}")
-                            binding.layoutEquipment.container.isVisible = true
+
+                            result.data?.let { equipmentMap ->
+                                if (equipmentMap.containsKey("팔찌")) {
+                                    val effectList = result.data!!["팔찌"]?.effects
+                                    braceletEffectAdapter.submitList(effectList?.filter { effect -> effect.isSpecial })
+                                }
+                                binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(equipmentMap)
+                                binding.layoutEquipment.container.isVisible = true
+                            }
 //                            updateEquipmentView(result.data)
                         } else {
                             println("xxx 장비 불러오기 실패..")
@@ -146,9 +154,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    private fun initAdapter() {
+        engravingAdapter.submitList(null)
+        braceletEffectAdapter.submitList(null)
+    }
+
     // 장비 갱신
-    private fun updateEquipmentView(equipments: List<Equipment>?) {
-        initEquipmentView()
+/*    private fun updateEquipmentView(equipments: List<Equipment>?) {
         with(binding.layoutEquipment) {
             val equipmentSetList = arrayListOf<EquipmentSet>()
             var firstEarring = true
@@ -328,5 +340,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 )
             )
         }
-    }
+    }*/
 }
