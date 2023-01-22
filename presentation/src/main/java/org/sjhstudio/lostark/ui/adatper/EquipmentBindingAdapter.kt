@@ -7,6 +7,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
+import com.google.android.material.chip.ChipGroup
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.domain.model.response.Equipment
 
@@ -38,10 +41,8 @@ fun ImageView.bindEquipmentImage(imageType: String, equipmentMap: HashMap<String
 fun TextView.bindEquipmentName(nameType: String, equipmentMap: HashMap<String, Equipment>?) {
     if (equipmentMap != null && equipmentMap.containsKey(nameType)) {
         text = equipmentMap[nameType]?.name
-        isVisible = true
     } else {
         text = ""
-        isVisible = false
     }
 }
 
@@ -96,6 +97,59 @@ fun TextView.bindingEquipmentSet(setType: String, equipmentMap: HashMap<String, 
     } else {
         text = ""
         isVisible = false
+    }
+}
+
+/**
+ * @description     : 악세 특성 바인딩
+ * @example         : 치명 190(특성이름 수치)
+ */
+@BindingAdapter(value = ["effectType", "equipmentMap"])
+fun TextView.bindAccessoryEffect(effectType: String, equipmentMap: HashMap<String, Equipment>?) {
+    if (equipmentMap != null && equipmentMap.containsKey(effectType)) {
+        val effectList = equipmentMap[effectType]?.effects
+        var effectText = ""
+
+        effectList?.forEachIndexed { i, effect ->
+            if (!effect.isSpecial) {
+                effectText += "${effect.name} ${effect.value}"
+                if (i != effectList.lastIndex) effectText += "  "
+            }
+        }
+
+        text = effectText
+    } else {
+        text = ""
+    }
+}
+
+/**
+ * @description     : 악세 각인 바인딩 (Chip 이용)
+ * @example         : 질풍노도 3(각인이름 활성도)
+ */
+@SuppressLint("SetTextI18n")
+@BindingAdapter(value = ["engravingType", "equipmentMap"])
+fun ChipGroup.bindAccessoryEngraving(engravingType: String, equipmentMap: HashMap<String, Equipment>?) {
+    removeAllViews()
+    if (equipmentMap != null && equipmentMap.containsKey(engravingType)) {
+        equipmentMap[engravingType]?.engravings?.let { list ->
+            list.forEach { engraving ->
+                val chip: Chip = Chip(context).apply {
+                    val drawable = ChipDrawable.createFromAttributes(
+                        context,
+                        null,
+                        0,
+                        R.style.Widget_LostArk_Chip
+                    )
+                    setChipDrawable(drawable)
+                    setTextAppearanceResource(R.style.TextAppearance_LostArk_Chip)
+                    text = "${engraving.name} ${engraving.active}"
+                    isCheckable = false
+                    isClickable = false
+                }
+                addView(chip)
+            }
+        }
     }
 }
 

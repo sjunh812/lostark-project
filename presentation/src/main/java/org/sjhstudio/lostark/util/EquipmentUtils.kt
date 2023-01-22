@@ -24,6 +24,35 @@ data class EquipmentSet(
     }
 }
 
+fun TextView.setEquipmentSetSummary(equipmentMap: HashMap<String, Equipment>) {
+    val setList = arrayListOf<EquipmentSet>()
+    var setSummary = ""
+
+    for (equipment in equipmentMap.values) {
+        if (equipment.type == "무기" || equipment.type == "투구" || equipment.type == "상의"
+            || equipment.type == "하의" || equipment.type == "장갑" || equipment.type == "어깨"
+        ) {
+            var addFlag = true
+
+            setList.forEach { set ->
+                if (set.setName == equipment.setName) {
+                    set.count++
+                    addFlag = false
+                }
+            }
+
+            if (addFlag) setList.add(EquipmentSet(equipment.setName, 1))
+        }
+    }
+
+    setList.forEach { set ->
+        setSummary += "${set.setName} ${set.count} "
+    }
+
+    isVisible = setSummary.isNotEmpty()
+    text = setSummary.trim()
+}
+
 // 장비, 악세 이미지 초기화
 fun initEquipmentImage(imageViews: List<ImageView>) {
     imageViews.forEach { imageView ->
@@ -150,7 +179,7 @@ fun ChipGroup.setAccessoryEngravingList(equipment: Equipment) {
     }
 }
 
-fun getBraceletSpecialEffects(equipment: Equipment) : List<Equipment.Effect> {
+fun getBraceletSpecialEffect(equipment: Equipment) : List<Equipment.Effect> {
     val list = arrayListOf<Equipment.Effect>()
 
     equipment.effects?.forEach { effect ->

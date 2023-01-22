@@ -7,7 +7,9 @@ import org.sjhstudio.lostark.domain.model.response.Engraving
 import org.sjhstudio.lostark.domain.model.response.Equipment
 import org.sjhstudio.lostark.domain.model.response.Profile
 
-// 프로필 매핑
+/**
+ * @description     : 프로필 매핑
+ */
 internal fun mapperToProfile(profileDto: ProfileDto) =
     Profile(
         characterImageUrl = profileDto.characterImage ?: "",
@@ -39,7 +41,9 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
         itemLevel = profileDto.itemAvgLevel
     )
 
-// 각인 매핑
+/**
+ * @description     : 각인 매핑
+ */
 internal fun mapperToEngraving(engravingDto: EngravingDto) =
     Engraving(
         slots = engravingDto.engravings.map { slotDto ->
@@ -58,6 +62,10 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
         }
     )
 
+/**
+ * @description     : 장비 매핑
+ * @return          : HashMap<`타입(String)`, `(장비)Equipment`>
+ */
 internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, Equipment> {
     val map = hashMapOf<String, Equipment>()
 
@@ -88,28 +96,12 @@ internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, 
     return map
 }
 
-// 장비(악세 포함) 매핑
-internal fun mapperToEquipmentList(dtoList: List<EquipmentDto>) =
-    dtoList.map { dto ->
-        val level = mapperToEquipmentLevel(dto.type, dto.name)
-        val setInfo = mapperToEquipmentSet(dto.tooltip)
-        val engravingList = mapperToAccessoryEngravingList(dto.type, dto.tooltip)
-        val effectList = mapperToAccessoryEffectList(dto.type, dto.tooltip)
-        Equipment(
-            type = dto.type,
-            name = dto.name,
-            iconUrl = dto.icon,
-            grade = dto.grade,
-            quality = mapperToEquipmentQuality(dto.type, dto.tooltip, engravingList, effectList),
-            level = level,
-            setName = setInfo?.get(0) ?: "",
-            setLevel = setInfo?.get(1) ?: "",
-            summary = mapperToEquipmentSummary(dto.type, level),
-            engravings = engravingList,
-            effects = effectList
-        )
-    }
-
+/**
+ * @description     : 장비 품질 매핑
+ *                    - 팔찌 = 기본효과 및 전투특성 표시 ex) 치 특 힘
+ *                    - 어빌리티 스톤 = 세공결과 표시 ex) 9 7 1
+ *                    - 장비 - 품질수치 표시 ex) 99
+ */
 internal fun mapperToEquipmentQuality(
     type: String,
     tooltip: String,
@@ -119,12 +111,12 @@ internal fun mapperToEquipmentQuality(
     var quality = ""
 
     when (type) {
-        "팔찌" -> {   // 팔찌의 경우 기본효과 및 전투특성 표시 → ex) 치 특 힘
+        "팔찌" -> {
             effectList?.forEach { effect ->
                 if (!effect.isSpecial) quality += "${effect.name[0]} "
             }
         }
-        "어빌리티 스톤" -> {  // 어빌리티 스톤의 경우 세공 결과 표시
+        "어빌리티 스톤" -> {
             engravingList?.let { engravings ->
                 engravings.forEach { engraving ->
                     quality += "${engraving.active} "
@@ -145,6 +137,9 @@ internal fun mapperToEquipmentQuality(
     return quality.trim()
 }
 
+/**
+ * @description     : 장비 레벨 매핑
+ */
 internal fun mapperToEquipmentLevel(type: String, name: String): String {
     return when (type) {
         "무기", "투구", "어깨", "상의", "하의", "장갑" -> name.split(" ")[0].substring(1)
@@ -152,6 +147,9 @@ internal fun mapperToEquipmentLevel(type: String, name: String): String {
     }
 }
 
+/**
+ * @description     : 장비 별 세트 정보 매핑
+ */
 internal fun mapperToEquipmentSet(tooltip: String): ArrayList<String>? {
     val set = arrayListOf<String>()
     val startIndexOfWord = tooltip.indexOf("Lv.")
@@ -166,14 +164,21 @@ internal fun mapperToEquipmentSet(tooltip: String): ArrayList<String>? {
     }
 }
 
+/**
+ * @description     : 장비(악세 제외) 요약 매핑
+ *                    종류 + 장비로 표현 ex) 무기 25
+ */
 internal fun mapperToEquipmentSummary(type: String, level: String): String {
     var summary = type
     if (level != "-1") summary += " $level"
     return summary
 }
 
-// 악세(어빌리티 스톤 포함)에 부여된 각인 효과 매핑
-// 감소 효과 각인은 리스트의 마지막 원소로 삽입!
+/**
+ * @description     : 악세 각인 매핑
+ *                    악세(어빌리티 스톤 포함)에 부여된 각인 효과를 매핑하며
+ *                    감소 효과 각인의 경우 리스트의 마지막 원소로 삽입!
+ */
 internal fun mapperToAccessoryEngravingList(
     type: String,
     tooltip: String
@@ -195,8 +200,7 @@ internal fun mapperToAccessoryEngravingList(
                         else break
                     }
                     if (nameFlag) name += tooltip[i]
-                    if (tooltip[i].isDigit()) active += tooltip[i]
-                    i++
+                    if (tooltip[i].isDigit()) active += tooltip[i++]
                 }
 
                 list.add(Equipment.Engraving(name, active))
@@ -211,11 +215,16 @@ internal fun mapperToAccessoryEngravingList(
     }
 }
 
+/**
+ * @description     : 악세 효과 매핑
+ *                    팔찌의 경우 특수효과를 포함(isSpecial = true) → 순환, 정밀..
+ *                    그 외에는 기본효과(isSpecial = false) → 치명, 특화, 힘, 체력..
+ */
 internal fun mapperToAccessoryEffectList(
     type: String,
     tooltip: String
 ): List<Equipment.Effect>? {
-    val list = arrayListOf<Equipment.Effect>()
+    val effectList = arrayListOf<Equipment.Effect>()
     var index = tooltip.indexOf("Element_001")
 
     return when (type) {
@@ -229,10 +238,10 @@ internal fun mapperToAccessoryEffectList(
                 while (!str.contains("<img") && !str.contains("\"\r\n")) {
                     str += tooltip[i++]
                 }
-                str = str.trim()
+                str = str.replace("\"\r\n", "").trim()
 
-                var name: String = ""
-                var value: String   = ""
+                var name: String = ""   // 효과
+                var value: String = ""
                 var special: Boolean = false
 
                 if (str.startsWith("[")) {
@@ -256,12 +265,12 @@ internal fun mapperToAccessoryEffectList(
                 }
 
 
-                list.add(Equipment.Effect(name, value, special))
-                println("xxx 팔찌 : $list")
+                effectList.add(Equipment.Effect(name, value, special))
                 index = tooltip.indexOf("</img>", index + 1)
+                println("xxx 팔찌 : $effectList")
             }
 
-            list
+            effectList
         }
         "목걸이", "귀걸이", "반지", "어빌리티 스톤" -> {
             var start = 0
@@ -277,7 +286,7 @@ internal fun mapperToAccessoryEffectList(
                     }
 
                     str.split("<BR>").forEach { effect ->
-                        list.add(
+                        effectList.add(
                             Equipment.Effect(
                                 name = effect.split(" +")[0],
                                 value = effect.split(" +")[1]
@@ -290,7 +299,7 @@ internal fun mapperToAccessoryEffectList(
                 index = tooltip.indexOf("Element_001", index + 1)
             }
 
-            list
+            effectList
         }
         else -> null
     }
