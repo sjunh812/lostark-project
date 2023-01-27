@@ -115,6 +115,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             lifecycleScope.launchWhenStarted {
+                gem.collectLatest { apiResult ->
+                    apiResult?.let { result ->
+                        if (result.success) {
+                            println("xxx 보석 불러오기 성공!!")
+                            println("xxx gem list : ${result.data}")
+                        } else {
+                            println("xxx 보석 불러오기 실패..")
+                        }
+                    }
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
                 collapseEquipment.collectLatest { collapse ->
                     binding.layoutEquipment.layoutEquipmentSummary.isVisible = collapse
                     binding.layoutEquipment.layoutEquipmentDetail.isVisible = !collapse
