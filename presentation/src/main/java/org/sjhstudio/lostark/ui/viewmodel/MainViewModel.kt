@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import org.sjhstudio.lostark.domain.model.LostArkApiResult
 import org.sjhstudio.lostark.domain.model.response.Engraving
 import org.sjhstudio.lostark.domain.model.response.Equipment
+import org.sjhstudio.lostark.domain.model.response.Gem
 import org.sjhstudio.lostark.domain.model.response.Profile
 import org.sjhstudio.lostark.domain.repository.ArmoryRepository
 import javax.inject.Inject
@@ -26,6 +27,9 @@ class MainViewModel @Inject constructor(
     private var _equipment = MutableStateFlow<LostArkApiResult<HashMap<String, Equipment>>?>(null)
     val equipment = _equipment.asStateFlow()
 
+    private var _gem = MutableStateFlow<LostArkApiResult<Gem>?>(null)
+    val gem = _gem.asStateFlow()
+
     private var _collapseEquipment = MutableStateFlow<Boolean>(true)
     val collapseEquipment = _collapseEquipment.asStateFlow()
 
@@ -36,7 +40,7 @@ class MainViewModel @Inject constructor(
     val searchFailCount = _searchFailCount.asStateFlow()
 
     init {
-        search("백두사단")    // 캐릭터 검색
+        search("신묘한하나")    // 캐릭터 검색
     }
 
     fun search(characterName: String) {
@@ -44,6 +48,7 @@ class MainViewModel @Inject constructor(
         getProfile(characterName)   // 프로필
         getEngraving(characterName) // 각인
         getEquipment(characterName) // 장비
+        getGem(characterName)   // 보석
         changeEquipmentDetail(true) // 장비세부창 접기
         changeAccessoryDetail(true) // 악세세부창 접기
     }
@@ -83,6 +88,16 @@ class MainViewModel @Inject constructor(
             .catch { }
             .collectLatest { apiResult ->
                 _equipment.emit(apiResult)
+            }
+    }
+
+    fun getGem(characterName: String) = viewModelScope.launch {
+        armoryRepository.getGem(characterName)
+            .onStart { }
+            .onCompletion { }
+            .catch { }
+            .collectLatest { apiResult ->
+                _gem.emit(apiResult)
             }
     }
 

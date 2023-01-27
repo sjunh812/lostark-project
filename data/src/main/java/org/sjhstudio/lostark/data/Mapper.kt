@@ -2,9 +2,11 @@ package org.sjhstudio.lostark.data
 
 import org.sjhstudio.lostark.data.model.armory.EngravingDto
 import org.sjhstudio.lostark.data.model.armory.EquipmentDto
+import org.sjhstudio.lostark.data.model.armory.GemDto
 import org.sjhstudio.lostark.data.model.armory.ProfileDto
 import org.sjhstudio.lostark.domain.model.response.Engraving
 import org.sjhstudio.lostark.domain.model.response.Equipment
+import org.sjhstudio.lostark.domain.model.response.Gem
 import org.sjhstudio.lostark.domain.model.response.Profile
 
 /**
@@ -64,7 +66,8 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
 
 /**
  * @description     : 장비 매핑
- * @return          : HashMap<`타입(String)`, `(장비)Equipment`>
+ * @return          : HashMap<String, Equipment>
+ *                    Key - 타입, Value - 장비
  */
 internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, Equipment> {
     val map = hashMapOf<String, Equipment>()
@@ -95,6 +98,30 @@ internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, 
 
     return map
 }
+
+/**
+ * @description     : 보석 매핑
+ */
+internal fun mapperToGem(dto: GemDto) =
+    Gem(
+        gems = dto.gems.map { gem ->
+            Gem.GemInfo(
+                slot = gem.slot.toString(),
+                name = gem.name,
+                iconUrl = gem.icon,
+                level = gem.level.toString(),
+                grade = gem.grade
+            )
+        },
+        effects = dto.effects.map { effect ->
+            Gem.Effect(
+                gemSlot = effect.gemSlot.toString(),
+                name = effect.name,
+                description = effect.description,
+                iconUrl = effect.icon
+            )
+        }
+    )
 
 /**
  * @description     : 장비 품질 매핑
@@ -200,7 +227,8 @@ internal fun mapperToAccessoryEngravingList(
                         else break
                     }
                     if (nameFlag) name += tooltip[i]
-                    if (tooltip[i].isDigit()) active += tooltip[i++]
+                    if (tooltip[i].isDigit()) active += tooltip[i]
+                    i++
                 }
 
                 list.add(Equipment.Engraving(name, active))
@@ -217,8 +245,8 @@ internal fun mapperToAccessoryEngravingList(
 
 /**
  * @description     : 악세 효과 매핑
- *                    팔찌의 경우 특수효과를 포함(isSpecial = true) → 순환, 정밀..
- *                    그 외에는 기본효과(isSpecial = false) → 치명, 특화, 힘, 체력..
+ *                    특수효과(isSpecial = true, 팔찌에 한함) → 순환, 정밀..
+ *                    기본효과(isSpecial = false) → 치명, 특화, 힘, 체력..
  */
 internal fun mapperToAccessoryEffectList(
     type: String,
@@ -263,7 +291,6 @@ internal fun mapperToAccessoryEffectList(
                     }
                     special = false
                 }
-
 
                 effectList.add(Equipment.Effect(name, value, special))
                 index = tooltip.indexOf("</img>", index + 1)

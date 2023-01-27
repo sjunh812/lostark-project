@@ -5,6 +5,7 @@ import org.sjhstudio.lostark.data.exception.ClientErrorException
 import org.sjhstudio.lostark.data.exception.NetworkErrorException
 import org.sjhstudio.lostark.data.model.armory.EngravingDto
 import org.sjhstudio.lostark.data.model.armory.EquipmentDto
+import org.sjhstudio.lostark.data.model.armory.GemDto
 import org.sjhstudio.lostark.data.model.armory.ProfileDto
 import javax.inject.Inject
 
@@ -15,6 +16,8 @@ internal interface ArmoryDataSource {
     suspend fun getEngraving(characterName: String): EngravingDto?
 
     suspend fun getEquipment(characterName: String): List<EquipmentDto>?
+
+    suspend fun getGem(characterName: String): GemDto?
 }
 
 internal class ArmoryDataSourceImpl @Inject constructor(
@@ -54,6 +57,21 @@ internal class ArmoryDataSourceImpl @Inject constructor(
     override suspend fun getEquipment(characterName: String): List<EquipmentDto>? {
         try {
             val response = armoryApi.getEquipment(characterName)
+
+            if (response.isSuccessful) {
+                return response.body()
+            } else {
+                throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            throw ClientErrorException(e.message)
+        }
+    }
+
+    override suspend fun getGem(characterName: String): GemDto? {
+        try {
+            val response = armoryApi.getGem(characterName)
 
             if (response.isSuccessful) {
                 return response.body()
