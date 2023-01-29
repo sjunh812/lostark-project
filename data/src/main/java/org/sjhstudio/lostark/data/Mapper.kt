@@ -48,7 +48,7 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
  */
 internal fun mapperToEngraving(engravingDto: EngravingDto) =
     Engraving(
-        slots = engravingDto.engravings.map { slotDto ->
+        slots = engravingDto.engravings?.map { slotDto ->
             Engraving.Slot(
                 index = slotDto.slot,
                 name = slotDto.name,
@@ -56,7 +56,7 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
                 tooltip = slotDto.tooltip
             )
         },
-        effects = engravingDto.effects.map { effectDto ->
+        effects = engravingDto.effects?.map { effectDto ->
             Engraving.Effect(
                 name = effectDto.name,
                 description = effectDto.description
@@ -67,7 +67,6 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
 /**
  * @description     : 장비 매핑
  * @return          : HashMap<String, Equipment>
- *                    Key - 타입, Value - 장비
  */
 internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, Equipment> {
     val map = hashMapOf<String, Equipment>()
@@ -102,32 +101,56 @@ internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, 
 /**
  * @description     : 보석 매핑
  */
-internal fun mapperToGem(dto: GemDto) =
-    Gem(
-        gems = dto.gems.map { gem ->
-            Gem.GemInfo(
-                slot = gem.slot.toString(),
-                name = gem.name,
-                iconUrl = gem.icon,
-                level = gem.level.toString(),
-                grade = gem.grade
-            )
-        },
-        effects = dto.effects.map { effect ->
-            Gem.Effect(
-                gemSlot = effect.gemSlot.toString(),
-                name = effect.name,
-                description = effect.description,
-                iconUrl = effect.icon
-            )
+internal fun mapperToGem(dto: GemDto): Gem {
+    val gems = mutableListOf<Gem.GemInfo>()
+
+    dto.gems.forEach { gemDto ->
+        val priority =
+            if (gemDto.name.contains("멸화")) 0
+            else if (gemDto.name.contains("홍염")) 1
+            else if (gemDto.name.contains("청명")) 2
+            else if (gemDto.name.contains("원해")) 3
+            else 4
+        val gemInfo = Gem.GemInfo(
+            priority = priority,
+            slot = gemDto.slot.toString(),
+            name = gemDto.name,
+            iconUrl = gemDto.icon,
+            level = gemDto.level.toString(),
+            grade = gemDto.grade
+        )
+        gems.add(gemInfo)
+    }
+    dto.effects.forEach { effectDto ->
+        val effect = Gem.GemInfo.Effect(
+            gemSlot = effectDto.gemSlot.toString(),
+            name = effectDto.name,
+            description = effectDto.description,
+            iconUrl = effectDto.icon
+        )
+        gems.forEach { gem ->
+            if (gem.slot.toIntOrNull() == effectDto.gemSlot) {
+                gem.effect = effect
+            }
         }
-    )
+    }
+    gems.sortWith { gem1, gem2 ->
+        if (gem1.priority < gem2.priority) -1
+        else if (gem1.priority > gem2.priority) 1
+        else {
+            if (gem1.level < gem2.level) 1
+            else -1
+        }
+    }
+
+    return Gem(gems = gems)
+}
 
 /**
  * @description     : 장비 품질 매핑
- *                    - 팔찌 = 기본효과 및 전투특성 표시 ex) 치 특 힘
- *                    - 어빌리티 스톤 = 세공결과 표시 ex) 9 7 1
- *                    - 장비 - 품질수치 표시 ex) 99
+ *                    1) 팔찌 : 기본효과 및 전투특성 표시 -- ex) 치 특 힘
+ *                    2) 어빌리티 스톤 : 세공결과 표시 -- ex) 9 7 1
+ *                    3) 장비 : 품질수치 표시 -- ex) 99
  */
 internal fun mapperToEquipmentQuality(
     type: String,
@@ -192,12 +215,13 @@ internal fun mapperToEquipmentSet(tooltip: String): ArrayList<String>? {
 }
 
 /**
- * @description     : 장비(악세 제외) 요약 매핑
- *                    종류 + 장비로 표현 ex) 무기 25
+ * @description     : 악세를 제외한 장비 요약 매핑
+ *                    종류 + 장비로 표현 -- ex) 무기 25
  */
 internal fun mapperToEquipmentSummary(type: String, level: String): String {
     var summary = type
     if (level != "-1") summary += " $level"
+
     return summary
 }
 
@@ -245,8 +269,8 @@ internal fun mapperToAccessoryEngravingList(
 
 /**
  * @description     : 악세 효과 매핑
- *                    특수효과(isSpecial = true, 팔찌에 한함) → 순환, 정밀..
- *                    기본효과(isSpecial = false) → 치명, 특화, 힘, 체력..
+ *                    특수효과(isSpecial = true, 팔찌에 한함) -- ex) 순환, 정밀
+ *                    기본효과(isSpecial = false) -- ex) 치명, 특화, 힘, 체력
  */
 internal fun mapperToAccessoryEffectList(
     type: String,
@@ -263,6 +287,8 @@ internal fun mapperToAccessoryEffectList(
                 var i = index + 6
                 var str = ""
 
+                index = tooltip.indexOf("</img>", index + 1)
+
                 while (!str.contains("<img") && !str.contains("\"\r\n")) {
                     str += tooltip[i++]
                 }
@@ -278,6 +304,8 @@ internal fun mapperToAccessoryEffectList(
                     value = str.substring(end + 2).replace("<BR><img", "")
                     special = true
                 } else {
+                    if (str.contains("효과 부여 가능")) continue
+
                     val words = str.split(" ")
                     words.forEachIndexed { idx, word ->
                         if (idx != words.lastIndex) {
@@ -293,7 +321,6 @@ internal fun mapperToAccessoryEffectList(
                 }
 
                 effectList.add(Equipment.Effect(name, value, special))
-                index = tooltip.indexOf("</img>", index + 1)
                 println("xxx 팔찌 : $effectList")
             }
 
@@ -320,7 +347,6 @@ internal fun mapperToAccessoryEffectList(
                             )
                         )
                     }
-                    println("xxx $str")
                 }
 
                 index = tooltip.indexOf("Element_001", index + 1)

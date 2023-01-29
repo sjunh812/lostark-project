@@ -1,8 +1,8 @@
 package org.sjhstudio.lostark.domain.model.response
 
 data class Engraving(
-    val slots: List<Slot>,
-    val effects: List<Effect>
+    val slots: List<Slot>?,
+    val effects: List<Effect>?
 ) {
 
     data class Slot(

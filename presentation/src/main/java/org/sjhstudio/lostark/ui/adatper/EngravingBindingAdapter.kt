@@ -11,7 +11,7 @@ import org.sjhstudio.lostark.domain.model.response.Engraving
 @BindingAdapter("engravingSlot1Image")
 fun ImageView.bindEngravingSlot1Image(slots: List<Engraving.Slot>?) {
     visibility = if (!slots.isNullOrEmpty()) {
-        println("xxx slot 1 : ${slots[0]}")
+        println("xxx engraving slot1 : ${slots[0]}")
         Glide.with(context)
             .load(slots[0].iconUrl)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
@@ -25,7 +25,7 @@ fun ImageView.bindEngravingSlot1Image(slots: List<Engraving.Slot>?) {
 @BindingAdapter("engravingSlot2Image")
 fun ImageView.bindEngravingSlot2Image(slots: List<Engraving.Slot>?) {
     visibility = if (!slots.isNullOrEmpty() && slots.size > 1) {
-        println("xxx slot 2 : ${slots[1]}")
+        println("xxx engraving slot2 : ${slots[1]}")
         Glide.with(context)
             .load(slots[1].iconUrl)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(20)))
