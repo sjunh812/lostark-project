@@ -5,14 +5,14 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 internal data class EngravingDto(
-    @Json(name = "Engravings") val engravings: List<Engraving>,
-    @Json(name = "Effects") val effects: List<Effect>
+    @Json(name = "Engravings") val engravings: List<Engraving>?,
+    @Json(name = "Effects") val effects: List<Effect>?
 ) {
 
     @JsonClass(generateAdapter = true)
     internal data class Engraving(
         @Json(name = "Slot") val slot: Int,
-        @Json(name = "Name") val name : String,
+        @Json(name = "Name") val name: String,
         @Json(name = "Icon") val icon: String,
         @Json(name = "Tooltip") val tooltip: String
     )
