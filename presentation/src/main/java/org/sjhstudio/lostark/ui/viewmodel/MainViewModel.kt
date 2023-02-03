@@ -36,11 +36,14 @@ class MainViewModel @Inject constructor(
     private var _collapseAccessory = MutableStateFlow<Boolean>(true)
     val collapseAccessory = _collapseAccessory.asStateFlow()
 
+    private var _collapseGem = MutableStateFlow<Boolean>(true)
+    val collapseGem = _collapseGem.asStateFlow()
+
     private var _searchFailCount = MutableStateFlow<Int>(0)
     val searchFailCount = _searchFailCount.asStateFlow()
 
     init {
-        search("아가벽력일섬")    // 캐릭터 검색
+        search("신묘한하나")    // 캐릭터 검색
     }
 
     fun search(characterName: String) {
@@ -51,6 +54,7 @@ class MainViewModel @Inject constructor(
         getGem(characterName)   // 보석
         changeEquipmentDetail(true) // 장비세부창 접기
         changeAccessoryDetail(true) // 악세세부창 접기
+        changeGemDetail(true)   // 보석세부창 접기
     }
 
     fun initSearchFailCount() = viewModelScope.launch {
@@ -107,5 +111,9 @@ class MainViewModel @Inject constructor(
 
     fun changeAccessoryDetail(collapse: Boolean? = null) = viewModelScope.launch {
         _collapseAccessory.emit(collapse ?: !collapseAccessory.value)
+    }
+
+    fun changeGemDetail(collapse: Boolean? = null) = viewModelScope.launch {
+        _collapseGem.emit(collapse ?: !collapseGem.value)
     }
 }

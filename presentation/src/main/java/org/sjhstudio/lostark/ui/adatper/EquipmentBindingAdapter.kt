@@ -19,15 +19,19 @@ import org.sjhstudio.lostark.domain.model.response.Equipment
 @BindingAdapter(value = ["imageType", "equipmentMap"])
 fun ImageView.bindEquipmentImage(imageType: String, equipmentMap: HashMap<String, Equipment>?) {
     if (equipmentMap != null && equipmentMap.containsKey(imageType) && !equipmentMap[imageType]?.iconUrl.isNullOrEmpty()) {
+        Glide.with(context)
+            .load(equipmentMap[imageType]?.iconUrl)
+            .into(this)
+
         background = when (equipmentMap[imageType]?.grade) {
             "고대" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_ancient)
             "유물" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_relic)
             "전설" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_legend)
+            "영웅" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_hero)
+            "희귀" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_rare)
+            "고급" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_high)
             else -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_default)
         }
-        Glide.with(context)
-            .load(equipmentMap[imageType]?.iconUrl)
-            .into(this)
     } else {
         background = ContextCompat.getDrawable(context, R.drawable.bg_equipment_default)
         setImageResource(0)
@@ -129,7 +133,10 @@ fun TextView.bindAccessoryEffect(effectType: String, equipmentMap: HashMap<Strin
  */
 @SuppressLint("SetTextI18n")
 @BindingAdapter(value = ["engravingType", "equipmentMap"])
-fun ChipGroup.bindAccessoryEngraving(engravingType: String, equipmentMap: HashMap<String, Equipment>?) {
+fun ChipGroup.bindAccessoryEngraving(
+    engravingType: String,
+    equipmentMap: HashMap<String, Equipment>?
+) {
     removeAllViews()
     if (equipmentMap != null && equipmentMap.containsKey(engravingType)) {
         equipmentMap[engravingType]?.engravings?.let { list ->

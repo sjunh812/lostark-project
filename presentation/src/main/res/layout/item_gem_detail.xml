@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="5dp">
+
+    <ImageView
+        android:id="@+id/iv_gem_detail"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:paddingHorizontal="2dp"
+        android:paddingTop="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_gem_detail_name"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:background="@drawable/bg_chip"
+        android:gravity="center"
+        android:padding="3dp"
+        android:textColor="@color/white"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_gem_detail"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_gem_detail_effect"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_gem_detail_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_gem_detail_effect_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:textColor="@color/gray_e2"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_gem_detail_effect_description"
+        app:layout_constraintStart_toEndOf="@id/iv_gem_detail_effect"
+        app:layout_constraintTop_toTopOf="@id/iv_gem_detail_effect"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_gem_detail_effect_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:textColor="@color/gray_e2"
+        android:textSize="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_gem_detail_effect"
+        app:layout_constraintStart_toEndOf="@id/iv_gem_detail_effect"
+        app:layout_constraintTop_toBottomOf="@id/tv_gem_detail_effect_name" />
+</androidx.constraintlayout.widget.ConstraintLayout>

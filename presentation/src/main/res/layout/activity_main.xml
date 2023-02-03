@@ -67,7 +67,20 @@
                 app:equipmentMap="@{viewModel.equipment.data}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_profile" />
+                app:layout_constraintTop_toBottomOf="@id/layout_profile"
+                app:viewModel="@{viewModel}" />
+
+            <include
+                android:id="@+id/layout_gem"
+                layout="@layout/layout_gem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_equipment"
+                app:viewModel="@{viewModel}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -116,7 +116,7 @@ internal fun mapperToGem(dto: GemDto): Gem {
             slot = gemDto.slot.toString(),
             name = gemDto.name,
             iconUrl = gemDto.icon,
-            level = gemDto.level.toString(),
+            level = gemDto.level,
             grade = gemDto.grade
         )
         gems.add(gemInfo)

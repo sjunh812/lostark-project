@@ -10,6 +10,10 @@
         <import type="org.sjhstudio.lostark.domain.model.response.Equipment" />
 
         <variable
+            name="viewModel"
+            type="org.sjhstudio.lostark.ui.viewmodel.MainViewModel" />
+
+        <variable
             name="equipmentMap"
             type="HashMap&lt;String, Equipment>" />
     </data>
@@ -25,67 +29,82 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bg_gray_8dp"
-            android:padding="15dp"
+            android:background="@drawable/bg_dark_gray_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_equipment_title"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_equipment_top"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_equipment"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_equipment_set_summary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_chip"
-                android:gravity="center"
-                android:paddingHorizontal="6dp"
-                android:paddingVertical="3dp"
-                android:textColor="@color/white"
-                android:textSize="10dp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/tv_equipment_title"
-                app:layout_constraintEnd_toStartOf="@id/iv_arrow_equipment"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toEndOf="@id/tv_equipment_title"
-                app:layout_constraintTop_toTopOf="@id/tv_equipment_title"
-                tools:text="6 환각" />
-
-            <ImageView
-                android:id="@+id/iv_arrow_equipment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_down_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/tv_equipment_title"
+                android:background="@drawable/view_top"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_equipment_title" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_equipment_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_equipment"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_equipment_set_summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/bg_chip"
+                    android:gravity="center"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="3dp"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_equipment_title"
+                    app:layout_constraintEnd_toStartOf="@id/iv_arrow_equipment"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/tv_equipment_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_equipment_title"
+                    tools:text="6 환각" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow_equipment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_down_arrow"
+                    app:arrowIcon="@{viewModel.collapseEquipment}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_equipment_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_equipment_title" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_equipment_summary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="15dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_equipment_title">
+                app:layout_constraintTop_toBottomOf="@id/layout_equipment_top">
 
                 <ImageView
                     android:id="@+id/iv_weapon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -135,7 +154,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -185,7 +203,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -235,7 +252,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -285,7 +301,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -335,7 +350,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -385,17 +399,20 @@
                 android:id="@+id/layout_equipment_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="15dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_equipment_title">
+                app:layout_constraintTop_toBottomOf="@id/layout_equipment_top">
 
                 <ImageView
                     android:id="@+id/iv_weapon_detail"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -789,47 +806,62 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/bg_gray_8dp"
-            android:padding="15dp"
+            android:background="@drawable/bg_dark_gray_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_equipment">
 
-            <TextView
-                android:id="@+id/tv_accessory_title"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_accessory_top"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_accessory"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/iv_arrow_accessory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_down_arrow"
-                app:layout_constraintBottom_toBottomOf="@id/tv_accessory_title"
+                android:background="@drawable/view_top"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_accessory_title" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_accessory_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_accessory"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow_accessory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_down_arrow"
+                    app:arrowIcon="@{viewModel.collapseAccessory}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_accessory_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_accessory_title" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_accessory_summary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="15dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_accessory_title">
+                app:layout_constraintTop_toBottomOf="@id/layout_accessory_top">
 
                 <ImageView
                     android:id="@+id/iv_necklace"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -877,7 +909,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -908,7 +939,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -958,7 +988,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -989,7 +1018,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -1037,7 +1065,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -1085,7 +1112,6 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
@@ -1135,16 +1161,18 @@
                 android:id="@+id/layout_accessory_detail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_accessory_title">
+                app:layout_constraintTop_toBottomOf="@id/layout_accessory_top">
 
                 <ImageView
                     android:id="@+id/iv_necklace_detail"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_equipment_default"
                     android:paddingHorizontal="2dp"
                     android:paddingTop="2dp"
