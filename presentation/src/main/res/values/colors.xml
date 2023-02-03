@@ -9,14 +9,28 @@
     <color name="background">#121212</color>
     <color name="background_avatar">#15181D</color>
     <color name="background_chip">#2B313A</color>
+    <color name="background_button">#2B313A</color>
+
+    <!-- 고대 -->
     <color name="ancient_start">#453B2B</color>
     <color name="ancient_end">#D9C697</color>
+    <!-- 유물 -->
     <color name="relic_start">#3A1C09</color>
     <color name="relic_end">#A03F06</color>
+    <!-- 전설 -->
     <color name="legend_start">#3F2503</color>
     <color name="legend_end">#9B5D04</color>
-    <color name="equipment_default">#15181D</color>
+    <!-- 영웅 -->
+    <color name="hero_start">#1C0E24</color>
+    <color name="hero_end">#500861</color>
+    <!-- 희귀 -->
+    <color name="rare_start">#0A2834</color>
+    <color name="rare_end">#0D4760</color>
+    <!-- 고급 -->
+    <color name="high_start">#1D2B10</color>
+    <color name="high_end">#314C14</color>
 
+    <color name="equipment_default">#15181D</color>
     <color name="quality_1">#EA6811</color>
     <color name="quality_2">#DF18E3</color>
     <color name="quality_3">#1260EB</color>

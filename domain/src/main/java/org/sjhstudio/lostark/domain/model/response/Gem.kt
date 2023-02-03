@@ -9,7 +9,7 @@ data class Gem(
         val slot: String,
         val name: String,
         val iconUrl: String,
-        val level: String,
+        val level: Int,
         val grade: String,
         var effect: Effect? = null
     ) {

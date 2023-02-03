@@ -11,12 +11,13 @@ import kotlinx.coroutines.flow.collectLatest
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.base.BaseActivity
 import org.sjhstudio.lostark.databinding.ActivityMainBinding
-import org.sjhstudio.lostark.domain.model.response.Equipment
 import org.sjhstudio.lostark.domain.model.response.Profile
 import org.sjhstudio.lostark.ui.adatper.BraceletEffectAdapter
 import org.sjhstudio.lostark.ui.adatper.EngravingAdapter
+import org.sjhstudio.lostark.ui.adatper.GemDetailAdapter
+import org.sjhstudio.lostark.ui.adatper.GemSummaryAdapter
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
-import org.sjhstudio.lostark.util.*
+import org.sjhstudio.lostark.util.setEquipmentSetSummary
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -24,6 +25,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val mainViewModel: MainViewModel by viewModels()
     private val engravingAdapter: EngravingAdapter by lazy { EngravingAdapter() }
     private val braceletEffectAdapter: BraceletEffectAdapter by lazy { BraceletEffectAdapter() }
+    private val gemSummaryAdapter: GemSummaryAdapter by lazy { GemSummaryAdapter() }
+    private val gemDetailAdapter: GemDetailAdapter by lazy { GemDetailAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         with(binding) {
             layoutProfile.rvEngraving.adapter = engravingAdapter
             layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
+            layoutGem.rvGemSummary.adapter = gemSummaryAdapter
+            layoutGem.rvGemDetail.adapter = gemDetailAdapter
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
@@ -51,8 +56,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 false
             }
-            layoutEquipment.layoutEquipment.setOnClickListener { mainViewModel.changeEquipmentDetail() }
-            layoutEquipment.layoutAccessory.setOnClickListener { mainViewModel.changeAccessoryDetail() }
+            layoutEquipment.layoutEquipmentTop.setOnClickListener { mainViewModel.changeEquipmentDetail() }
+            layoutEquipment.layoutAccessoryTop.setOnClickListener { mainViewModel.changeAccessoryDetail() }
+            layoutGem.layoutGemTop.setOnClickListener { mainViewModel.changeGemDetail() }
         }
     }
 
@@ -104,7 +110,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(equipmentMap)
                                 binding.layoutEquipment.container.isVisible = true
                             }
-//                            updateEquipmentView(result.data)
                         } else {
                             println("xxx 장비 불러오기 실패..")
                             addSearchFailCount()
@@ -120,6 +125,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         if (result.success) {
                             println("xxx 보석 불러오기 성공!!")
                             println("xxx gem list : ${result.data}")
+                            gemSummaryAdapter.submitList(result.data?.gems)
+                            gemDetailAdapter.submitList(result.data?.gems)
                         } else {
                             println("xxx 보석 불러오기 실패..")
                         }
@@ -142,8 +149,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             lifecycleScope.launchWhenStarted {
+                collapseGem.collectLatest { collapse ->
+                    binding.layoutGem.layoutGemSummary.isVisible = collapse
+                    binding.layoutGem.layoutGemDetail.isVisible = !collapse
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
                 searchFailCount.collectLatest { count ->
-                    if (count >= 2) Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
+                    if (count >= 2) Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500)
+                        .show()
                 }
             }
         }
@@ -170,5 +185,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun initAdapter() {
         engravingAdapter.submitList(null)
         braceletEffectAdapter.submitList(null)
+        gemSummaryAdapter.submitList(null)
+        gemDetailAdapter.submitList(null)
     }
 }
