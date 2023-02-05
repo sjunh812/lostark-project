@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.sjhstudio.lostark.databinding.ItemGemSummaryBinding
 import org.sjhstudio.lostark.domain.model.response.Gem
+import org.sjhstudio.lostark.util.setEquipmentBackground
 import org.sjhstudio.lostark.util.setItemBackground
 
 class GemSummaryAdapter : ListAdapter<Gem.GemInfo, GemSummaryAdapter.GemSummaryViewHolder>(
@@ -23,7 +24,7 @@ class GemSummaryAdapter : ListAdapter<Gem.GemInfo, GemSummaryAdapter.GemSummaryV
                     .load(gemInfo.iconUrl)
                     .into(ivGemSummary)
 
-                ivGemSummary.setItemBackground(gemInfo.grade)
+                ivGemSummary.setEquipmentBackground(gemInfo.grade)
                 tvGemSummaryLevel.text = gemInfo.level.toString()
             }
         }
