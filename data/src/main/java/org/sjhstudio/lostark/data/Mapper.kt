@@ -9,9 +9,7 @@ import org.sjhstudio.lostark.domain.model.response.Equipment
 import org.sjhstudio.lostark.domain.model.response.Gem
 import org.sjhstudio.lostark.domain.model.response.Profile
 
-/**
- * @description     : 프로필 매핑
- */
+// 프로필(Profile) 매핑
 internal fun mapperToProfile(profileDto: ProfileDto) =
     Profile(
         characterImageUrl = profileDto.characterImage ?: "",
@@ -43,9 +41,7 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
         itemLevel = profileDto.itemAvgLevel
     )
 
-/**
- * @description     : 각인 매핑
- */
+// 각인(Engraving) 매핑
 internal fun mapperToEngraving(engravingDto: EngravingDto) =
     Engraving(
         slots = engravingDto.engravings?.map { slotDto ->
@@ -65,8 +61,9 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
     )
 
 /**
- * @description     : 장비 매핑
- * @return          : HashMap<String, Equipment>
+ * @description : 장비 매핑
+ * @return : HashMap<String, Equipment>
+ *           (Key : 장비 타입, Value : 장비 객체)
  */
 internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, Equipment> {
     val map = hashMapOf<String, Equipment>()
@@ -98,9 +95,7 @@ internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, 
     return map
 }
 
-/**
- * @description     : 보석 매핑
- */
+// 보석(Gem) 매핑
 internal fun mapperToGem(dto: GemDto): Gem {
     val gems = mutableListOf<Gem.GemInfo>()
 
@@ -147,10 +142,10 @@ internal fun mapperToGem(dto: GemDto): Gem {
 }
 
 /**
- * @description     : 장비 품질 매핑
- *                    1) 팔찌 : 기본효과 및 전투특성 표시 -- ex) 치 특 힘
- *                    2) 어빌리티 스톤 : 세공결과 표시 -- ex) 9 7 1
- *                    3) 장비 : 품질수치 표시 -- ex) 99
+ * @description : 장비 품질 매핑
+ *                1. 팔찌 : 기본 특성 및 전투 특성을 표시     ex) 치 특 힘
+ *                2. 어빌리티 스톤 : 세공 결과를 표시    ex) 9 7 1
+ *                3. 그외 장비(악세사리) : 품질 수치를 표시    ex) 100
  */
 internal fun mapperToEquipmentQuality(
     type: String,
@@ -187,9 +182,7 @@ internal fun mapperToEquipmentQuality(
     return quality.trim()
 }
 
-/**
- * @description     : 장비 레벨 매핑
- */
+// 장비 레벨 매핑
 internal fun mapperToEquipmentLevel(type: String, name: String): String {
     return when (type) {
         "무기", "투구", "어깨", "상의", "하의", "장갑" -> name.split(" ")[0].substring(1)
@@ -197,9 +190,7 @@ internal fun mapperToEquipmentLevel(type: String, name: String): String {
     }
 }
 
-/**
- * @description     : 장비 별 세트 정보 매핑
- */
+// 장비 세트 매핑
 internal fun mapperToEquipmentSet(tooltip: String): ArrayList<String>? {
     val set = arrayListOf<String>()
     val startIndexOfWord = tooltip.indexOf("Lv.")
@@ -215,8 +206,8 @@ internal fun mapperToEquipmentSet(tooltip: String): ArrayList<String>? {
 }
 
 /**
- * @description     : 악세를 제외한 장비 요약 매핑
- *                    종류 + 장비로 표현 -- ex) 무기 25
+ * @description : 장비 Summary 매핑
+ * @example : 무기 20(이름 레벨)
  */
 internal fun mapperToEquipmentSummary(type: String, level: String): String {
     var summary = type
@@ -226,9 +217,8 @@ internal fun mapperToEquipmentSummary(type: String, level: String): String {
 }
 
 /**
- * @description     : 악세 각인 매핑
- *                    악세(어빌리티 스톤 포함)에 부여된 각인 효과를 매핑하며
- *                    감소 효과 각인의 경우 리스트의 마지막 원소로 삽입!
+ * @description : 악세사리 각인 매핑
+ *                감소 효과 각인의 경우 마지막 원소로 삽입
  */
 internal fun mapperToAccessoryEngravingList(
     type: String,
@@ -268,9 +258,9 @@ internal fun mapperToAccessoryEngravingList(
 }
 
 /**
- * @description     : 악세 효과 매핑
- *                    특수효과(isSpecial = true, 팔찌에 한함) -- ex) 순환, 정밀
- *                    기본효과(isSpecial = false) -- ex) 치명, 특화, 힘, 체력
+ * @description : 악세사리 특성 매핑
+ *                1. 기본 특성 : `isSpecial` = false    ex) 특화, 치명, 힘, 체력..
+ *                2. 특수 효과 : `isSpecial` = true 이며, 팔찌에 한한 특성     ex) 정밀, 순환, 망치..
  */
 internal fun mapperToAccessoryEffectList(
     type: String,
