@@ -16,7 +16,7 @@ internal data class GemDto(
         @Json(name = "Icon") val icon: String,
         @Json(name = "Level") val level: Int,
         @Json(name = "Grade") val grade: String,
-        @Json(name = "Tooltip") val tooltip: String
+        @Json(name = "Tooltip") val tooltip: String?
     )
 
     @JsonClass(generateAdapter = true)
@@ -25,6 +25,6 @@ internal data class GemDto(
         @Json(name = "Name") val name: String,
         @Json(name = "Description") val description: String,
         @Json(name = "Icon") val icon: String,
-        @Json(name = "Tooltip") val tooltip: String
+        @Json(name = "Tooltip") val tooltip: String?
     )
 }
