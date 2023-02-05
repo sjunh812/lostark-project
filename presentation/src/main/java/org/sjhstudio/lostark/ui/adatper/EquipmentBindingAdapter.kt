@@ -14,7 +14,19 @@ import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.domain.model.response.Equipment
 
 /**
- * @description : 장비 이미지 바인딩
+ * 장비(Equipment) 바인딩 유의사항
+ *
+ * 장비 종류를 Key로 하여 장비 Map에서 Value값을 찾음.
+ * <장비 종류>
+ * 1. 장비 : 무기, 투구, 견갑, 상의, 하의, 장갑
+ * 2. 악세사리  : 목걸이, 귀걸이, 반지, 팔찌, 어빌리티 스톤
+ *
+ * @since 2023.02.05
+ */
+
+/**
+ * @description : 장비 이미지(URL)
+ *                장비 등급(고대, 유물, 전설, 영웅, 고급)에 따라 배경 설정
  */
 @BindingAdapter(value = ["imageType", "equipmentMap"])
 fun ImageView.bindEquipmentImage(imageType: String, equipmentMap: HashMap<String, Equipment>?) {
@@ -39,19 +51,18 @@ fun ImageView.bindEquipmentImage(imageType: String, equipmentMap: HashMap<String
 }
 
 /**
- * @description     : 장비 이름 바인딩
+ * @description : 장비 이름
  */
 @BindingAdapter(value = ["nameType", "equipmentMap"])
 fun TextView.bindEquipmentName(nameType: String, equipmentMap: HashMap<String, Equipment>?) {
-    if (equipmentMap != null && equipmentMap.containsKey(nameType)) {
-        text = equipmentMap[nameType]?.name
-    } else {
-        text = ""
-    }
+    text =
+        if (equipmentMap != null && equipmentMap.containsKey(nameType)) equipmentMap[nameType]?.name
+        else ""
 }
 
 /**
- * @description     : 장비 품질 바인딩
+ * @description : 장비 품질
+ *                품질 범위에 따라 배경 설정
  */
 @BindingAdapter(value = ["qualityType", "equipmentMap"])
 fun TextView.bindEquipmentQuality(qualityType: String, equipmentMap: HashMap<String, Equipment>?) {
@@ -74,8 +85,8 @@ fun TextView.bindEquipmentQuality(qualityType: String, equipmentMap: HashMap<Str
 }
 
 /**
- * @description     : 장비 요약 바인딩
- * @example         : 무기 20(이름 레벨)
+ * @description : 장비 Summary
+ * @example : 무기 20(이름 레벨)
  */
 @BindingAdapter(value = ["summaryType", "equipmentMap"])
 fun TextView.bindEquipmentSummary(summaryType: String, equipmentMap: HashMap<String, Equipment>?) {
@@ -89,8 +100,8 @@ fun TextView.bindEquipmentSummary(summaryType: String, equipmentMap: HashMap<Str
 }
 
 /**
- * @description     : 장비 세트 바인딩
- * @example         : 환각 Lv.2(세트이름 Lv.레벨)
+ * @description : 장비 세트
+ * @example : 환각 Lv.2(이름 Lv.레벨)
  */
 @SuppressLint("SetTextI18n")
 @BindingAdapter(value = ["setType", "equipmentMap"])
@@ -105,8 +116,8 @@ fun TextView.bindingEquipmentSet(setType: String, equipmentMap: HashMap<String, 
 }
 
 /**
- * @description     : 악세 특성 바인딩
- * @example         : 치명 190(특성이름 수치)
+ * @description : 악세사리 기본 특성
+ * @example : 치명 190(이름 수치)
  */
 @BindingAdapter(value = ["effectType", "equipmentMap"])
 fun TextView.bindAccessoryEffect(effectType: String, equipmentMap: HashMap<String, Equipment>?) {
@@ -128,8 +139,8 @@ fun TextView.bindAccessoryEffect(effectType: String, equipmentMap: HashMap<Strin
 }
 
 /**
- * @description     : 악세 각인 바인딩 (Chip 이용)
- * @example         : 질풍노도 3(각인이름 활성도)
+ * @description : 악세사리 각인
+ * @example : 질풍노도 3(이름 활성도)
  */
 @SuppressLint("SetTextI18n")
 @BindingAdapter(value = ["engravingType", "equipmentMap"])
@@ -137,7 +148,8 @@ fun ChipGroup.bindAccessoryEngraving(
     engravingType: String,
     equipmentMap: HashMap<String, Equipment>?
 ) {
-    removeAllViews()
+    removeAllViews()    // ChipGroup 초기화
+
     if (equipmentMap != null && equipmentMap.containsKey(engravingType)) {
         equipmentMap[engravingType]?.engravings?.let { list ->
             list.forEach { engraving ->
@@ -154,24 +166,9 @@ fun ChipGroup.bindAccessoryEngraving(
                     isCheckable = false
                     isClickable = false
                 }
+
                 addView(chip)
             }
         }
-    }
-}
-
-@BindingAdapter("equipmentImage")
-fun ImageView.bindEquipmentImage(equipment: Equipment?) {
-    equipment?.let { data ->
-        background = when (data.grade) {
-            "고대" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_ancient)
-            "유물" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_relic)
-            "전설" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_legend)
-            else -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_default)
-        }
-
-        Glide.with(context)
-            .load(data.iconUrl)
-            .into(this)
     }
 }

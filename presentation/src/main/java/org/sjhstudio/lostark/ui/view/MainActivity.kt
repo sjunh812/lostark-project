@@ -107,7 +107,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                     val effectList = result.data!!["팔찌"]?.effects
                                     braceletEffectAdapter.submitList(effectList?.filter { effect -> effect.isSpecial })
                                 }
-                                binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(equipmentMap)
+                                binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(
+                                    equipmentMap
+                                )
                                 binding.layoutEquipment.container.isVisible = true
                             }
                         } else {
@@ -127,8 +129,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             println("xxx gem list : ${result.data}")
                             gemSummaryAdapter.submitList(result.data?.gems)
                             gemDetailAdapter.submitList(result.data?.gems)
+                            binding.layoutGem.layoutGem.isVisible = true
                         } else {
                             println("xxx 보석 불러오기 실패..")
+                            binding.layoutGem.layoutGem.isVisible = false
                         }
                     }
                 }
