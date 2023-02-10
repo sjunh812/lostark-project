@@ -23,7 +23,7 @@
         <FrameLayout
             android:id="@+id/layout_character_image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="320dp"
             android:layout_marginTop="15dp"
             android:background="@color/background_avatar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,33 +42,23 @@
 
         <TextView
             android:id="@+id/tv_server"
+            style="@style/Widget.LostArk.Tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/bg_chip"
-            android:paddingHorizontal="6dp"
-            android:paddingVertical="3dp"
             android:text="@{profile.serverName}"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="카단" />
 
         <TextView
             android:id="@+id/tv_class"
+            style="@style/Widget.LostArk.Tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:background="@drawable/bg_chip"
-            android:paddingHorizontal="6dp"
-            android:paddingVertical="3dp"
             android:text="@{profile.characterClassName}"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/tv_server"
             app:layout_constraintStart_toEndOf="@id/tv_server"
             app:layout_constraintTop_toTopOf="@id/tv_server"
@@ -76,56 +66,47 @@
 
         <TextView
             android:id="@+id/tv_character"
+            style="@style/TextAppearance.LostArk.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="@{profile.characterName}"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_server"
             tools:text="아가벽력일섬" />
 
         <TextView
             android:id="@+id/tv_title"
+            style="@style/TextAppearance.LostArk.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
             android:text="@{profile.title}"
             android:textColor="@color/gray_e2"
-            android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_character"
             tools:text="필살" />
 
         <TextView
             android:id="@+id/tv_guild_title"
+            style="@style/Widget.LostArk.Tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/bg_chip"
-            android:paddingHorizontal="6dp"
-            android:paddingVertical="3dp"
+            android:layout_marginTop="25dp"
             android:text="@string/label_guild"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="길드" />
 
         <TextView
             android:id="@+id/tv_guild"
+            style="@style/TextAppearance.LostArk.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="@{profile.guildName}"
-            android:textColor="@color/white"
-            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_guild_title"
             app:layout_constraintStart_toEndOf="@id/tv_guild_title"
             app:layout_constraintTop_toTopOf="@id/tv_guild_title"
@@ -133,28 +114,22 @@
 
         <TextView
             android:id="@+id/tv_wisdom_title"
+            style="@style/Widget.LostArk.Tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/bg_chip"
-            android:paddingHorizontal="6dp"
-            android:paddingVertical="3dp"
             android:text="@string/label_town"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_guild_title"
             tools:text="영지" />
 
         <TextView
             android:id="@+id/tv_wisdom"
+            style="@style/TextAppearance.LostArk.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:textColor="@color/white"
-            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_wisdom_title"
             app:layout_constraintStart_toEndOf="@id/tv_wisdom_title"
             app:layout_constraintTop_toTopOf="@id/tv_wisdom_title"
@@ -164,81 +139,69 @@
 
         <TextView
             android:id="@+id/tv_battle_title"
+            style="@style/TextAppearance.LostArk.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="@string/label_battle"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
 
         <TextView
             android:id="@+id/tv_battle"
+            style="@style/TextAppearance.LostArk.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
             android:text="@{profile.characterLevel}"
-            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_battle_title"
             tools:text="Lv.60" />
 
         <TextView
             android:id="@+id/tv_expedition_title"
+            style="@style/TextAppearance.LostArk.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="@string/label_expedition"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/tv_battle"
             app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
 
         <TextView
             android:id="@+id/tv_expedition"
+            style="@style/TextAppearance.LostArk.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
             android:text="@{profile.expeditionLevel}"
-            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/tv_battle"
             app:layout_constraintTop_toBottomOf="@id/tv_expedition_title"
             tools:text="Lv.100" />
 
         <TextView
             android:id="@+id/tv_item_level_title"
+            style="@style/TextAppearance.LostArk.SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="@string/label_item"
-            android:textColor="@color/gray_e2"
-            android:textSize="11sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_battle" />
 
         <TextView
             android:id="@+id/tv_item_level"
+            style="@style/TextAppearance.LostArk.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
             android:text="@{profile.itemLevel}"
-            android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_item_level_title"
             tools:text="1553.3" />
@@ -258,33 +221,30 @@
 
             <TextView
                 android:id="@+id/tv_basic_stat_title"
+                style="@style/TextAppearance.LostArk.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_basic_stat"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_attack_point_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/label_attack_point"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_basic_stat_title" />
 
             <TextView
                 android:id="@+id/tv_attack_point"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_attack_point_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
@@ -294,22 +254,20 @@
 
             <TextView
                 android:id="@+id/tv_health_point_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/label_health_point"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_attack_point" />
 
             <TextView
                 android:id="@+id/tv_health_point"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_health_point_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
@@ -333,36 +291,32 @@
 
             <TextView
                 android:id="@+id/tv_battle_stat_title"
+                style="@style/TextAppearance.LostArk.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_battle_stat"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_critical_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/label_critical"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_battle_stat_title" />
 
             <TextView
                 android:id="@+id/tv_critical"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
                 android:gravity="end"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_critical_title"
                 app:layout_constraintEnd_toStartOf="@id/tv_specialization_title"
                 app:layout_constraintStart_toEndOf="@id/tv_critical_title"
@@ -371,11 +325,11 @@
 
             <TextView
                 android:id="@+id/tv_specialization_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_specialization"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintBottom_toBottomOf="@id/tv_critical"
                 app:layout_constraintEnd_toStartOf="@id/tv_specialization"
                 app:layout_constraintStart_toEndOf="@id/tv_critical"
@@ -383,12 +337,10 @@
 
             <TextView
                 android:id="@+id/tv_specialization"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_specialization_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_specialization_title"
@@ -397,25 +349,23 @@
 
             <TextView
                 android:id="@+id/tv_domination_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/label_domination"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_critical" />
 
             <TextView
                 android:id="@+id/tv_domination"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
                 android:gravity="end"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_domination_title"
                 app:layout_constraintEnd_toStartOf="@id/tv_swiftness_title"
                 app:layout_constraintStart_toEndOf="@id/tv_domination_title"
@@ -424,11 +374,11 @@
 
             <TextView
                 android:id="@+id/tv_swiftness_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_swiftness"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintBottom_toBottomOf="@id/tv_domination"
                 app:layout_constraintEnd_toStartOf="@id/tv_swiftness"
                 app:layout_constraintStart_toEndOf="@id/tv_domination"
@@ -436,12 +386,10 @@
 
             <TextView
                 android:id="@+id/tv_swiftness"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_swiftness_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_swiftness_title"
@@ -450,25 +398,23 @@
 
             <TextView
                 android:id="@+id/tv_endurance_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/label_endurance"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_domination" />
 
             <TextView
                 android:id="@+id/tv_endurance"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
                 android:gravity="end"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_endurance_title"
                 app:layout_constraintEnd_toStartOf="@id/tv_expertise_title"
                 app:layout_constraintStart_toEndOf="@id/tv_endurance_title"
@@ -477,11 +423,11 @@
 
             <TextView
                 android:id="@+id/tv_expertise_title"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_expertise"
-                android:textColor="@color/gray_e2"
-                android:textSize="11sp"
+                android:textColor="@color/gray_c2"
                 app:layout_constraintBottom_toBottomOf="@id/tv_endurance"
                 app:layout_constraintEnd_toStartOf="@id/tv_expertise"
                 app:layout_constraintStart_toEndOf="@id/tv_endurance"
@@ -489,12 +435,10 @@
 
             <TextView
                 android:id="@+id/tv_expertise"
+                style="@style/TextAppearance.LostArk.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/tv_expertise_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_expertise_title"
@@ -518,12 +462,10 @@
 
             <TextView
                 android:id="@+id/tv_engraving_title"
+                style="@style/TextAppearance.LostArk.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_engraving"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -542,12 +484,10 @@
 
             <TextView
                 android:id="@+id/tv_mounted_engraving_title"
+                style="@style/TextAppearance.LostArk.SubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_mounted_engraving"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/iv_engraving_slot_1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/iv_engraving_slot_1" />
@@ -568,8 +508,8 @@
                 android:layout_marginStart="7dp"
                 app:engravingSlot2Image="@{engraving.slots}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toEndOf="@id/iv_engraving_slot_1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,16 +14,14 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="2dp"
-        android:background="@color/main_color">
+        android:background="@color/main_color"
+        android:paddingVertical="2dp">
 
         <TextView
             android:id="@+id/tv_engraving_level"
+            style="@style/TextAppearance.LostArk.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            android:textStyle="bold"
             app:engravingLevel="@{data.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,11 +29,10 @@
 
         <TextView
             android:id="@+id/tv_engraving_name"
+            style="@style/TextAppearance.LostArk.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textColor="@color/white"
-            android:textSize="12sp"
             app:engravingName="@{data.name}"
             app:layout_constraintBottom_toBottomOf="@id/tv_engraving_level"
             app:layout_constraintStart_toEndOf="@id/tv_engraving_level"
@@ -44,11 +41,10 @@
 
         <TextView
             android:id="@+id/tv_engraving_description"
+            style="@style/TextAppearance.LostArk.Overline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="@color/white"
-            android:textSize="11sp"
             android:visibility="gone"
             app:engravingName="@{data.description}"
             app:layout_constraintEnd_toEndOf="parent"
