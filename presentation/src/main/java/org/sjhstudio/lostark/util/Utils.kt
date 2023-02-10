@@ -4,6 +4,8 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import org.sjhstudio.lostark.R
 
+
+
 fun ImageView.setEquipmentBackground(grade: String) {
     background = when (grade) {
         "고대" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_ancient)

@@ -12,6 +12,7 @@ import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.domain.model.response.Equipment
+import org.sjhstudio.lostark.util.dpToPx
 
 /**
  * 장비(Equipment) 바인딩 유의사항
@@ -165,6 +166,8 @@ fun ChipGroup.bindAccessoryEngraving(
                     text = "${engraving.name} ${engraving.active}"
                     isCheckable = false
                     isClickable = false
+                    ensureAccessibleTouchTarget(context.dpToPx(30).toInt())
+                    setEnsureMinTouchTargetSize(false)
                 }
 
                 addView(chip)

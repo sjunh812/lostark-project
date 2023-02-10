@@ -17,15 +17,12 @@
 
     <TextView
         android:id="@+id/tv_gem_detail_name"
-        android:layout_width="30dp"
+        style="@style/Widget.LostArk.Tag"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
-        android:background="@drawable/bg_chip"
         android:gravity="center"
-        android:padding="3dp"
-        android:textColor="@color/white"
-        android:textSize="10dp"
-        android:textStyle="bold"
+        android:minWidth="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_gem_detail"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,12 +38,10 @@
 
     <TextView
         android:id="@+id/tv_gem_detail_effect_name"
+        style="@style/TextAppearance.LostArk.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
-        android:textColor="@color/gray_e2"
-        android:textSize="10dp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tv_gem_detail_effect_description"
         app:layout_constraintStart_toEndOf="@id/iv_gem_detail_effect"
         app:layout_constraintTop_toTopOf="@id/iv_gem_detail_effect"
@@ -54,11 +49,10 @@
 
     <TextView
         android:id="@+id/tv_gem_detail_effect_description"
+        style="@style/TextAppearance.LostArk.Overline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
-        android:textColor="@color/gray_e2"
-        android:textSize="8dp"
         app:layout_constraintBottom_toBottomOf="@id/iv_gem_detail_effect"
         app:layout_constraintStart_toEndOf="@id/iv_gem_detail_effect"
         app:layout_constraintTop_toBottomOf="@id/tv_gem_detail_effect_name" />
