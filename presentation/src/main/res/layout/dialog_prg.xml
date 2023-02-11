@@ -7,10 +7,9 @@
         android:layout_gravity="center"
         android:background="@android:color/transparent">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:indeterminateTint="@color/white" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
     </FrameLayout>
 </layout>
