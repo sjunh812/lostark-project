@@ -17,8 +17,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/Widget.LostArk.Tag"
         android:id="@+id/tv_gem_summary_level"
+        style="@style/Widget.LostArk.Tag"
         android:layout_width="27dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_equipment_quality_7"
