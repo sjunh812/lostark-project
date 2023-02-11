@@ -16,6 +16,7 @@ import org.sjhstudio.lostark.ui.adatper.BraceletEffectAdapter
 import org.sjhstudio.lostark.ui.adatper.EngravingAdapter
 import org.sjhstudio.lostark.ui.adatper.GemDetailAdapter
 import org.sjhstudio.lostark.ui.adatper.GemSummaryAdapter
+import org.sjhstudio.lostark.ui.common.PrgDialog
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
 import org.sjhstudio.lostark.util.setEquipmentSetSummary
 
@@ -23,6 +24,7 @@ import org.sjhstudio.lostark.util.setEquipmentSetSummary
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mainViewModel: MainViewModel by viewModels()
+    private val prgDialog: PrgDialog by lazy { PrgDialog.newInstance() }
     private val engravingAdapter: EngravingAdapter by lazy { EngravingAdapter() }
     private val braceletEffectAdapter: BraceletEffectAdapter by lazy { BraceletEffectAdapter() }
     private val gemSummaryAdapter: GemSummaryAdapter by lazy { GemSummaryAdapter() }
@@ -43,6 +45,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initView() {
         with(binding) {
+            prgDialog.show(supportFragmentManager, "prg_dialog")
+
             layoutProfile.rvEngraving.adapter = engravingAdapter
             layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
             layoutGem.rvGemSummary.adapter = gemSummaryAdapter
@@ -69,12 +73,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             println("xxx 프로필 불러오기 성공!!")
+                            prgDialog.dismiss()
                             updateStatView(result.data?.stats)
                             binding.layoutProfile.executePendingBindings()
                             binding.layoutProfile.container.isVisible = true
                         } else {
                             println("xxx 프로필 불러오기 실패..")
-                            addSearchFailCount()
                             binding.layoutProfile.container.isVisible = false
                         }
                     }
@@ -114,7 +118,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             }
                         } else {
                             println("xxx 장비 불러오기 실패..")
-                            addSearchFailCount()
                             binding.layoutEquipment.container.isVisible = false
                         }
                     }
@@ -161,8 +164,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             lifecycleScope.launchWhenStarted {
                 searchFailCount.collectLatest { count ->
-                    if (count >= 2) Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500)
-                        .show()
+                    println("xxx count : $count")
+                    if (count >= 2) {
+                        println("xxx fail")
+                        prgDialog.dismiss()
+                        Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
+                    }
                 }
             }
         }

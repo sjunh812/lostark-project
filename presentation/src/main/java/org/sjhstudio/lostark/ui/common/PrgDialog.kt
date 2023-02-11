@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import com.airbnb.lottie.LottieDrawable
 import org.sjhstudio.lostark.databinding.DialogPrgBinding
 
 class PrgDialog : DialogFragment() {
@@ -32,6 +33,12 @@ class PrgDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lottieView.apply {
+            setAnimation("loading.json")
+            repeatCount = LottieDrawable.INFINITE
+            speed = 1f
+            playAnimation()
+        }
     }
 
     override fun show(manager: FragmentManager, tag: String?) {

@@ -71,6 +71,8 @@ class MainViewModel @Inject constructor(
             .onCompletion { }
             .catch { }
             .collectLatest { apiResult ->
+                println("xxx apiResult : $apiResult")
+                if (!apiResult.success) addSearchFailCount()
                 _profile.emit(apiResult)
             }
     }
@@ -81,6 +83,7 @@ class MainViewModel @Inject constructor(
             .onCompletion { }
             .catch { }
             .collectLatest { apiResult ->
+                if (!apiResult.success) addSearchFailCount()
                 _engraving.emit(apiResult)
             }
     }

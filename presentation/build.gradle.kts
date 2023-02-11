@@ -68,4 +68,6 @@ dependencies {
 
     implementation(Library.Glide.GLIDE)
     kapt(Library.Glide.GLIDE_COMPILER)
+
+    implementation(Library.Lottie.LOTTIE)
 }
