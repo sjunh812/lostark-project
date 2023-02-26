@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(
     val searchFailCount = _searchFailCount.asStateFlow()
 
     init {
-        search("아가망치부인")    // 캐릭터 검색
+        search("아가벽력일섬")    // 캐릭터 검색
     }
 
     fun search(characterName: String) {

@@ -778,290 +778,295 @@
                     app:layout_constraintTop_toTopOf="@id/tv_accessory_title" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_accessory_summary"
+            <HorizontalScrollView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="15dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="15dp"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_accessory_top">
 
-                <ImageView
-                    android:id="@+id/iv_necklace"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_equipment_default"
-                    android:paddingHorizontal="2dp"
-                    android:paddingTop="2dp"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:imageType="@{`목걸이`}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_necklace_quality"
-                    style="@style/TextAppearance.LostArk.Tag"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_equipment_quality_7"
-                    android:gravity="center"
-                    android:text="@string/label_default_quality"
-                    android:textColor="@color/white"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_necklace"
-                    app:layout_constraintStart_toStartOf="@id/iv_necklace"
-                    app:layout_constraintTop_toBottomOf="@id/iv_necklace"
-                    app:qualityType="@{`목걸이`}"
-                    tools:text="94" />
-
-                <TextView
-                    android:id="@+id/tv_necklace_summary"
-                    style="@style/Widget.LostArk.Tag"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_accessory_summary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:gravity="center"
-                    android:maxWidth="40dp"
-                    android:text="@string/label_necklace"
-                    app:layout_constraintEnd_toEndOf="@id/tv_necklace_quality"
-                    app:layout_constraintStart_toStartOf="@id/tv_necklace_quality"
-                    app:layout_constraintTop_toBottomOf="@id/tv_necklace_quality" />
+                    android:paddingHorizontal="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="15dp"
+                    android:visibility="gone">
 
-                <ImageView
-                    android:id="@+id/iv_earring1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/bg_equipment_default"
-                    android:paddingHorizontal="2dp"
-                    android:paddingTop="2dp"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:imageType="@{`귀걸이`}"
-                    app:layout_constraintStart_toEndOf="@id/iv_necklace"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/iv_necklace"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_equipment_default"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:imageType="@{`목걸이`}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_earring1_quality"
-                    style="@style/TextAppearance.LostArk.Tag"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_equipment_quality_7"
-                    android:gravity="center"
-                    android:text="@string/label_default_quality"
-                    android:textColor="@color/white"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_earring1"
-                    app:layout_constraintStart_toStartOf="@id/iv_earring1"
-                    app:layout_constraintTop_toBottomOf="@id/iv_earring1"
-                    app:qualityType="@{`귀걸이`}"
-                    tools:text="94" />
+                    <TextView
+                        android:id="@+id/tv_necklace_quality"
+                        style="@style/TextAppearance.LostArk.Tag"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_equipment_quality_7"
+                        android:gravity="center"
+                        android:text="@string/label_default_quality"
+                        android:textColor="@color/white"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/iv_necklace"
+                        app:layout_constraintStart_toStartOf="@id/iv_necklace"
+                        app:layout_constraintTop_toBottomOf="@id/iv_necklace"
+                        app:qualityType="@{`목걸이`}"
+                        tools:text="94" />
 
-                <ImageView
-                    android:id="@+id/iv_earring2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/bg_equipment_default"
-                    android:paddingHorizontal="2dp"
-                    android:paddingTop="2dp"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:imageType="@{`귀걸이2`}"
-                    app:layout_constraintStart_toEndOf="@id/iv_earring1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_necklace_summary"
+                        style="@style/Widget.LostArk.Tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center"
+                        android:maxWidth="40dp"
+                        android:text="@string/label_necklace"
+                        app:layout_constraintEnd_toEndOf="@id/tv_necklace_quality"
+                        app:layout_constraintStart_toStartOf="@id/tv_necklace_quality"
+                        app:layout_constraintTop_toBottomOf="@id/tv_necklace_quality" />
 
-                <TextView
-                    android:id="@+id/tv_earring2_quality"
-                    style="@style/TextAppearance.LostArk.Tag"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_equipment_quality_7"
-                    android:gravity="center"
-                    android:text="@string/label_default_quality"
-                    android:textColor="@color/white"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_earring2"
-                    app:layout_constraintStart_toStartOf="@id/iv_earring2"
-                    app:layout_constraintTop_toBottomOf="@id/iv_earring2"
-                    app:qualityType="@{`귀걸이2`}"
-                    tools:text="94" />
+                    <ImageView
+                        android:id="@+id/iv_earring1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/bg_equipment_default"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:imageType="@{`귀걸이`}"
+                        app:layout_constraintStart_toEndOf="@id/iv_necklace"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_earring_summary"
-                    style="@style/Widget.LostArk.Tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:gravity="center"
-                    android:maxWidth="40dp"
-                    android:text="@string/label_earring"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/tv_earring2_quality"
-                    app:layout_constraintStart_toStartOf="@id/tv_earring1_quality"
-                    app:layout_constraintTop_toBottomOf="@id/tv_earring2_quality"
-                    app:summaryType="@{`귀걸이2`}" />
+                    <TextView
+                        android:id="@+id/tv_earring1_quality"
+                        style="@style/TextAppearance.LostArk.Tag"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_equipment_quality_7"
+                        android:gravity="center"
+                        android:text="@string/label_default_quality"
+                        android:textColor="@color/white"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/iv_earring1"
+                        app:layout_constraintStart_toStartOf="@id/iv_earring1"
+                        app:layout_constraintTop_toBottomOf="@id/iv_earring1"
+                        app:qualityType="@{`귀걸이`}"
+                        tools:text="94" />
 
-                <ImageView
-                    android:id="@+id/iv_ring1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/bg_equipment_default"
-                    android:paddingHorizontal="2dp"
-                    android:paddingTop="2dp"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:imageType="@{`반지`}"
-                    app:layout_constraintStart_toEndOf="@id/iv_earring2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/iv_earring2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_equipment_default"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:imageType="@{`귀걸이2`}"
+                        app:layout_constraintStart_toEndOf="@id/iv_earring1"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_ring1_quality"
-                    style="@style/TextAppearance.LostArk.Tag"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_equipment_quality_7"
-                    android:gravity="center"
-                    android:text="@string/label_default_quality"
-                    android:textColor="@color/white"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_ring1"
-                    app:layout_constraintStart_toStartOf="@id/iv_ring1"
-                    app:layout_constraintTop_toBottomOf="@id/iv_ring1"
-                    app:qualityType="@{`반지`}"
-                    tools:text="94" />
+                    <TextView
+                        android:id="@+id/tv_earring2_quality"
+                        style="@style/TextAppearance.LostArk.Tag"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_equipment_quality_7"
+                        android:gravity="center"
+                        android:text="@string/label_default_quality"
+                        android:textColor="@color/white"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/iv_earring2"
+                        app:layout_constraintStart_toStartOf="@id/iv_earring2"
+                        app:layout_constraintTop_toBottomOf="@id/iv_earring2"
+                        app:qualityType="@{`귀걸이2`}"
+                        tools:text="94" />
 
-                <ImageView
-                    android:id="@+id/iv_ring2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/bg_equipment_default"
-                    android:paddingHorizontal="2dp"
-                    android:paddingTop="2dp"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:imageType="@{`반지2`}"
-                    app:layout_constraintStart_toEndOf="@id/tv_ring1_quality"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_earring_summary"
+                        style="@style/Widget.LostArk.Tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center"
+                        android:maxWidth="40dp"
+                        android:text="@string/label_earring"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/tv_earring2_quality"
+                        app:layout_constraintStart_toStartOf="@id/tv_earring1_quality"
+                        app:layout_constraintTop_toBottomOf="@id/tv_earring2_quality"
+                        app:summaryType="@{`귀걸이2`}" />
 
-                <TextView
-                    android:id="@+id/tv_ring2_quality"
-                    style="@style/TextAppearance.LostArk.Tag"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_equipment_quality_7"
-                    android:gravity="center"
-                    android:text="@string/label_default_quality"
-                    android:textColor="@color/white"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_ring2"
-                    app:layout_constraintStart_toStartOf="@id/iv_ring2"
-                    app:layout_constraintTop_toBottomOf="@id/iv_ring2"
-                    app:qualityType="@{`반지2`}"
-                    tools:text="94" />
+                    <ImageView
+                        android:id="@+id/iv_ring1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/bg_equipment_default"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:imageType="@{`반지`}"
+                        app:layout_constraintStart_toEndOf="@id/iv_earring2"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_ring_summary"
-                    style="@style/Widget.LostArk.Tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:gravity="center"
-                    android:maxWidth="40dp"
-                    android:text="@string/label_ring"
-                    app:layout_constraintEnd_toEndOf="@id/tv_ring2_quality"
-                    app:layout_constraintStart_toStartOf="@id/tv_ring1_quality"
-                    app:layout_constraintTop_toBottomOf="@id/tv_ring2_quality" />
+                    <TextView
+                        android:id="@+id/tv_ring1_quality"
+                        style="@style/TextAppearance.LostArk.Tag"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_equipment_quality_7"
+                        android:gravity="center"
+                        android:text="@string/label_default_quality"
+                        android:textColor="@color/white"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/iv_ring1"
+                        app:layout_constraintStart_toStartOf="@id/iv_ring1"
+                        app:layout_constraintTop_toBottomOf="@id/iv_ring1"
+                        app:qualityType="@{`반지`}"
+                        tools:text="94" />
 
-                <ImageView
-                    android:id="@+id/iv_bracelet"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/bg_equipment_default"
-                    android:paddingHorizontal="2dp"
-                    android:paddingTop="2dp"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:imageType="@{`팔찌`}"
-                    app:layout_constraintStart_toEndOf="@id/tv_ring2_quality"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/iv_ring2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/bg_equipment_default"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:imageType="@{`반지2`}"
+                        app:layout_constraintStart_toEndOf="@id/tv_ring1_quality"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_bracelet_quality"
-                    style="@style/TextAppearance.LostArk.Tag"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_equipment_quality_7"
-                    android:gravity="center"
-                    android:text="@string/label_default_quality"
-                    android:textColor="@color/white"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_bracelet"
-                    app:layout_constraintStart_toStartOf="@id/iv_bracelet"
-                    app:layout_constraintTop_toBottomOf="@id/iv_bracelet"
-                    app:qualityType="@{`팔찌`}"
-                    tools:text="94" />
+                    <TextView
+                        android:id="@+id/tv_ring2_quality"
+                        style="@style/TextAppearance.LostArk.Tag"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_equipment_quality_7"
+                        android:gravity="center"
+                        android:text="@string/label_default_quality"
+                        android:textColor="@color/white"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/iv_ring2"
+                        app:layout_constraintStart_toStartOf="@id/iv_ring2"
+                        app:layout_constraintTop_toBottomOf="@id/iv_ring2"
+                        app:qualityType="@{`반지2`}"
+                        tools:text="94" />
 
-                <TextView
-                    android:id="@+id/tv_bracelet_summary"
-                    style="@style/Widget.LostArk.Tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:gravity="center"
-                    android:maxWidth="40dp"
-                    android:text="@string/label_bracelet"
-                    app:layout_constraintEnd_toEndOf="@id/tv_bracelet_quality"
-                    app:layout_constraintStart_toStartOf="@id/tv_bracelet_quality"
-                    app:layout_constraintTop_toBottomOf="@id/tv_bracelet_quality" />
+                    <TextView
+                        android:id="@+id/tv_ring_summary"
+                        style="@style/Widget.LostArk.Tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center"
+                        android:maxWidth="40dp"
+                        android:text="@string/label_ring"
+                        app:layout_constraintEnd_toEndOf="@id/tv_ring2_quality"
+                        app:layout_constraintStart_toStartOf="@id/tv_ring1_quality"
+                        app:layout_constraintTop_toBottomOf="@id/tv_ring2_quality" />
 
-                <ImageView
-                    android:id="@+id/iv_stone"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="12dp"
-                    android:background="@drawable/bg_equipment_default"
-                    android:paddingHorizontal="2dp"
-                    android:paddingTop="2dp"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:imageType="@{`어빌리티 스톤`}"
-                    app:layout_constraintStart_toEndOf="@id/iv_bracelet"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/iv_bracelet"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/bg_equipment_default"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:imageType="@{`팔찌`}"
+                        app:layout_constraintStart_toEndOf="@id/tv_ring2_quality"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_stone_quality"
-                    style="@style/TextAppearance.LostArk.Tag"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_equipment_quality_7"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="@string/label_default_quality"
-                    android:textColor="@color/white"
-                    app:equipmentMap="@{equipmentMap}"
-                    app:layout_constraintEnd_toEndOf="@id/iv_stone"
-                    app:layout_constraintStart_toStartOf="@id/iv_stone"
-                    app:layout_constraintTop_toBottomOf="@id/iv_stone"
-                    app:qualityType="@{`어빌리티 스톤`}"
-                    tools:text="94" />
+                    <TextView
+                        android:id="@+id/tv_bracelet_quality"
+                        style="@style/TextAppearance.LostArk.Tag"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_equipment_quality_7"
+                        android:gravity="center"
+                        android:text="@string/label_default_quality"
+                        android:textColor="@color/white"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/iv_bracelet"
+                        app:layout_constraintStart_toStartOf="@id/iv_bracelet"
+                        app:layout_constraintTop_toBottomOf="@id/iv_bracelet"
+                        app:qualityType="@{`팔찌`}"
+                        tools:text="94" />
 
-                <TextView
-                    android:id="@+id/tv_stone_summary"
-                    style="@style/Widget.LostArk.Tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:gravity="center"
-                    android:maxWidth="40dp"
-                    android:text="@string/label_stone"
-                    app:layout_constraintEnd_toEndOf="@id/tv_stone_quality"
-                    app:layout_constraintStart_toStartOf="@id/tv_stone_quality"
-                    app:layout_constraintTop_toBottomOf="@id/tv_stone_quality" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_bracelet_summary"
+                        style="@style/Widget.LostArk.Tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center"
+                        android:maxWidth="40dp"
+                        android:text="@string/label_bracelet"
+                        app:layout_constraintEnd_toEndOf="@id/tv_bracelet_quality"
+                        app:layout_constraintStart_toStartOf="@id/tv_bracelet_quality"
+                        app:layout_constraintTop_toBottomOf="@id/tv_bracelet_quality" />
+
+                    <ImageView
+                        android:id="@+id/iv_stone"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/bg_equipment_default"
+                        android:paddingHorizontal="2dp"
+                        android:paddingTop="2dp"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:imageType="@{`어빌리티 스톤`}"
+                        app:layout_constraintStart_toEndOf="@id/iv_bracelet"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_stone_quality"
+                        style="@style/TextAppearance.LostArk.Tag"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_equipment_quality_7"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/label_default_quality"
+                        android:textColor="@color/white"
+                        app:equipmentMap="@{equipmentMap}"
+                        app:layout_constraintEnd_toEndOf="@id/iv_stone"
+                        app:layout_constraintStart_toStartOf="@id/iv_stone"
+                        app:layout_constraintTop_toBottomOf="@id/iv_stone"
+                        app:qualityType="@{`어빌리티 스톤`}"
+                        tools:text="94" />
+
+                    <TextView
+                        android:id="@+id/tv_stone_summary"
+                        style="@style/Widget.LostArk.Tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center"
+                        android:maxWidth="40dp"
+                        android:text="@string/label_stone"
+                        app:layout_constraintEnd_toEndOf="@id/tv_stone_quality"
+                        app:layout_constraintStart_toStartOf="@id/tv_stone_quality"
+                        app:layout_constraintTop_toBottomOf="@id/tv_stone_quality" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </HorizontalScrollView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_accessory_detail"
