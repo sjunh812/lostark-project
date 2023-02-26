@@ -71,7 +71,7 @@ internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, 
     dtoList.forEach { dto ->
         var type = dto.type
         val level = mapperToEquipmentLevel(dto.type, dto.name)
-        val setInfo = mapperToEquipmentSet(dto.tooltip)
+        val setInfo = mapperToEquipmentSet(dto.tooltip, dto.name)
         val engravingList = mapperToAccessoryEngravingList(dto.type, dto.tooltip)
         val effectList = mapperToAccessoryEffectList(dto.type, dto.tooltip)
 
@@ -191,18 +191,23 @@ internal fun mapperToEquipmentLevel(type: String, name: String): String {
 }
 
 // 장비 세트 매핑
-internal fun mapperToEquipmentSet(tooltip: String): ArrayList<String>? {
-    val set = arrayListOf<String>()
-    val startIndexOfWord = tooltip.indexOf("Lv.")
-    val startIndexOfSetName = startIndexOfWord - 25
-
-    return try {
-        set.add(tooltip.substring(startIndexOfSetName, startIndexOfSetName + 2))
-        set.add(tooltip[startIndexOfWord + 3].toString())
-        set
-    } catch (e: Exception) {
-        null
+internal fun mapperToEquipmentSet(tooltip: String, name: String): ArrayList<String>? {
+    val setName = when {
+        name.contains("지배") -> "지배"
+        name.contains("배신") -> "배신"
+        name.contains("갈망") -> "갈망"
+        name.contains("파괴") -> "파괴"
+        name.contains("매혹") -> "매혹"
+        name.contains("사멸") -> "사멸"
+        name.contains("악몽") -> "악몽"
+        name.contains("환각") -> "환각"
+        name.contains("구원") -> "구원"
+        else -> return null
     }
+    val levelIndex = tooltip.indexOf(setName, 200) + 28
+    val level = tooltip[levelIndex].toString()
+
+    return arrayListOf(setName, level)
 }
 
 /**
