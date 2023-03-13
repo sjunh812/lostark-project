@@ -6,10 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.sjhstudio.lostark.domain.model.LostArkApiResult
-import org.sjhstudio.lostark.domain.model.response.Engraving
-import org.sjhstudio.lostark.domain.model.response.Equipment
-import org.sjhstudio.lostark.domain.model.response.Gem
-import org.sjhstudio.lostark.domain.model.response.Profile
+import org.sjhstudio.lostark.domain.model.response.*
 import org.sjhstudio.lostark.domain.repository.ArmoryRepository
 import javax.inject.Inject
 
@@ -30,6 +27,9 @@ class MainViewModel @Inject constructor(
     private var _gem = MutableStateFlow<LostArkApiResult<Gem>?>(null)
     val gem = _gem.asStateFlow()
 
+    private var _card = MutableStateFlow<LostArkApiResult<Card>?>(null)
+    val card = _card.asStateFlow()
+
     private var _collapseEquipment = MutableStateFlow<Boolean>(true)
     val collapseEquipment = _collapseEquipment.asStateFlow()
 
@@ -43,15 +43,18 @@ class MainViewModel @Inject constructor(
     val searchFailCount = _searchFailCount.asStateFlow()
 
     init {
-        search("아가벽력일섬")    // 캐릭터 검색
+        search("흑당곡물라떼")    // 캐릭터 검색
     }
 
     fun search(characterName: String) {
         initSearchFailCount()    // 검색 실패횟수 초기화
+
         getProfile(characterName)   // 프로필
         getEngraving(characterName) // 각인
         getEquipment(characterName) // 장비
         getGem(characterName)   // 보석
+        getCard(characterName)  // 카드
+
         changeEquipmentDetail(true) // 장비세부창 접기
         changeAccessoryDetail(true) // 악세세부창 접기
         changeGemDetail(true)   // 보석세부창 접기
@@ -105,6 +108,16 @@ class MainViewModel @Inject constructor(
             .catch { }
             .collectLatest { apiResult ->
                 _gem.emit(apiResult)
+            }
+    }
+
+    fun getCard(characterName: String) = viewModelScope.launch {
+        armoryRepository.getCard(characterName)
+            .onStart {  }
+            .onCompletion {  }
+            .catch {  }
+            .collectLatest { apiResult ->
+                _card.emit(apiResult)
             }
     }
 

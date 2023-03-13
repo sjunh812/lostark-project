@@ -1,6 +1,7 @@
 package org.sjhstudio.lostark.ui.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -29,6 +30,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val braceletEffectAdapter: BraceletEffectAdapter by lazy { BraceletEffectAdapter() }
     private val gemSummaryAdapter: GemSummaryAdapter by lazy { GemSummaryAdapter() }
     private val gemDetailAdapter: GemDetailAdapter by lazy { GemDetailAdapter() }
+
+    companion object {
+        private const val LOG = "MainActivity"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,13 +77,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 profile.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            println("xxx 프로필 불러오기 성공!!")
+                            Log.d(LOG, "프로필 불러오기 성공")
+
                             prgDialog.dismiss()
                             updateStatView(result.data?.stats)
                             binding.layoutProfile.executePendingBindings()
                             binding.layoutProfile.container.isVisible = true
                         } else {
-                            println("xxx 프로필 불러오기 실패..")
+                            Log.d(LOG, "프로필 불러오기 실패")
+
                             binding.layoutProfile.container.isVisible = false
                         }
                     }
@@ -89,11 +96,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 engraving.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            println("xxx 각인 불러오기 성공!!")
+                            Log.d(LOG, "각인 불러오기 성공")
+
                             binding.layoutProfile.executePendingBindings()
                             engravingAdapter.submitList(result.data?.effects)
                         } else {
-                            println("xxx 각인 불러오기 실패..")
+                            Log.d(LOG, "각인 불러오기 실패")
                         }
                     }
                 }
@@ -103,8 +111,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 equipment.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            println("xxx 장비 불러오기 성공!!")
-                            println("xxx equipment list : ${result.data}")
+                            Log.d(LOG, "장비 불러오기 성공")
 
                             result.data?.let { equipmentMap ->
                                 if (equipmentMap.containsKey("팔찌")) {
@@ -117,7 +124,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 binding.layoutEquipment.container.isVisible = true
                             }
                         } else {
-                            println("xxx 장비 불러오기 실패..")
+                            Log.d(LOG, "장비  불러오기 실패")
+
                             binding.layoutEquipment.container.isVisible = false
                         }
                     }
@@ -128,14 +136,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 gem.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            println("xxx 보석 불러오기 성공!!")
-                            println("xxx gem list : ${result.data}")
+                            Log.d(LOG, "보석 불러오기 성공")
+
                             gemSummaryAdapter.submitList(result.data?.gems)
                             gemDetailAdapter.submitList(result.data?.gems)
                             binding.layoutGem.layoutGem.isVisible = true
                         } else {
-                            println("xxx 보석 불러오기 실패..")
+                            Log.d(LOG, "보석 불러오기 실패")
+
                             binding.layoutGem.layoutGem.isVisible = false
+                        }
+                    }
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
+                card.collectLatest { apiResult ->
+                    apiResult?.let { result ->
+                        if (result.success) {
+                            Log.d(LOG, "카드 불러오기 성공")
+                        } else {
+                            Log.d(LOG, "카드 불러오기 실패")
                         }
                     }
                 }
@@ -164,9 +185,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             lifecycleScope.launchWhenStarted {
                 searchFailCount.collectLatest { count ->
-                    println("xxx count : $count")
                     if (count >= 2) {
-                        println("xxx fail")
                         prgDialog.dismiss()
                         Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
                     }
