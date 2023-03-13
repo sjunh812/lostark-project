@@ -1,9 +1,6 @@
 package org.sjhstudio.lostark.data.api
 
-import org.sjhstudio.lostark.data.model.armory.EngravingDto
-import org.sjhstudio.lostark.data.model.armory.EquipmentDto
-import org.sjhstudio.lostark.data.model.armory.GemDto
-import org.sjhstudio.lostark.data.model.armory.ProfileDto
+import org.sjhstudio.lostark.data.model.armory.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,4 +18,7 @@ internal interface ArmoryService {
 
     @GET("/armories/characters/{characterName}/gems")
     suspend fun getGem(@Path("characterName") characterName: String): Response<GemDto?>
+
+    @GET("/armories/characters/{characterName}/cards")
+    suspend fun getCard(@Path("characterName") characterName: String): Response<CardDto?>
 }

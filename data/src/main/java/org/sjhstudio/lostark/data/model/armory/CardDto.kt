@@ -5,14 +5,14 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class CardDto(
-    @Json(name = "Cards") val cards: List<CardInfo>,
+    @Json(name = "Cards") val cards: List<Card>,
     @Json(name = "Effects") val effects: List<Effect>
 ) {
 
     @JsonClass(generateAdapter = true)
-    data class CardInfo(
+    data class Card(
         @Json(name = "Slot") val slot: Int,
-        @Json(name = "Name") val name : String,
+        @Json(name = "Name") val name: String,
         @Json(name = "Icon") val icon: String,
         @Json(name = "AwakeCount") val awakeCount: Int,
         @Json(name = "AwakeTotal") val awakeTotal: Int,

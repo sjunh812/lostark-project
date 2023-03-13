@@ -1,13 +1,7 @@
 package org.sjhstudio.lostark.data
 
-import org.sjhstudio.lostark.data.model.armory.EngravingDto
-import org.sjhstudio.lostark.data.model.armory.EquipmentDto
-import org.sjhstudio.lostark.data.model.armory.GemDto
-import org.sjhstudio.lostark.data.model.armory.ProfileDto
-import org.sjhstudio.lostark.domain.model.response.Engraving
-import org.sjhstudio.lostark.domain.model.response.Equipment
-import org.sjhstudio.lostark.domain.model.response.Gem
-import org.sjhstudio.lostark.domain.model.response.Profile
+import org.sjhstudio.lostark.data.model.armory.*
+import org.sjhstudio.lostark.domain.model.response.*
 
 // 프로필(Profile) 매핑
 internal fun mapperToProfile(profileDto: ProfileDto) =
@@ -140,6 +134,35 @@ internal fun mapperToGem(dto: GemDto): Gem {
 
     return Gem(gems = gems)
 }
+
+// 카드(Card) 매핑
+internal fun mapperToCard(dto: CardDto) =
+    Card(
+        cards = dto.cards.map { card ->
+            CardInfo(
+                slot = card.slot,
+                name = card.name,
+                iconUrl = card.icon,
+                awakeCount = card.awakeCount,
+                awakeTotal = card.awakeTotal,
+                grade = card.grade,
+                tooltip = card.tooltip
+            )
+        },
+        effects = dto.effects.map { effect ->
+            CardEffect(
+                index = effect.index,
+                slots = effect.cardSlots,
+                items = effect.items.map {
+                    CardEffect.Item(
+                        name = it.name,
+                        description = it.description
+                    )
+                }
+            )
+        }
+    )
+
 
 /**
  * @description : 장비 품질 매핑
@@ -329,6 +352,7 @@ internal fun mapperToAccessoryEffectList(
                 if (start++ == last) {
                     var i = index + 15
                     var str = ""
+
 
                     while (tooltip[i] != '"') {
                         str += tooltip[i++]
