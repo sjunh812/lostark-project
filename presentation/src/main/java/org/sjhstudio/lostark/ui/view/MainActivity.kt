@@ -13,10 +13,7 @@ import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.base.BaseActivity
 import org.sjhstudio.lostark.databinding.ActivityMainBinding
 import org.sjhstudio.lostark.domain.model.response.Profile
-import org.sjhstudio.lostark.ui.adatper.BraceletEffectAdapter
-import org.sjhstudio.lostark.ui.adatper.EngravingAdapter
-import org.sjhstudio.lostark.ui.adatper.GemDetailAdapter
-import org.sjhstudio.lostark.ui.adatper.GemSummaryAdapter
+import org.sjhstudio.lostark.ui.adatper.*
 import org.sjhstudio.lostark.ui.common.PrgDialog
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
 import org.sjhstudio.lostark.util.setEquipmentSetSummary
@@ -30,6 +27,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val braceletEffectAdapter: BraceletEffectAdapter by lazy { BraceletEffectAdapter() }
     private val gemSummaryAdapter: GemSummaryAdapter by lazy { GemSummaryAdapter() }
     private val gemDetailAdapter: GemDetailAdapter by lazy { GemDetailAdapter() }
+    private val cardAdapter: CardAdapter by lazy { CardAdapter() }
 
     companion object {
         private const val LOG = "MainActivity"
@@ -56,6 +54,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
             layoutGem.rvGemSummary.adapter = gemSummaryAdapter
             layoutGem.rvGemDetail.adapter = gemDetailAdapter
+            layoutCard.rvCard.adapter = cardAdapter
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
@@ -155,6 +154,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.d(LOG, "카드 불러오기 성공")
+
+                            cardAdapter.submitList(result.data?.cards)
                         } else {
                             Log.d(LOG, "카드 불러오기 실패")
                         }
@@ -217,5 +218,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         braceletEffectAdapter.submitList(null)
         gemSummaryAdapter.submitList(null)
         gemDetailAdapter.submitList(null)
+        cardAdapter.submitList(null)
     }
 }
