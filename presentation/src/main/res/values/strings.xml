@@ -29,4 +29,5 @@
     <string name="label_bracelet">팔찌</string>
     <string name="label_stone">돌</string>
     <string name="label_gem">보석</string>
+    <string name="label_card">카드</string>
 </resources>

@@ -39,11 +39,14 @@ class MainViewModel @Inject constructor(
     private var _collapseGem = MutableStateFlow<Boolean>(true)
     val collapseGem = _collapseGem.asStateFlow()
 
+    private var _collapseCard = MutableStateFlow<Boolean>(true)
+    val collapseCard = _collapseCard.asStateFlow()
+
     private var _searchFailCount = MutableStateFlow<Int>(0)
     val searchFailCount = _searchFailCount.asStateFlow()
 
     init {
-        search("흑당곡물라떼")    // 캐릭터 검색
+        search("아가벽력일섬")    // 캐릭터 검색
     }
 
     fun search(characterName: String) {
@@ -113,9 +116,9 @@ class MainViewModel @Inject constructor(
 
     fun getCard(characterName: String) = viewModelScope.launch {
         armoryRepository.getCard(characterName)
-            .onStart {  }
-            .onCompletion {  }
-            .catch {  }
+            .onStart { }
+            .onCompletion { }
+            .catch { }
             .collectLatest { apiResult ->
                 _card.emit(apiResult)
             }
@@ -131,5 +134,9 @@ class MainViewModel @Inject constructor(
 
     fun changeGemDetail(collapse: Boolean? = null) = viewModelScope.launch {
         _collapseGem.emit(collapse ?: !collapseGem.value)
+    }
+
+    fun changeCardDetail(collapse: Boolean? = null) = viewModelScope.launch {
+        _collapseCard.emit(collapse ?: !collapseCard.value)
     }
 }
