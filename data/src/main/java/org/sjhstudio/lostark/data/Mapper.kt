@@ -153,15 +153,38 @@ internal fun mapperToCard(dto: CardDto) =
             CardEffect(
                 index = effect.index,
                 slots = effect.cardSlots,
-                items = effect.items.map {
-                    CardEffect.Item(
-                        name = it.name,
-                        description = it.description
-                    )
+                items = effect.items.map { dto ->
+                    mapperToCardEffectItem(dto)
                 }
             )
         }
     )
+
+internal fun mapperToCardEffectItem(dto: CardDto.Effect.Item): CardEffect.Item{
+    var name = dto.name
+    var set: Int? = null
+    var awake: Int? = null
+    val setIndex = dto.name.indexOfFirst { c -> c.isDigit() }
+    val awakeIndex = dto.name.indexOfFirst { c -> c == '(' }
+
+    if (setIndex != -1) {
+        name = dto.name.substring(0, setIndex - 1)
+        set = dto.name[setIndex].digitToIntOrNull()
+    }
+
+    if (awakeIndex != -1) {
+        awake = dto.name.substring(awakeIndex)
+            .filter { c -> c.isDigit() }
+            .toIntOrNull()
+    }
+
+    return CardEffect.Item(
+        name = name,
+        set = set,
+        awake = awake,
+        description = dto.description
+    )
+}
 
 
 /**

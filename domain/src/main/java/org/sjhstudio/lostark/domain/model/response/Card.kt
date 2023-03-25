@@ -22,6 +22,8 @@ data class CardEffect(
 ) {
     data class Item(
         val name: String,
+        val set: Int?,
+        val awake: Int?,
         val description: String
     )
 }

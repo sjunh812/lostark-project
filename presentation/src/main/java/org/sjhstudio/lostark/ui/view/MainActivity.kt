@@ -77,14 +77,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.d(LOG, "프로필 불러오기 성공")
-
                             prgDialog.dismiss()
                             updateStatView(result.data?.stats)
                             binding.layoutProfile.executePendingBindings()
                             binding.layoutProfile.container.isVisible = true
                         } else {
                             Log.d(LOG, "프로필 불러오기 실패")
-
                             binding.layoutProfile.container.isVisible = false
                         }
                     }
@@ -96,7 +94,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.d(LOG, "각인 불러오기 성공")
-
                             binding.layoutProfile.executePendingBindings()
                             engravingAdapter.submitList(result.data?.effects)
                         } else {
@@ -111,7 +108,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.d(LOG, "장비 불러오기 성공")
-
                             result.data?.let { equipmentMap ->
                                 if (equipmentMap.containsKey("팔찌")) {
                                     val effectList = result.data!!["팔찌"]?.effects
@@ -124,7 +120,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             }
                         } else {
                             Log.d(LOG, "장비  불러오기 실패")
-
                             binding.layoutEquipment.container.isVisible = false
                         }
                     }
@@ -136,13 +131,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.d(LOG, "보석 불러오기 성공")
-
                             gemSummaryAdapter.submitList(result.data?.gems)
                             gemDetailAdapter.submitList(result.data?.gems)
                             binding.layoutGem.layoutGem.isVisible = true
                         } else {
                             Log.d(LOG, "보석 불러오기 실패")
-
                             binding.layoutGem.layoutGem.isVisible = false
                         }
                     }
@@ -154,7 +147,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.d(LOG, "카드 불러오기 성공")
-
+                            Log.d(LOG, "card: ${result.data?.effects}")
                             cardAdapter.submitList(result.data?.cards)
                         } else {
                             Log.d(LOG, "카드 불러오기 실패")
