@@ -8,7 +8,9 @@
     <ImageView
         android:id="@+id/iv_card"
         android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
+        android:padding="1.5dp"
+        android:background="@drawable/img_card_legend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
