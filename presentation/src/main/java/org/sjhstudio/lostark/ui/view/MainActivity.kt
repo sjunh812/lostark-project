@@ -28,6 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val gemSummaryAdapter: GemSummaryAdapter by lazy { GemSummaryAdapter() }
     private val gemDetailAdapter: GemDetailAdapter by lazy { GemDetailAdapter() }
     private val cardAdapter: CardAdapter by lazy { CardAdapter() }
+    private val cardEffectSummaryAdapter: CardEffectSummaryAdapter by lazy { CardEffectSummaryAdapter() }
 
     companion object {
         private const val LOG = "MainActivity"
@@ -55,6 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             layoutGem.rvGemSummary.adapter = gemSummaryAdapter
             layoutGem.rvGemDetail.adapter = gemDetailAdapter
             layoutCard.rvCard.adapter = cardAdapter
+            layoutCard.rvCardEffectSummary.adapter = cardEffectSummaryAdapter
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
@@ -149,6 +151,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             Log.d(LOG, "카드 불러오기 성공")
                             Log.d(LOG, "card: ${result.data?.effects}")
                             cardAdapter.submitList(result.data?.cards)
+                            cardEffectSummaryAdapter.submitList(result.data?.effects)
                         } else {
                             Log.d(LOG, "카드 불러오기 실패")
                         }
@@ -212,5 +215,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         gemSummaryAdapter.submitList(null)
         gemDetailAdapter.submitList(null)
         cardAdapter.submitList(null)
+        cardEffectSummaryAdapter.submitList(null)
     }
 }
