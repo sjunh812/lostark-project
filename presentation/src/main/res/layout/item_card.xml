@@ -15,6 +15,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/iv_awake_1"
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:src="@drawable/img_awake_full"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toStartOf="@id/iv_card"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+
+    <ImageView
+        android:id="@+id/iv_awake_2"
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:src="@drawable/img_awake_full"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_1"
+
+        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+
+    <ImageView
+        android:id="@+id/iv_awake_3"
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:src="@drawable/img_awake_full"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_2"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+
+    <ImageView
+        android:id="@+id/iv_awake_4"
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:src="@drawable/img_awake_full"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_3"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+
+    <ImageView
+        android:id="@+id/iv_awake_5"
+        android:layout_width="8dp"
+        android:layout_height="12dp"
+        android:src="@drawable/img_awake_full"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_4"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+
     <TextView
         android:id="@+id/tv_card"
         android:layout_width="wrap_content"

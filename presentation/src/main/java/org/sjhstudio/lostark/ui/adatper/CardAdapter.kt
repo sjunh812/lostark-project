@@ -2,6 +2,7 @@ package org.sjhstudio.lostark.ui.adatper
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -23,13 +24,33 @@ class CardAdapter : ListAdapter<CardInfo, CardAdapter.CardViewHolder>(diffCallba
         }
     }
 
-    inner class CardViewHolder(private val binding: ItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CardViewHolder(private val binding: ItemCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        private val ivAwakeList = listOf<ImageView>(
+            binding.ivAwake1,
+            binding.ivAwake2,
+            binding.ivAwake3,
+            binding.ivAwake4,
+            binding.ivAwake5
+        )
 
         fun bind(card: CardInfo) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(card.iconUrl)
                     .into(ivCard)
+
+                ivAwakeList.forEachIndexed { i, iv ->
+                    Glide.with(iv.context)
+                        .load(
+                            ContextCompat.getDrawable(
+                                iv.context,
+                                if (i < card.awakeCount) R.drawable.img_awake_full else R.drawable.img_awake_empty
+                            )
+                        )
+                        .into(iv)
+                }
             }
         }
     }
