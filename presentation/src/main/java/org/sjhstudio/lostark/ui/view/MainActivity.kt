@@ -27,8 +27,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val braceletEffectAdapter: BraceletEffectAdapter by lazy { BraceletEffectAdapter() }
     private val gemSummaryAdapter: GemSummaryAdapter by lazy { GemSummaryAdapter() }
     private val gemDetailAdapter: GemDetailAdapter by lazy { GemDetailAdapter() }
-    private val cardAdapter: CardAdapter by lazy { CardAdapter() }
+    private val cardAdapter: CardAdapter by lazy { CardAdapter(mainViewModel) }
     private val cardEffectSummaryAdapter: CardEffectSummaryAdapter by lazy { CardEffectSummaryAdapter() }
+    private val cardEffectDetailAdapter: CardEffectDetailAdapter by lazy { CardEffectDetailAdapter() }
 
     companion object {
         private const val LOG = "MainActivity"
@@ -37,7 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind()
-        initView()
+        initViews()
         observeData()
     }
 
@@ -47,7 +48,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    private fun initView() {
+    private fun initViews() {
         with(binding) {
             prgDialog.show(supportFragmentManager, "prg_dialog")
 
@@ -55,20 +56,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
             layoutGem.rvGemSummary.adapter = gemSummaryAdapter
             layoutGem.rvGemDetail.adapter = gemDetailAdapter
-            layoutCard.rvCard.adapter = cardAdapter
+            layoutCard.rvCard.apply {
+                adapter = cardAdapter
+                itemAnimator?.changeDuration = 0
+            }
             layoutCard.rvCardEffectSummary.adapter = cardEffectSummaryAdapter
+            layoutCard.rvCardEffectDetail.adapter = cardEffectDetailAdapter
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
+
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    initAdapter()
+                    initAdapters()
                     mainViewModel.search(inputNickname)
                 }
+
                 false
             }
+
             layoutEquipment.layoutEquipmentTop.setOnClickListener { mainViewModel.changeEquipmentDetail() }
+
             layoutEquipment.layoutAccessoryTop.setOnClickListener { mainViewModel.changeAccessoryDetail() }
+
             layoutGem.layoutGemTop.setOnClickListener { mainViewModel.changeGemDetail() }
+
+            layoutCard.layoutCardTop.setOnClickListener { mainViewModel.changeCardDetail() }
         }
     }
 
@@ -80,8 +92,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         if (result.success) {
                             Log.d(LOG, "프로필 불러오기 성공")
                             prgDialog.dismiss()
-                            updateStatView(result.data?.stats)
-                            binding.layoutProfile.executePendingBindings()
+                            updateStatViews(result.data?.stats)
+//                            binding.layoutProfile.executePendingBindings()
                             binding.layoutProfile.container.isVisible = true
                         } else {
                             Log.d(LOG, "프로필 불러오기 실패")
@@ -96,7 +108,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.d(LOG, "각인 불러오기 성공")
-                            binding.layoutProfile.executePendingBindings()
+//                            binding.layoutProfile.executePendingBindings()
                             engravingAdapter.submitList(result.data?.effects)
                         } else {
                             Log.d(LOG, "각인 불러오기 실패")
@@ -152,6 +164,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             Log.d(LOG, "card: ${result.data?.effects}")
                             cardAdapter.submitList(result.data?.cards)
                             cardEffectSummaryAdapter.submitList(result.data?.effects)
+                            cardEffectDetailAdapter.submitList(result.data?.effects)
                         } else {
                             Log.d(LOG, "카드 불러오기 실패")
                         }
@@ -181,6 +194,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             lifecycleScope.launchWhenStarted {
+                collapseCard.collectLatest { collapse ->
+                    cardAdapter.notifyItemRangeChanged(0, cardAdapter.currentList.size)
+                    binding.layoutCard.rvCardEffectSummary.isVisible = collapse
+                    binding.layoutCard.rvCardEffectDetail.isVisible = !collapse
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
                 searchFailCount.collectLatest { count ->
                     if (count >= 2) {
                         prgDialog.dismiss()
@@ -192,7 +213,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     // 전투 특성 갱신
-    private fun updateStatView(stats: List<Profile.Stat>?) {
+    private fun updateStatViews(stats: List<Profile.Stat>?) {
         with(binding.layoutProfile) {
             stats?.forEach { stat ->
                 when (stat.type) {
@@ -209,7 +230,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    private fun initAdapter() {
+    private fun initAdapters() {
         engravingAdapter.submitList(null)
         braceletEffectAdapter.submitList(null)
         gemSummaryAdapter.submitList(null)

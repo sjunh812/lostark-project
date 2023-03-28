@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +12,12 @@ import com.bumptech.glide.Glide
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.databinding.ItemCardBinding
 import org.sjhstudio.lostark.domain.model.response.CardInfo
+import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
+import org.sjhstudio.lostark.util.setCardBackground
 
-class CardAdapter : ListAdapter<CardInfo, CardAdapter.CardViewHolder>(diffCallback) {
+class CardAdapter(
+    private val viewModel: MainViewModel
+) : ListAdapter<CardInfo, CardAdapter.CardViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<CardInfo>() {
@@ -40,6 +45,12 @@ class CardAdapter : ListAdapter<CardInfo, CardAdapter.CardViewHolder>(diffCallba
                 Glide.with(itemView.context)
                     .load(card.iconUrl)
                     .into(ivCard)
+
+                ivCard.setCardBackground(card.grade)
+                tvCard.apply {
+                    text = card.name
+                    isVisible = !viewModel.collapseCard.value
+                }
 
                 ivAwakeList.forEachIndexed { i, iv ->
                     Glide.with(iv.context)

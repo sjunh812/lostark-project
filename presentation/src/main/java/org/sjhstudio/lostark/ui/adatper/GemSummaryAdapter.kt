@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import org.sjhstudio.lostark.databinding.ItemGemSummaryBinding
 import org.sjhstudio.lostark.domain.model.response.Gem
 import org.sjhstudio.lostark.util.setEquipmentBackground
-import org.sjhstudio.lostark.util.setItemBackground
 
 class GemSummaryAdapter : ListAdapter<Gem.GemInfo, GemSummaryAdapter.GemSummaryViewHolder>(
     diffCallback

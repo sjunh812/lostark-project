@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="3dp">
@@ -9,8 +10,6 @@
         android:id="@+id/iv_card"
         android:layout_width="60dp"
         android:layout_height="90dp"
-        android:padding="1.5dp"
-        android:background="@drawable/img_card_legend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,60 +18,61 @@
         android:id="@+id/iv_awake_1"
         android:layout_width="8dp"
         android:layout_height="12dp"
-        android:src="@drawable/img_awake_full"
-        android:layout_marginBottom="6dp"
         android:layout_marginStart="6dp"
-        app:layout_constraintStart_toStartOf="@id/iv_card"
-        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+        android:layout_marginBottom="6dp"
+        android:src="@drawable/img_awake_full"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card"
+        app:layout_constraintStart_toStartOf="@id/iv_card" />
 
     <ImageView
         android:id="@+id/iv_awake_2"
         android:layout_width="8dp"
         android:layout_height="12dp"
-        android:src="@drawable/img_awake_full"
-        android:layout_marginBottom="6dp"
         android:layout_marginStart="2dp"
-        app:layout_constraintStart_toEndOf="@id/iv_awake_1"
-
-        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+        android:layout_marginBottom="6dp"
+        android:src="@drawable/img_awake_full"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_1" />
 
     <ImageView
         android:id="@+id/iv_awake_3"
         android:layout_width="8dp"
         android:layout_height="12dp"
-        android:src="@drawable/img_awake_full"
-        android:layout_marginBottom="6dp"
         android:layout_marginStart="2dp"
-        app:layout_constraintStart_toEndOf="@id/iv_awake_2"
-        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+        android:layout_marginBottom="6dp"
+        android:src="@drawable/img_awake_full"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_2" />
 
     <ImageView
         android:id="@+id/iv_awake_4"
         android:layout_width="8dp"
         android:layout_height="12dp"
-        android:src="@drawable/img_awake_full"
-        android:layout_marginBottom="6dp"
         android:layout_marginStart="2dp"
-        app:layout_constraintStart_toEndOf="@id/iv_awake_3"
-        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+        android:layout_marginBottom="6dp"
+        android:src="@drawable/img_awake_full"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_3" />
 
     <ImageView
         android:id="@+id/iv_awake_5"
         android:layout_width="8dp"
         android:layout_height="12dp"
-        android:src="@drawable/img_awake_full"
-        android:layout_marginBottom="6dp"
         android:layout_marginStart="2dp"
-        app:layout_constraintStart_toEndOf="@id/iv_awake_4"
-        app:layout_constraintBottom_toBottomOf="@id/iv_card" />
+        android:layout_marginBottom="6dp"
+        android:src="@drawable/img_awake_full"
+        app:layout_constraintBottom_toBottomOf="@id/iv_card"
+        app:layout_constraintStart_toEndOf="@id/iv_awake_4" />
 
     <TextView
         android:id="@+id/tv_card"
+        style="@style/TextAppearance.LostArk.Overline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:textColor="@color/white"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/iv_card"
         app:layout_constraintStart_toStartOf="@id/iv_card"
-        app:layout_constraintTop_toBottomOf="@id/iv_card" />
+        app:layout_constraintTop_toBottomOf="@id/iv_card"
+        tools:text="발탄" />
 </androidx.constraintlayout.widget.ConstraintLayout>

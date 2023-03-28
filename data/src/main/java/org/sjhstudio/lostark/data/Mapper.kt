@@ -3,7 +3,6 @@ package org.sjhstudio.lostark.data
 import org.sjhstudio.lostark.data.model.armory.*
 import org.sjhstudio.lostark.domain.model.response.*
 
-// 프로필(Profile) 매핑
 internal fun mapperToProfile(profileDto: ProfileDto) =
     Profile(
         characterImageUrl = profileDto.characterImage ?: "",
@@ -35,7 +34,6 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
         itemLevel = profileDto.itemAvgLevel
     )
 
-// 각인(Engraving) 매핑
 internal fun mapperToEngraving(engravingDto: EngravingDto) =
     Engraving(
         slots = engravingDto.engravings?.map { slotDto ->
@@ -57,19 +55,18 @@ internal fun mapperToEngraving(engravingDto: EngravingDto) =
 /**
  * @description : 장비 매핑
  * @return : HashMap<String, Equipment>
- *           (Key : 장비 타입, Value : 장비 객체)
+ *           key = 장비 타입,
+ *           value = 장비 객체
  */
 internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, Equipment> {
     val map = hashMapOf<String, Equipment>()
 
     dtoList.forEach { dto ->
-        var type = dto.type
+        val type = if (map.containsKey(dto.type)) "${dto.type}2" else dto.type
         val level = mapperToEquipmentLevel(dto.type, dto.name)
         val setInfo = mapperToEquipmentSet(dto.tooltip, dto.name)
         val engravingList = mapperToAccessoryEngravingList(dto.type, dto.tooltip)
         val effectList = mapperToAccessoryEffectList(dto.type, dto.tooltip)
-
-        if (map.containsKey(dto.type)) type = "${dto.type}2"
 
         map[type] = Equipment(
             type = dto.type,
@@ -89,17 +86,17 @@ internal fun mapperToEquipmentMap(dtoList: List<EquipmentDto>): HashMap<String, 
     return map
 }
 
-// 보석(Gem) 매핑
 internal fun mapperToGem(dto: GemDto): Gem {
     val gems = mutableListOf<Gem.GemInfo>()
 
     dto.gems.forEach { gemDto ->
-        val priority =
-            if (gemDto.name.contains("멸화")) 0
-            else if (gemDto.name.contains("홍염")) 1
-            else if (gemDto.name.contains("청명")) 2
-            else if (gemDto.name.contains("원해")) 3
-            else 4
+        val priority = when (gemDto.name) {
+            in "멸화" -> 0
+            in "홍염" -> 1
+            in "청명" -> 2
+            in "원해" -> 3
+            else -> 4
+        }
         val gemInfo = Gem.GemInfo(
             priority = priority,
             slot = gemDto.slot.toString(),
@@ -110,6 +107,7 @@ internal fun mapperToGem(dto: GemDto): Gem {
         )
         gems.add(gemInfo)
     }
+
     dto.effects.forEach { effectDto ->
         val effect = Gem.GemInfo.Effect(
             gemSlot = effectDto.gemSlot.toString(),
@@ -123,19 +121,20 @@ internal fun mapperToGem(dto: GemDto): Gem {
             }
         }
     }
+
     gems.sortWith { gem1, gem2 ->
-        if (gem1.priority < gem2.priority) -1
-        else if (gem1.priority > gem2.priority) 1
-        else {
-            if (gem1.level < gem2.level) 1
-            else -1
+        if (gem1.priority < gem2.priority) {
+            -1
+        } else if (gem1.priority > gem2.priority) {
+            1
+        } else {
+            if (gem1.level < gem2.level) 1 else -1
         }
     }
 
-    return Gem(gems = gems)
+    return Gem(gems)
 }
 
-// 카드(Card) 매핑
 internal fun mapperToCard(dto: CardDto) =
     Card(
         cards = dto.cards.map { card ->
@@ -153,9 +152,7 @@ internal fun mapperToCard(dto: CardDto) =
             CardEffect(
                 index = effect.index,
                 slots = effect.cardSlots,
-                items = effect.items.map { dto ->
-                    mapperToCardEffectItem(dto)
-                }
+                items = effect.items.map { dto -> mapperToCardEffectItem(dto) }
             )
         }
     )
