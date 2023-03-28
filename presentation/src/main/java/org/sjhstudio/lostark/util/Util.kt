@@ -4,18 +4,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import org.sjhstudio.lostark.R
 
-fun ImageView.setEquipmentBackground(grade: String) {
-    background = when (grade) {
-        "고대" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_ancient)
-        "유물" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_relic)
-        "전설" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_legend)
-        "영웅" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_hero)
-        "희귀" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_rare)
-        "고급" -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_high)
-        else -> ContextCompat.getDrawable(context, R.drawable.bg_equipment_default)
-    }
-}
-
 fun ImageView.setItemBackground(grade: String) {
     background = when (grade) {
         "고대" -> ContextCompat.getDrawable(context, R.drawable.bg_item_ancient)

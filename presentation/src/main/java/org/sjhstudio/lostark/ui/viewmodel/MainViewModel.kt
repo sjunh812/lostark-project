@@ -46,7 +46,7 @@ class MainViewModel @Inject constructor(
     val searchFailCount = _searchFailCount.asStateFlow()
 
     init {
-        search("아가도화가바로나")    // 캐릭터 검색
+        search("아가벽력일섬")    // 캐릭터 검색
     }
 
     fun search(characterName: String) {
@@ -60,6 +60,7 @@ class MainViewModel @Inject constructor(
 
         changeEquipmentDetail(true) // 장비세부창 접기
         changeAccessoryDetail(true) // 악세세부창 접기
+        changeCardDetail(true)  // 카드세부창 접기
         changeGemDetail(true)   // 보석세부창 접기
     }
 
