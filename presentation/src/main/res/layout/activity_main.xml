@@ -40,9 +40,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_nickname"
-                    android:imeOptions="actionDone"
+                    android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.LostArk.Body"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="15sp" />
@@ -89,10 +90,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
-                app:viewModel="@{viewModel}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_gem" />
+                app:layout_constraintTop_toBottomOf="@id/layout_gem"
+                app:viewModel="@{viewModel}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

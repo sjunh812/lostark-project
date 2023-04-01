@@ -23,6 +23,8 @@ fun TextView.setEquipmentSetSummary(equipmentMap: HashMap<String, Equipment>) {
     val setList = arrayListOf<EquipmentSet>()
     var setSummary = "" // 지배 4 악몽 2
 
+    println("xxx $equipmentMap")
+
     for (equipment in equipmentMap.values) {
         if (equipment.type == "무기" || equipment.type == "투구" || equipment.type == "상의" || equipment.type == "하의" || equipment.type == "장갑" || equipment.type == "어깨") {
             var matchCount = 0

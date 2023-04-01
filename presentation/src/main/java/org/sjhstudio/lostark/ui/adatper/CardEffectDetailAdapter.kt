@@ -1,9 +1,13 @@
 package org.sjhstudio.lostark.ui.adatper
 
+import android.content.res.AssetManager
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -31,24 +35,29 @@ class CardEffectDetailAdapter :
 
         fun bind(effect: CardEffect) {
             with(binding) {
-                tvCardEffectName.text = effect.items.last().name
-                println("xxx ${effect.items.size}")
+                tvCardEffectName.text = effect.items.lastOrNull()?.name.orEmpty()
+
                 effect.items.forEach {
                     val tvTag = TextView(itemView.context, null, 0, R.style.Widget_LostArk_Tag)
                         .apply {
+                            setTextAppearance(R.style.TextAppearance_LostArk_Tag)
+                            typeface = Typeface.createFromAsset(itemView.context.assets, "pretendard_bold.ttf")
                             minWidth = itemView.context.dpToPx(45).toInt()
                             text = if (it.awake != null) "${it.awake}각성" else "${it.set}세트"
                         }
                     val tvDescription = TextView(itemView.context)
                         .apply {
-                            setPadding(20, 0, 0, 0)
                             setTextAppearance(R.style.TextAppearance_LostArk_Overline)
+                            setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+                            setPadding(20)
+                            typeface = Typeface.createFromAsset(itemView.context.assets, "pretendard_medium.ttf")
                             text = it.description
+                            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
                         }
                     val containerItem = LinearLayout(itemView.context)
                         .apply {
                             orientation = LinearLayout.HORIZONTAL
-                            setPadding(12)
+                            setPadding(0, 10, 0, 10)
                             addView(tvTag)
                             addView(tvDescription)
                         }

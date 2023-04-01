@@ -29,14 +29,16 @@ class CardEffectSummaryAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(effect: CardEffect) {
             with(binding) {
-                tvCardEffectName.text = effect.items.last().name
-                tvCardEffectSet.apply {
-                    text = "${effect.items.last().set}세트"
-                    isVisible = effect.items.last().set != null
-                }
-                tvCardEffectAwake.apply {
-                    text = "${effect.items.last().awake}각성"
-                    isVisible = effect.items.last().awake != null
+                if (effect.items.isNotEmpty()) {
+                    tvCardEffectName.text = effect.items.lastOrNull()?.name.orEmpty()
+                    tvCardEffectSet.apply {
+                        text = "${effect.items.lastOrNull()?.set ?: ""}세트"
+                        isVisible = effect.items.lastOrNull()?.set != null
+                    }
+                    tvCardEffectAwake.apply {
+                        text = "${effect.items.lastOrNull()?.awake ?: ""}각성"
+                        isVisible = effect.items.lastOrNull()?.awake != null
+                    }
                 }
             }
         }

@@ -66,7 +66,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 val inputNickname = etNickname.text.toString()
 
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     initAdapters()
                     mainViewModel.search(inputNickname)
                 }
@@ -127,9 +127,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                     val effectList = result.data!!["팔찌"]?.effects
                                     braceletEffectAdapter.submitList(effectList?.filter { effect -> effect.isSpecial })
                                 }
-                                binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(
-                                    equipmentMap
-                                )
+                                binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(equipmentMap)
                                 binding.layoutEquipment.container.isVisible = true
                             }
                         } else {
@@ -163,8 +161,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             Log.d(LOG, "카드 불러오기 성공")
                             Log.d(LOG, "card: ${result.data?.effects}")
                             cardAdapter.submitList(result.data?.cards)
-                            cardEffectSummaryAdapter.submitList(result.data?.effects)
-                            cardEffectDetailAdapter.submitList(result.data?.effects)
+
+                            result.data?.effects?.filter { effect ->
+                                effect.items.isNotEmpty()
+                            }.run {
+                                cardEffectSummaryAdapter.submitList(this)
+                                cardEffectDetailAdapter.submitList(this)
+                            }
                         } else {
                             Log.d(LOG, "카드 불러오기 실패")
                         }
