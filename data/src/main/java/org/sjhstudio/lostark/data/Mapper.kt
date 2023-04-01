@@ -90,11 +90,11 @@ internal fun mapperToGem(dto: GemDto): Gem {
     val gems = mutableListOf<Gem.GemInfo>()
 
     dto.gems.forEach { gemDto ->
-        val priority = when (gemDto.name) {
-            in "멸화" -> 0
-            in "홍염" -> 1
-            in "청명" -> 2
-            in "원해" -> 3
+        val priority = when {
+            "멸화" in gemDto.name -> 0
+            "홍염" in gemDto.name -> 1
+            "청명" in gemDto.name -> 2
+            "원해" in gemDto.name -> 3
             else -> 4
         }
         val gemInfo = Gem.GemInfo(
@@ -157,7 +157,7 @@ internal fun mapperToCard(dto: CardDto) =
         }
     )
 
-internal fun mapperToCardEffectItem(dto: CardDto.Effect.Item): CardEffect.Item{
+internal fun mapperToCardEffectItem(dto: CardDto.Effect.Item): CardEffect.Item {
     var name = dto.name
     var set: Int? = null
     var awake: Int? = null
@@ -235,21 +235,22 @@ internal fun mapperToEquipmentLevel(type: String, name: String): String {
 
 // 장비 세트 매핑
 internal fun mapperToEquipmentSet(tooltip: String, name: String): ArrayList<String>? {
+    println("mapper : $name")
     val setName = when {
-        name.contains("지배") -> "지배"
-        name.contains("배신") -> "배신"
-        name.contains("갈망") -> "갈망"
-        name.contains("파괴") -> "파괴"
-        name.contains("매혹") -> "매혹"
-        name.contains("사멸") -> "사멸"
-        name.contains("악몽") -> "악몽"
-        name.contains("환각") -> "환각"
-        name.contains("구원") -> "구원"
+        "지배" in name -> "지배"
+        "배신" in name -> "배신"
+        "갈망" in name -> "갈망"
+        "파괴" in name -> "파괴"
+        "매혹" in name -> "매혹"
+        "사멸" in name -> "사멸"
+        "악몽" in name -> "악몽"
+        "환각" in name -> "환각"
+        "구원" in name -> "구원"
         else -> return null
     }
     val levelIndex = tooltip.indexOf(setName, 200) + 28
     val level = tooltip[levelIndex].toString()
-
+    println("mapper : $setName $level")
     return arrayListOf(setName, level)
 }
 
