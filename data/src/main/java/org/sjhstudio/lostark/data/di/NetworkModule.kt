@@ -12,12 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.sjhstudio.lostark.data.api.ApiKey.LOST_ARK_API_KEY
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
 import javax.inject.Singleton
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 @dagger.Module
 @InstallIn(SingletonComponent::class)

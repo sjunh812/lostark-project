@@ -67,19 +67,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 val inputNickname = etNickname.text.toString()
 
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    etNickname.text?.clear()
                     initAdapters()
                     mainViewModel.search(inputNickname)
                 }
 
                 false
             }
-
             layoutEquipment.layoutEquipmentTop.setOnClickListener { mainViewModel.changeEquipmentDetail() }
-
             layoutEquipment.layoutAccessoryTop.setOnClickListener { mainViewModel.changeAccessoryDetail() }
-
             layoutGem.layoutGemTop.setOnClickListener { mainViewModel.changeGemDetail() }
-
             layoutCard.layoutCardTop.setOnClickListener { mainViewModel.changeCardDetail() }
         }
     }
@@ -127,7 +124,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                     val effectList = result.data!!["팔찌"]?.effects
                                     braceletEffectAdapter.submitList(effectList?.filter { effect -> effect.isSpecial })
                                 }
-                                binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(equipmentMap)
+                                binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(
+                                    equipmentMap
+                                )
                                 binding.layoutEquipment.container.isVisible = true
                             }
                         } else {
@@ -168,8 +167,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 cardEffectSummaryAdapter.submitList(this)
                                 cardEffectDetailAdapter.submitList(this)
                             }
+                            binding.layoutCard.layoutCard.isVisible = true
                         } else {
                             Log.d(LOG, "카드 불러오기 실패")
+                            binding.layoutCard.layoutCard.isVisible = false
                         }
                     }
                 }
