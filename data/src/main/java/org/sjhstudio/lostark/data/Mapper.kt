@@ -7,19 +7,19 @@ internal fun mapperToProfile(profileDto: ProfileDto) =
     Profile(
         characterImageUrl = profileDto.characterImage ?: "",
         expeditionLevel = profileDto.expeditionLevel.toString(),
-        pvpGradeName = profileDto.pvpGradeName,
+        pvpGradeName = profileDto.pvpGradeName ?: "",
         townLevel = profileDto.townLevel.toString(),
         townName = profileDto.townName,
         title = profileDto.title ?: "",
         guildMemberGrade = profileDto.guildMemberGrade ?: "",
         guildName = profileDto.guildName ?: "",
-        stats = profileDto.stats.map { statDto ->
+        stats = profileDto.stats?.map { statDto ->
             Profile.Stat(
                 type = statDto.type,
                 value = statDto.value,
                 tooltip = statDto.tooltip
             )
-        },
+        }.orEmpty(),
         tendencies = profileDto.tendencies.map { tendencyDto ->
             Profile.Tendency(
                 type = tendencyDto.type,

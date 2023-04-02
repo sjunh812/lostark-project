@@ -53,18 +53,14 @@ dependencies {
     implementation(Library.AndroidX.CORE)
     implementation(Library.AndroidX.APPCOMPAT)
     implementation(Library.AndroidX.CONSTRAINT_LAYOUT)
+    implementation(Library.AndroidX.MATERIAL)
     implementation(Library.AndroidX.VIEWMODEL)
     implementation(Library.AndroidX.ACTIVITY_KTX)
     implementation(Library.AndroidX.FRAGMENT_KTX)
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     androidTestImplementation(Library.AndroidX.ANDROID_JUNIT)
     androidTestImplementation(Library.AndroidX.ESPRESSO)
 
     implementation(Library.Junit.JUNIT)
-
-    implementation(Library.Google.MATERIAL)
 
     implementation(Library.Hilt.ANDROID)
     kapt(Library.Hilt.ANDROID_COMPILER)

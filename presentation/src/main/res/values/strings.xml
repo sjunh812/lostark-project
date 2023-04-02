@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">모코코우</string>
 
+    <string name="description_app">로스트아크 캐릭터 검색 서비스</string>
+
     <string name="hint_nickname">검색할 닉네임을 입력해주세요.</string>
 
     <string name="label_guild">길드</string>

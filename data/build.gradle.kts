@@ -1,12 +1,16 @@
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm")
+    id("com.android.library")
+    kotlin("android")
     kotlin("kapt")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+android {
+    compileSdk = AppConfig.COMPILE_SDK
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -16,6 +20,10 @@ dependencies {
 
     implementation(Library.Hilt.CORE)
     kapt(Library.Hilt.COMPILER)
+
+    implementation(Library.Room.ROOM)
+    implementation(Library.Room.ROOM_KTX)
+    kapt(Library.Room.ROOM_COMPILER)
 
     implementation(Library.Network.RETROFIT)
     implementation(Library.Network.CONVERTER_MOSHI)
