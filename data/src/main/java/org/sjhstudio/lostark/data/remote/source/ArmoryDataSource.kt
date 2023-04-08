@@ -1,9 +1,14 @@
-package org.sjhstudio.lostark.data.source
+package org.sjhstudio.lostark.data.remote.source
 
-import org.sjhstudio.lostark.data.api.ArmoryService
+import org.sjhstudio.lostark.data.remote.api.ArmoryService
 import org.sjhstudio.lostark.data.exception.ClientErrorException
 import org.sjhstudio.lostark.data.exception.NetworkErrorException
 import org.sjhstudio.lostark.data.model.armory.*
+import org.sjhstudio.lostark.data.remote.model.armory.*
+import org.sjhstudio.lostark.data.remote.model.armory.EngravingDto
+import org.sjhstudio.lostark.data.remote.model.armory.EquipmentDto
+import org.sjhstudio.lostark.data.remote.model.armory.GemDto
+import org.sjhstudio.lostark.data.remote.model.armory.ProfileDto
 import javax.inject.Inject
 
 internal interface ArmoryDataSource {

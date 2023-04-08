@@ -2,11 +2,14 @@ package org.sjhstudio.lostark.ui.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import org.sjhstudio.lostark.R
@@ -17,9 +20,13 @@ import org.sjhstudio.lostark.ui.adatper.*
 import org.sjhstudio.lostark.ui.common.PrgDialog
 import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
 import org.sjhstudio.lostark.util.setEquipmentSetSummary
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+
+    @Inject
+    lateinit var imm: InputMethodManager
 
     private val mainViewModel: MainViewModel by viewModels()
     private val prgDialog: PrgDialog by lazy { PrgDialog.newInstance() }
@@ -40,6 +47,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         bind()
         initViews()
         observeData()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val view = currentFocus
+
+        view?.let { v ->
+            if (v is TextInputEditText && ev?.action == MotionEvent.ACTION_UP) {
+                val x = ev.rawX
+                val y = ev.rawY
+                val outLocation = IntArray(2)
+
+                v.getLocationOnScreen(outLocation)
+
+                if (x < outLocation[0] || x > outLocation[0] + view.width || y < outLocation[1] || y > outLocation[1] + view.height) {
+                    v.clearFocus()
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+                }
+            }
+        }
+
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun bind() {

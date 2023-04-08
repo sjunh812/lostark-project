@@ -9,7 +9,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
-import org.sjhstudio.lostark.data.api.ApiKey.LOST_ARK_API_KEY
+import org.sjhstudio.lostark.data.remote.api.ApiKey.LOST_ARK_API_KEY
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton

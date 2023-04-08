@@ -9,13 +9,15 @@ import kotlinx.coroutines.launch
 import org.sjhstudio.lostark.domain.model.LostArkApiResult
 import org.sjhstudio.lostark.domain.model.response.*
 import org.sjhstudio.lostark.domain.repository.ArmoryRepository
+import org.sjhstudio.lostark.domain.repository.HistoryRepository
 import org.sjhstudio.lostark.ui.view.SearchActivity.Companion.EXTRA_NICKNAME
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val armoryRepository: ArmoryRepository
+    private val armoryRepository: ArmoryRepository,
+    private val historyRepository: HistoryRepository
 ) : ViewModel() {
 
     private val nickname: String = savedStateHandle[EXTRA_NICKNAME] ?: throw IllegalStateException()
@@ -127,6 +129,20 @@ class MainViewModel @Inject constructor(
             .collectLatest { apiResult ->
                 _card.emit(apiResult)
             }
+    }
+
+    fun getSearchHistoryList() = viewModelScope.launch {
+        historyRepository.getHistoryList()
+            .onStart { }
+            .onCompletion { }
+            .catch { }
+            .collectLatest {
+
+            }
+    }
+
+    fun insertSearchHistory(name: String) = viewModelScope.launch {
+        historyRepository.insertHistory(History(name))
     }
 
     fun changeEquipmentDetail(collapse: Boolean? = null) = viewModelScope.launch {

@@ -1,6 +1,11 @@
-package org.sjhstudio.lostark.data.api
+package org.sjhstudio.lostark.data.remote.api
 
 import org.sjhstudio.lostark.data.model.armory.*
+import org.sjhstudio.lostark.data.remote.model.armory.*
+import org.sjhstudio.lostark.data.remote.model.armory.EngravingDto
+import org.sjhstudio.lostark.data.remote.model.armory.EquipmentDto
+import org.sjhstudio.lostark.data.remote.model.armory.GemDto
+import org.sjhstudio.lostark.data.remote.model.armory.ProfileDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
