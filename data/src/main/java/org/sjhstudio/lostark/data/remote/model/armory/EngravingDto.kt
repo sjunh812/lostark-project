@@ -1,4 +1,4 @@
-package org.sjhstudio.lostark.data.model.armory
+package org.sjhstudio.lostark.data.remote.model.armory
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

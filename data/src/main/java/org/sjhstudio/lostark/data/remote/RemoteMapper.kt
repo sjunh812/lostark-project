@@ -1,6 +1,6 @@
-package org.sjhstudio.lostark.data
+package org.sjhstudio.lostark.data.remote
 
-import org.sjhstudio.lostark.data.model.armory.*
+import org.sjhstudio.lostark.data.remote.model.armory.*
 import org.sjhstudio.lostark.domain.model.response.*
 
 internal fun mapperToProfile(profileDto: ProfileDto) =
