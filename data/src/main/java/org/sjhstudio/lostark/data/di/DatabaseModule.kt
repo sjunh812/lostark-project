@@ -1,5 +1,6 @@
 package org.sjhstudio.lostark.data.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import dagger.Provides
@@ -16,10 +17,10 @@ internal object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context): AppDatabase {
+    fun provideDatabase(application: Application): AppDatabase {
         synchronized(this) {
             return Room.databaseBuilder(
-                context,
+                application,
                 AppDatabase::class.java,
                 DB_NAME
             ).build()

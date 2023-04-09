@@ -1,21 +1,18 @@
 package org.sjhstudio.lostark.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import org.sjhstudio.lostark.data.local.model.HistoryEntity
 
 @Dao
 interface HistoryDao {
 
-    @Query("SELECT * FROM history LIMIT 10")
+    @Query("SELECT * FROM historyEntity LIMIT 10")
     fun getHistoryList(): Flow<List<HistoryEntity>>
 
-    @Insert
-    fun insertHistory(history: HistoryEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHistory(history: HistoryEntity)
 
     @Delete
-    fun deleteHistory(history: HistoryEntity)
+    suspend fun deleteHistory(history: HistoryEntity)
 }
