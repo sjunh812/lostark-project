@@ -11,7 +11,4 @@ java {
 
 dependencies {
     implementation(Library.Kotlin.COROUTINE_CORE)
-
-    implementation(Library.Hilt.CORE)
-    kapt(Library.Hilt.COMPILER)
 }

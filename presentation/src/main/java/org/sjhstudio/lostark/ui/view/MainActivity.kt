@@ -115,14 +115,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 profile.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            Log.d(LOG, "프로필 불러오기 성공")
+                            Log.d(LOG, "profile success")
                             prgDialog.dismiss()
-                            updateStatViews(result.data?.stats)
-//                            binding.layoutProfile.executePendingBindings()
-                            binding.layoutProfile.container.isVisible = true
+                            result.data?.let { data ->
+                                updateStatViews(data.stats)
+                                insertSearchHistory(data.characterName)
+                                binding.layoutProfile.container.isVisible = true
+                            }
                         } else {
-                            Log.d(LOG, "프로필 불러오기 실패")
+                            Log.d(LOG, "profile fail")
                             binding.layoutProfile.container.isVisible = false
+                            binding.layoutProfile.executePendingBindings()
                         }
                     }
                 }
@@ -132,11 +135,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 engraving.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            Log.d(LOG, "각인 불러오기 성공")
-//                            binding.layoutProfile.executePendingBindings()
+                            Log.e(LOG, "engraving success")
                             engravingAdapter.submitList(result.data?.effects)
                         } else {
-                            Log.d(LOG, "각인 불러오기 실패")
+                            Log.e(LOG, "engraving fail")
                         }
                     }
                 }
@@ -146,7 +148,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 equipment.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            Log.d(LOG, "장비 불러오기 성공")
+                            Log.e(LOG, "equipment success")
                             result.data?.let { equipmentMap ->
                                 if (equipmentMap.containsKey("팔찌")) {
                                     val effectList = result.data!!["팔찌"]?.effects
@@ -158,7 +160,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 binding.layoutEquipment.container.isVisible = true
                             }
                         } else {
-                            Log.d(LOG, "장비  불러오기 실패")
+                            Log.e(LOG, "equipment fail")
                             binding.layoutEquipment.container.isVisible = false
                         }
                     }
@@ -169,12 +171,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 gem.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            Log.d(LOG, "보석 불러오기 성공")
+                            Log.d(LOG, "gem success")
                             gemSummaryAdapter.submitList(result.data?.gems)
                             gemDetailAdapter.submitList(result.data?.gems)
                             binding.layoutGem.layoutGem.isVisible = true
                         } else {
-                            Log.d(LOG, "보석 불러오기 실패")
+                            Log.e(LOG, "gem fail")
                             binding.layoutGem.layoutGem.isVisible = false
                         }
                     }
@@ -185,8 +187,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 card.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            Log.d(LOG, "카드 불러오기 성공")
-                            Log.d(LOG, "card: ${result.data?.effects}")
+                            Log.e(LOG, "card success")
                             cardAdapter.submitList(result.data?.cards)
 
                             result.data?.effects?.filter { effect ->
@@ -197,10 +198,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             }
                             binding.layoutCard.layoutCard.isVisible = true
                         } else {
-                            Log.d(LOG, "카드 불러오기 실패")
+                            Log.e(LOG, "card fail")
                             binding.layoutCard.layoutCard.isVisible = false
                         }
                     }
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
+                searchHistoryList.collectLatest { list ->
+                    Log.e(LOG, "search history: $list")
                 }
             }
 

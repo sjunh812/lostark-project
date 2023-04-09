@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.sjhstudio.lostark.domain.model.response.History
 
-@Entity(tableName = "HistoryEntity")
+@Entity(tableName = "historyEntity")
 data class HistoryEntity(
     @PrimaryKey val name: String
 ) {

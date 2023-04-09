@@ -37,6 +37,9 @@ class MainViewModel @Inject constructor(
     private var _card = MutableStateFlow<LostArkApiResult<Card>?>(null)
     val card = _card.asStateFlow()
 
+    private var _searchHistoryList = MutableStateFlow<List<History>>(emptyList())
+    val searchHistoryList = _searchHistoryList.asStateFlow()
+
     private var _collapseEquipment = MutableStateFlow<Boolean>(true)
     val collapseEquipment = _collapseEquipment.asStateFlow()
 
@@ -58,6 +61,8 @@ class MainViewModel @Inject constructor(
 
     fun search(characterName: String) {
         initSearchFailCount()    // 검색 실패횟수 초기화
+
+        getSearchHistoryList()  // 캐릭터 검색기록
 
         getProfile(characterName)   // 프로필
         getEngraving(characterName) // 각인
@@ -136,8 +141,8 @@ class MainViewModel @Inject constructor(
             .onStart { }
             .onCompletion { }
             .catch { }
-            .collectLatest {
-
+            .collectLatest { list ->
+                _searchHistoryList.emit(list)
             }
     }
 
