@@ -6,8 +6,10 @@ import org.sjhstudio.lostark.domain.model.response.History
 
 @Entity(tableName = "historyEntity")
 data class HistoryEntity(
-    @PrimaryKey val name: String
+    @PrimaryKey val name: String,
+    val level: Int,
+    val className: String
 ) {
 
-    fun toHistory() = History(name)
+    fun toHistory() = History(name, level.toString(), className)
 }

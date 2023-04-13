@@ -5,6 +5,7 @@
 
     <string name="hint_nickname">검색할 닉네임을 입력해주세요.</string>
 
+    <string name="label_recent_search_character">최근 검색 캐릭터</string>
     <string name="label_guild">길드</string>
     <string name="label_town">영지</string>
     <string name="label_item">아이템</string>

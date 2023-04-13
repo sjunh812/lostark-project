@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="org.sjhstudio.lostark.ui.viewmodel.MainViewModel" />
+            type="org.sjhstudio.lostark.ui.main.viewmodel.MainViewModel" />
 
         <variable
             name="equipmentMap"
