@@ -1,4 +1,4 @@
-package org.sjhstudio.lostark.ui.viewmodel
+package org.sjhstudio.lostark.ui.main.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,7 @@ import org.sjhstudio.lostark.domain.model.LostArkApiResult
 import org.sjhstudio.lostark.domain.model.response.*
 import org.sjhstudio.lostark.domain.repository.ArmoryRepository
 import org.sjhstudio.lostark.domain.repository.HistoryRepository
-import org.sjhstudio.lostark.ui.view.SearchActivity.Companion.EXTRA_NICKNAME
+import org.sjhstudio.lostark.ui.search.view.SearchActivity.Companion.EXTRA_NICKNAME
 import javax.inject.Inject
 
 @HiltViewModel
@@ -146,8 +146,14 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    fun insertSearchHistory(name: String) = viewModelScope.launch {
-        historyRepository.insertHistory(History(name))
+    fun insertSearchHistory(profile: Profile) = viewModelScope.launch {
+        historyRepository.insertHistory(
+            History(
+                profile.characterName,
+                profile.itemLevel,
+                profile.characterClassName
+            )
+        )
     }
 
     fun changeEquipmentDetail(collapse: Boolean? = null) = viewModelScope.launch {

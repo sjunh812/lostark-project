@@ -1,4 +1,4 @@
-package org.sjhstudio.lostark.ui.adatper
+package org.sjhstudio.lostark.ui.main.adatper
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.databinding.ItemCardBinding
 import org.sjhstudio.lostark.domain.model.response.CardInfo
-import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
+import org.sjhstudio.lostark.ui.main.viewmodel.MainViewModel
 import org.sjhstudio.lostark.util.setCardBackground
 
 class CardAdapter(

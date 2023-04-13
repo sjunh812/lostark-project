@@ -1,4 +1,4 @@
-package org.sjhstudio.lostark.ui.adatper
+package org.sjhstudio.lostark.ui.main.adatper
 
 import android.content.res.AssetManager
 import android.graphics.Typeface

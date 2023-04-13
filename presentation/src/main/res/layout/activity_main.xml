@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="org.sjhstudio.lostark.ui.viewmodel.MainViewModel" />
+            type="org.sjhstudio.lostark.ui.main.viewmodel.MainViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
-            tools:context=".ui.view.MainActivity">
+            tools:context=".ui.main.view.MainActivity">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_et_nickname"

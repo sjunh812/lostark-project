@@ -1,4 +1,4 @@
-package org.sjhstudio.lostark.ui.view
+package org.sjhstudio.lostark.ui.main.view
 
 import android.os.Bundle
 import android.util.Log
@@ -16,27 +16,29 @@ import org.sjhstudio.lostark.R
 import org.sjhstudio.lostark.base.BaseActivity
 import org.sjhstudio.lostark.databinding.ActivityMainBinding
 import org.sjhstudio.lostark.domain.model.response.Profile
-import org.sjhstudio.lostark.ui.adatper.*
 import org.sjhstudio.lostark.ui.common.PrgDialog
-import org.sjhstudio.lostark.ui.viewmodel.MainViewModel
+import org.sjhstudio.lostark.ui.main.adatper.*
+import org.sjhstudio.lostark.ui.main.viewmodel.MainViewModel
 import org.sjhstudio.lostark.util.setEquipmentSetSummary
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
+    private val mainViewModel: MainViewModel by viewModels()
+
+    private val prgDialog by lazy { PrgDialog.newInstance() }
+
+    private val engravingAdapter by lazy { EngravingAdapter() }
+    private val braceletEffectAdapter by lazy { BraceletEffectAdapter() }
+    private val gemSummaryAdapter by lazy { GemSummaryAdapter() }
+    private val gemDetailAdapter by lazy { GemDetailAdapter() }
+    private val cardAdapter by lazy { CardAdapter(mainViewModel) }
+    private val cardEffectSummaryAdapter by lazy { CardEffectSummaryAdapter() }
+    private val cardEffectDetailAdapter by lazy { CardEffectDetailAdapter() }
+
     @Inject
     lateinit var imm: InputMethodManager
-
-    private val mainViewModel: MainViewModel by viewModels()
-    private val prgDialog: PrgDialog by lazy { PrgDialog.newInstance() }
-    private val engravingAdapter: EngravingAdapter by lazy { EngravingAdapter() }
-    private val braceletEffectAdapter: BraceletEffectAdapter by lazy { BraceletEffectAdapter() }
-    private val gemSummaryAdapter: GemSummaryAdapter by lazy { GemSummaryAdapter() }
-    private val gemDetailAdapter: GemDetailAdapter by lazy { GemDetailAdapter() }
-    private val cardAdapter: CardAdapter by lazy { CardAdapter(mainViewModel) }
-    private val cardEffectSummaryAdapter: CardEffectSummaryAdapter by lazy { CardEffectSummaryAdapter() }
-    private val cardEffectDetailAdapter: CardEffectDetailAdapter by lazy { CardEffectDetailAdapter() }
 
     companion object {
         private const val LOG = "MainActivity"
@@ -92,14 +94,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             layoutCard.rvCardEffectDetail.adapter = cardEffectDetailAdapter
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
-                val inputNickname = etNickname.text.toString()
-
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     etNickname.text?.clear()
                     initAdapters()
-                    mainViewModel.search(inputNickname)
+                    mainViewModel.search(etNickname.text.toString())
                 }
-
                 false
             }
             layoutEquipment.layoutEquipmentTop.setOnClickListener { mainViewModel.changeEquipmentDetail() }
@@ -119,7 +118,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             prgDialog.dismiss()
                             result.data?.let { data ->
                                 updateStatViews(data.stats)
-                                insertSearchHistory(data.characterName)
+                                insertSearchHistory(data)
                                 binding.layoutProfile.container.isVisible = true
                             }
                         } else {
