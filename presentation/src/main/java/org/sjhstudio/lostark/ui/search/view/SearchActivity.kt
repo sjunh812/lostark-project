@@ -23,7 +23,11 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
 
     private val searchViewModel: SearchViewModel by viewModels()
 
-    private val searchHistoryAdapter by lazy { SearchHistoryAdapter() }
+    private val searchHistoryAdapter by lazy {
+        SearchHistoryAdapter { history ->
+            navigateToMainActivity(history.name)
+        }
+    }
 
     @Inject
     lateinit var imm: InputMethodManager

@@ -95,9 +95,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    etNickname.text?.clear()
                     initAdapters()
                     mainViewModel.search(etNickname.text.toString())
+                    etNickname.text?.clear()
+                    imm.hideSoftInputFromWindow(etNickname.windowToken, 0)
                 }
                 false
             }
@@ -136,6 +137,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         if (result.success) {
                             Log.e(LOG, "engraving success")
                             engravingAdapter.submitList(result.data?.effects)
+                            binding.executePendingBindings()
                         } else {
                             Log.e(LOG, "engraving fail")
                         }
