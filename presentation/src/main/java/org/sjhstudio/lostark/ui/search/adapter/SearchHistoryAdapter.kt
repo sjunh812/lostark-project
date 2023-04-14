@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import org.sjhstudio.lostark.databinding.ItemSearchHistoryBinding
 import org.sjhstudio.lostark.domain.model.response.History
 
-class SearchHistoryAdapter : ListAdapter<History, ViewHolder>(diffCallback) {
+class SearchHistoryAdapter(
+    private val onClick: (history: History) -> Unit
+) : ListAdapter<History, ViewHolder>(diffCallback) {
 
     companion object {
         private val diffCallback = object : DiffUtil.ItemCallback<History>() {
@@ -38,16 +40,25 @@ class SearchHistoryAdapter : ListAdapter<History, ViewHolder>(diffCallback) {
             }
         }
     }
-}
 
-class SearchHistoryViewHolder(private val binding: ItemSearchHistoryBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    inner class SearchHistoryViewHolder(private val binding: ItemSearchHistoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: History) {
-        with(binding) {
-            tvName.text = data.name
-            tvLevel.text = data.level
-            tvClassName.text = data.className
+        init {
+            itemView.setOnClickListener {
+                adapterPosition.takeIf { pos -> pos != RecyclerView.NO_POSITION }
+                    ?.let { position ->
+                        onClick.invoke(currentList[position])
+                    }
+            }
+        }
+
+        fun bind(data: History) {
+            with(binding) {
+                tvName.text = data.name
+                tvLevel.text = data.level
+                tvClassName.text = data.className
+            }
         }
     }
 }
