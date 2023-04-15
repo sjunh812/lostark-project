@@ -20,191 +20,211 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
-        <FrameLayout
-            android:id="@+id/layout_character_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_profile"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toTopOf="parent"
             android:background="@color/background_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_server"
+                style="@style/Widget.LostArk.Tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:text="@{profile.serverName}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="카단" />
+
+            <TextView
+                android:id="@+id/tv_class"
+                style="@style/Widget.LostArk.Tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@{profile.characterClassName}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_server"
+                app:layout_constraintStart_toEndOf="@id/tv_server"
+                app:layout_constraintTop_toTopOf="@id/tv_server"
+                tools:text="기상술사" />
+
+            <TextView
+                android:id="@+id/tv_character"
+                style="@style/TextAppearance.LostArk.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@{profile.characterName}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_server"
+                tools:text="아가벽력일섬" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextAppearance.LostArk.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@{profile.title}"
+                android:textColor="@color/gray_e2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_character"
+                tools:text="필살" />
+
+            <TextView
+                android:id="@+id/tv_guild_title"
+                style="@style/Widget.LostArk.Tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/label_guild"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:text="길드" />
+
+            <TextView
+                android:id="@+id/tv_guild"
+                style="@style/TextAppearance.LostArk.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@{profile.guildName}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_guild_title"
+                app:layout_constraintStart_toEndOf="@id/tv_guild_title"
+                app:layout_constraintTop_toTopOf="@id/tv_guild_title"
+                tools:text="아가랜드" />
+
+            <TextView
+                android:id="@+id/tv_wisdom_title"
+                style="@style/Widget.LostArk.Tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:text="@string/label_town"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_guild_title"
+                tools:text="영지" />
+
+            <TextView
+                android:id="@+id/tv_wisdom"
+                style="@style/TextAppearance.LostArk.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_wisdom_title"
+                app:layout_constraintStart_toEndOf="@id/tv_wisdom_title"
+                app:layout_constraintTop_toTopOf="@id/tv_wisdom_title"
+                app:townLevel="@{profile.townLevel}"
+                app:townName="@{profile.townName}"
+                tools:text="Lv.36 아가마을" />
+
+            <TextView
+                android:id="@+id/tv_battle_title"
+                style="@style/TextAppearance.LostArk.SubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/label_battle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
+
+            <TextView
+                android:id="@+id/tv_battle"
+                style="@style/TextAppearance.LostArk.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@{profile.characterLevel}"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_battle_title"
+                tools:text="Lv.60" />
+
+            <TextView
+                android:id="@+id/tv_expedition_title"
+                style="@style/TextAppearance.LostArk.SubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/label_expedition"
+                app:layout_constraintStart_toEndOf="@+id/tv_battle"
+                app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
+
+            <TextView
+                android:id="@+id/tv_expedition"
+                style="@style/TextAppearance.LostArk.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@{profile.expeditionLevel}"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_battle"
+                app:layout_constraintTop_toBottomOf="@id/tv_expedition_title"
+                tools:text="Lv.100" />
+
+            <TextView
+                android:id="@+id/tv_item_level_title"
+                style="@style/TextAppearance.LostArk.SubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/label_item"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_battle" />
+
+            <TextView
+                android:id="@+id/tv_item_level"
+                style="@style/TextAppearance.LostArk.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="20dp"
+                android:text="@{profile.itemLevel}"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_level_title"
+                tools:text="1553.3" />
 
             <ImageView
                 android:id="@+id/iv_character"
                 android:layout_width="wrap_content"
                 android:layout_height="280dp"
                 android:layout_gravity="end|bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="10dp"
                 android:adjustViewBounds="true"
                 app:imageFromUrl="@{profile.characterImageUrl}" />
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_server"
-            style="@style/Widget.LostArk.Tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:text="@{profile.serverName}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="카단" />
+<!--        <FrameLayout-->
+<!--            android:id="@+id/layout_character_image"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="320dp"-->
+<!--            android:background="@color/background_avatar"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
 
-        <TextView
-            android:id="@+id/tv_class"
-            style="@style/Widget.LostArk.Tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="@{profile.characterClassName}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_server"
-            app:layout_constraintStart_toEndOf="@id/tv_server"
-            app:layout_constraintTop_toTopOf="@id/tv_server"
-            tools:text="기상술사" />
-
-        <TextView
-            android:id="@+id/tv_character"
-            style="@style/TextAppearance.LostArk.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@{profile.characterName}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_server"
-            tools:text="아가벽력일섬" />
-
-        <TextView
-            android:id="@+id/tv_title"
-            style="@style/TextAppearance.LostArk.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@{profile.title}"
-            android:textColor="@color/gray_e2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_character"
-            tools:text="필살" />
-
-        <TextView
-            android:id="@+id/tv_guild_title"
-            style="@style/Widget.LostArk.Tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/label_guild"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:text="길드" />
-
-        <TextView
-            android:id="@+id/tv_guild"
-            style="@style/TextAppearance.LostArk.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:text="@{profile.guildName}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_guild_title"
-            app:layout_constraintStart_toEndOf="@id/tv_guild_title"
-            app:layout_constraintTop_toTopOf="@id/tv_guild_title"
-            tools:text="아가랜드" />
-
-        <TextView
-            android:id="@+id/tv_wisdom_title"
-            style="@style/Widget.LostArk.Tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="7dp"
-            android:text="@string/label_town"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_guild_title"
-            tools:text="영지" />
-
-        <TextView
-            android:id="@+id/tv_wisdom"
-            style="@style/TextAppearance.LostArk.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_wisdom_title"
-            app:layout_constraintStart_toEndOf="@id/tv_wisdom_title"
-            app:layout_constraintTop_toTopOf="@id/tv_wisdom_title"
-            app:townLevel="@{profile.townLevel}"
-            app:townName="@{profile.townName}"
-            tools:text="Lv.36 아가마을" />
-
-        <TextView
-            android:id="@+id/tv_battle_title"
-            style="@style/TextAppearance.LostArk.SubTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/label_battle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
-
-        <TextView
-            android:id="@+id/tv_battle"
-            style="@style/TextAppearance.LostArk.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@{profile.characterLevel}"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_battle_title"
-            tools:text="Lv.60" />
-
-        <TextView
-            android:id="@+id/tv_expedition_title"
-            style="@style/TextAppearance.LostArk.SubTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/label_expedition"
-            app:layout_constraintStart_toEndOf="@+id/tv_battle"
-            app:layout_constraintTop_toBottomOf="@id/tv_wisdom_title" />
-
-        <TextView
-            android:id="@+id/tv_expedition"
-            style="@style/TextAppearance.LostArk.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@{profile.expeditionLevel}"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_battle"
-            app:layout_constraintTop_toBottomOf="@id/tv_expedition_title"
-            tools:text="Lv.100" />
-
-        <TextView
-            android:id="@+id/tv_item_level_title"
-            style="@style/TextAppearance.LostArk.SubTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/label_item"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_battle" />
-
-        <TextView
-            android:id="@+id/tv_item_level"
-            style="@style/TextAppearance.LostArk.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@{profile.itemLevel}"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_level_title"
-            tools:text="1553.3" />
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_character"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="280dp"-->
+<!--                android:layout_gravity="end|bottom"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                app:imageFromUrl="@{profile.characterImageUrl}" />-->
+<!--        </FrameLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_basic_stat"
@@ -217,7 +237,7 @@
             app:layout_constraintEnd_toStartOf="@id/layout_engraving"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_character_image">
+            app:layout_constraintTop_toBottomOf="@id/layout_profile">
 
             <TextView
                 android:id="@+id/tv_basic_stat_title"
@@ -453,11 +473,12 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/bg_dark_gray_8dp"
+            android:descendantFocusability="blocksDescendants"
             android:padding="15dp"
             app:layout_constraintBottom_toBottomOf="@id/layout_battle_stat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/layout_basic_stat"
-            app:layout_constraintTop_toBottomOf="@id/layout_character_image"
+            app:layout_constraintTop_toBottomOf="@id/layout_profile"
             app:layout_constraintTop_toTopOf="@id/layout_basic_stat">
 
             <TextView

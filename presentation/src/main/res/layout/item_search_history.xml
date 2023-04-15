@@ -40,6 +40,7 @@
         tools:text="기상술사" />
 
     <ImageView
+        android:id="@+id/iv_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"

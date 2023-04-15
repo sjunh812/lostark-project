@@ -95,7 +95,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    initAdapters()
+//                    initAdapters()
                     mainViewModel.search(etNickname.text.toString())
                     etNickname.text?.clear()
                     imm.hideSoftInputFromWindow(etNickname.windowToken, 0)
@@ -114,19 +114,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             lifecycleScope.launchWhenStarted {
                 profile.collectLatest { apiResult ->
                     apiResult?.let { result ->
+                        prgDialog.dismiss()
+
                         if (result.success) {
                             Log.d(LOG, "profile success")
-                            prgDialog.dismiss()
+                            initAdapters()
                             result.data?.let { data ->
                                 updateStatViews(data.stats)
                                 insertSearchHistory(data)
-                                binding.layoutProfile.container.isVisible = true
+                                binding.layoutFail.isVisible = false
+//                                binding.layoutProfile.container.isVisible = true
                             }
                         } else {
                             Log.d(LOG, "profile fail")
-                            binding.layoutProfile.container.isVisible = false
-                            binding.layoutProfile.executePendingBindings()
+                            Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
+                            binding.layoutFail.isVisible = true
+//                            binding.layoutProfile.container.isVisible = false
                         }
+
+                        binding.layoutProfile.executePendingBindings()
                     }
                 }
             }
@@ -137,7 +143,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         if (result.success) {
                             Log.e(LOG, "engraving success")
                             engravingAdapter.submitList(result.data?.effects)
-                            binding.executePendingBindings()
+                            binding.layoutProfile.executePendingBindings()
                         } else {
                             Log.e(LOG, "engraving fail")
                         }
@@ -158,11 +164,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(
                                     equipmentMap
                                 )
-                                binding.layoutEquipment.container.isVisible = true
+//                                binding.layoutEquipment.container.isVisible = true
                             }
                         } else {
                             Log.e(LOG, "equipment fail")
-                            binding.layoutEquipment.container.isVisible = false
+//                            binding.layoutEquipment.container.isVisible = false
                         }
                     }
                 }
@@ -175,10 +181,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             Log.d(LOG, "gem success")
                             gemSummaryAdapter.submitList(result.data?.gems)
                             gemDetailAdapter.submitList(result.data?.gems)
-                            binding.layoutGem.layoutGem.isVisible = true
+//                            binding.layoutGem.layoutGem.isVisible = true
                         } else {
                             Log.e(LOG, "gem fail")
-                            binding.layoutGem.layoutGem.isVisible = false
+//                            binding.layoutGem.layoutGem.isVisible = false
                         }
                     }
                 }
@@ -197,10 +203,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 cardEffectSummaryAdapter.submitList(this)
                                 cardEffectDetailAdapter.submitList(this)
                             }
-                            binding.layoutCard.layoutCard.isVisible = true
+//                            binding.layoutCard.layoutCard.isVisible = true
                         } else {
                             Log.e(LOG, "card fail")
-                            binding.layoutCard.layoutCard.isVisible = false
+//                            binding.layoutCard.layoutCard.isVisible = false
                         }
                     }
                 }
@@ -238,15 +244,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     cardAdapter.notifyItemRangeChanged(0, cardAdapter.currentList.size)
                     binding.layoutCard.rvCardEffectSummary.isVisible = collapse
                     binding.layoutCard.rvCardEffectDetail.isVisible = !collapse
-                }
-            }
-
-            lifecycleScope.launchWhenStarted {
-                searchFailCount.collectLatest { count ->
-                    if (count >= 2) {
-                        prgDialog.dismiss()
-                        Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
-                    }
                 }
             }
         }

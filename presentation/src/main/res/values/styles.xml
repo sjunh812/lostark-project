@@ -32,13 +32,14 @@
     </style>
 
     <style name="TextAppearance.LostArk.Overline" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textSize">10dp</item>
         <item name="android:textColor">@color/gray_c2</item>
         <item name="android:letterSpacing">0</item>
         <item name="fontFamily">@font/pretendard_medium</item>
     </style>
 
     <style name="TextAppearance.LostArk.Chip" parent="TextAppearance.MaterialComponents.Overline">
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">9dp</item>
         <item name="android:textColor">@color/gray_c2</item>
         <item name="android:letterSpacing">0</item>
         <item name="fontFamily">@font/pretendard_medium</item>

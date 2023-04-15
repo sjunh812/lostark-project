@@ -30,4 +30,8 @@ class SearchViewModel @Inject constructor(
                 _searchHistoryList.emit(list)
             }
     }
+
+    fun deleteSearchHistory(history: History) = viewModelScope.launch {
+        historyRepository.deleteHistory(history)
+    }
 }

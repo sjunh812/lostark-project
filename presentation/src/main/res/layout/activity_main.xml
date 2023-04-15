@@ -10,90 +10,109 @@
             type="org.sjhstudio.lostark.ui.main.viewmodel.MainViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/background"
+        android:paddingVertical="15dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_et_nickname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
-            tools:context=".ui.main.view.MainActivity">
+            android:layout_marginHorizontal="15dp"
+            app:boxBackgroundColor="@color/main_color"
+            app:boxStrokeColor="@color/sub_color"
+            app:boxStrokeWidth="1dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_et_nickname"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                app:boxBackgroundColor="@color/main_color"
-                app:boxStrokeColor="@color/sub_color"
-                app:boxStrokeWidth="1dp"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:hint="@string/hint_nickname"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.LostArk.Body"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_nickname"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:background="@color/background"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_et_nickname">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.main.view.MainActivity">
+
+                <include
+                    android:id="@+id/layout_profile"
+                    layout="@layout/layout_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_nickname"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.LostArk.Body"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:engraving="@{viewModel.engraving.data}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:profile="@{viewModel.profile.data}" />
 
-            <include
-                android:id="@+id/layout_profile"
-                layout="@layout/layout_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:engraving="@{viewModel.engraving.data}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_et_nickname"
-                app:profile="@{viewModel.profile.data}" />
+                <include
+                    android:id="@+id/layout_equipment"
+                    layout="@layout/layout_equipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:equipmentMap="@{viewModel.equipment.data}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_profile"
+                    app:viewModel="@{viewModel}" />
 
-            <include
-                android:id="@+id/layout_equipment"
-                layout="@layout/layout_equipment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:equipmentMap="@{viewModel.equipment.data}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_profile"
-                app:viewModel="@{viewModel}" />
+                <include
+                    android:id="@+id/layout_gem"
+                    layout="@layout/layout_gem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_equipment"
+                    app:viewModel="@{viewModel}" />
 
-            <include
-                android:id="@+id/layout_gem"
-                layout="@layout/layout_gem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_equipment"
-                app:viewModel="@{viewModel}" />
+                <include
+                    android:id="@+id/layout_card"
+                    layout="@layout/layout_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layout_gem"
+                    app:viewModel="@{viewModel}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <include
-                android:id="@+id/layout_card"
-                layout="@layout/layout_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_gem"
-                app:viewModel="@{viewModel}" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+        <FrameLayout
+            android:id="@+id/layout_fail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_et_nickname" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
