@@ -25,7 +25,7 @@ fun TextView.bindEngravingLevel(fullName: String?) {
  * @example : "예리한 둔기 Lv. 3" → "예리한 둔기"
  */
 @BindingAdapter("engravingName")
-fun TextView.bindingEngravingName(fullName: String?) {
+fun TextView.bindEngravingName(fullName: String?) {
     if (!fullName.isNullOrEmpty()) {
         text = fullName.substring(0, fullName.length - 6)
     }

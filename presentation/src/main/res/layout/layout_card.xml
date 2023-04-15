@@ -14,7 +14,8 @@
         android:id="@+id/layout_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_dark_gray_8dp">
+        android:background="@drawable/bg_dark_gray_8dp"
+        android:descendantFocusability="blocksDescendants">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_card_top"

@@ -24,9 +24,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     private val searchViewModel: SearchViewModel by viewModels()
 
     private val searchHistoryAdapter by lazy {
-        SearchHistoryAdapter { history ->
-            navigateToMainActivity(history.name)
-        }
+        SearchHistoryAdapter(
+            onClick = { history -> navigateToMainActivity(history.name) },
+            onDelete = { history -> searchViewModel.deleteSearchHistory(history) }
+        )
     }
 
     @Inject
@@ -38,6 +39,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bind()
         initViews()
         observeData()
     }
@@ -61,6 +63,12 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         }
 
         return super.dispatchTouchEvent(ev)
+    }
+
+    private fun bind() {
+        with(binding) {
+            viewModel = searchViewModel
+        }
     }
 
     private fun initViews() {

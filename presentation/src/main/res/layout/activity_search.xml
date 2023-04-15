@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="org.sjhstudio.lostark.ui.search.viewmodel.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,15 +76,17 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
+            android:id="@+id/layout_search_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:background="@drawable/bg_dark_gray_8dp"
             android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            app:layout_constraintVertical_bias="0"
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_nickname">
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_nickname"
+            app:layout_constraintVertical_bias="0"
+            app:searchHistoryVisible="@{viewModel.searchHistoryList}">
 
             <TextView
                 style="@style/TextAppearance.LostArk.SubTitle"
@@ -95,9 +100,10 @@
                 android:id="@+id/rv_search_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginBottom="7.5dp"
+                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:reverseLayout="true"
                 tools:listitem="@layout/item_search_history" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

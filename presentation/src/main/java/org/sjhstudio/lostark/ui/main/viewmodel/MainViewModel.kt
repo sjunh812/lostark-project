@@ -52,61 +52,47 @@ class MainViewModel @Inject constructor(
     private var _collapseCard = MutableStateFlow<Boolean>(true)
     val collapseCard = _collapseCard.asStateFlow()
 
-    private var _searchFailCount = MutableStateFlow<Int>(0)
-    val searchFailCount = _searchFailCount.asStateFlow()
-
     init {
         search(nickname)    // 캐릭터 검색
     }
 
     fun search(characterName: String) {
-        initSearchFailCount()    // 검색 실패횟수 초기화
-
         getSearchHistoryList()  // 캐릭터 검색기록
-
         getProfile(characterName)   // 프로필
-        getEngraving(characterName) // 각인
-        getEquipment(characterName) // 장비
-        getGem(characterName)   // 보석
-        getCard(characterName)  // 카드
-
         changeEquipmentDetail(true) // 장비세부창 접기
         changeAccessoryDetail(true) // 악세세부창 접기
         changeCardDetail(true)  // 카드세부창 접기
         changeGemDetail(true)   // 보석세부창 접기
     }
 
-    fun initSearchFailCount() = viewModelScope.launch {
-        _searchFailCount.emit(0)
-    }
-
-    fun addSearchFailCount() = viewModelScope.launch {
-        _searchFailCount.emit(searchFailCount.value + 1)
-    }
-
-    fun getProfile(characterName: String) = viewModelScope.launch {
+    private fun getProfile(characterName: String) = viewModelScope.launch {
         armoryRepository.getProfile(characterName)
             .onStart { }
             .onCompletion { }
             .catch { }
             .collectLatest { apiResult ->
-                if (!apiResult.success) addSearchFailCount()
                 _profile.emit(apiResult)
+
+                if (apiResult.success) {
+                    getEngraving(characterName) // 각인
+                    getEquipment(characterName) // 장비
+                    getGem(characterName)   // 보석
+                    getCard(characterName)  // 카드
+                }
             }
     }
 
-    fun getEngraving(characterName: String) = viewModelScope.launch {
+    private fun getEngraving(characterName: String) = viewModelScope.launch {
         armoryRepository.getEngraving(characterName)
             .onStart { }
             .onCompletion { }
             .catch { }
             .collectLatest { apiResult ->
-                if (!apiResult.success) addSearchFailCount()
                 _engraving.emit(apiResult)
             }
     }
 
-    fun getEquipment(characterName: String) = viewModelScope.launch {
+    private fun getEquipment(characterName: String) = viewModelScope.launch {
         armoryRepository.getEquipment(characterName)
             .onStart { }
             .onCompletion { }
@@ -116,7 +102,7 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    fun getGem(characterName: String) = viewModelScope.launch {
+    private fun getGem(characterName: String) = viewModelScope.launch {
         armoryRepository.getGem(characterName)
             .onStart { }
             .onCompletion { }
@@ -126,7 +112,7 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    fun getCard(characterName: String) = viewModelScope.launch {
+    private fun getCard(characterName: String) = viewModelScope.launch {
         armoryRepository.getCard(characterName)
             .onStart { }
             .onCompletion { }
@@ -136,7 +122,7 @@ class MainViewModel @Inject constructor(
             }
     }
 
-    fun getSearchHistoryList() = viewModelScope.launch {
+    private fun getSearchHistoryList() = viewModelScope.launch {
         historyRepository.getHistoryList()
             .onStart { }
             .onCompletion { }

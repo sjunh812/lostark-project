@@ -10,7 +10,8 @@ import org.sjhstudio.lostark.databinding.ItemSearchHistoryBinding
 import org.sjhstudio.lostark.domain.model.response.History
 
 class SearchHistoryAdapter(
-    private val onClick: (history: History) -> Unit
+    private val onClick: (history: History) -> Unit,
+    private val onDelete: (history: History) -> Unit
 ) : ListAdapter<History, ViewHolder>(diffCallback) {
 
     companion object {
@@ -45,12 +46,8 @@ class SearchHistoryAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            itemView.setOnClickListener {
-                adapterPosition.takeIf { pos -> pos != RecyclerView.NO_POSITION }
-                    ?.let { position ->
-                        onClick.invoke(currentList[position])
-                    }
-            }
+            itemView.setOnClickListener { click(onClick) }
+            binding.ivDelete.setOnClickListener { click(onDelete) }
         }
 
         fun bind(data: History) {
@@ -59,6 +56,11 @@ class SearchHistoryAdapter(
                 tvLevel.text = data.level
                 tvClassName.text = data.className
             }
+        }
+
+        private fun click(invoke: (history: History) -> Unit) {
+            adapterPosition.takeIf { pos -> pos != RecyclerView.NO_POSITION }
+                ?.let { pos -> invoke(currentList[pos]) }
         }
     }
 }
