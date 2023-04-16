@@ -142,6 +142,10 @@ class MainViewModel @Inject constructor(
         )
     }
 
+    fun deleteSearchHistory(history: History) = viewModelScope.launch {
+        historyRepository.deleteHistory(history)
+    }
+
     fun changeEquipmentDetail(collapse: Boolean? = null) = viewModelScope.launch {
         _collapseEquipment.emit(collapse ?: !collapseEquipment.value)
     }

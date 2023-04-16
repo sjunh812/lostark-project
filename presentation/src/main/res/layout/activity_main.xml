@@ -114,5 +114,19 @@
             app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_et_nickname" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="7.5dp"
+            android:background="@drawable/bg_dark_gray_8dp"
+            android:orientation="vertical"
+            android:paddingVertical="5dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/layout_et_nickname" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
