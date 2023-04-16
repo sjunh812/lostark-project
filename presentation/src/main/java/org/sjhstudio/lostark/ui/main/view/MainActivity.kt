@@ -3,6 +3,7 @@ package org.sjhstudio.lostark.ui.main.view
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -19,6 +20,7 @@ import org.sjhstudio.lostark.domain.model.response.Profile
 import org.sjhstudio.lostark.ui.common.PrgDialog
 import org.sjhstudio.lostark.ui.main.adatper.*
 import org.sjhstudio.lostark.ui.main.viewmodel.MainViewModel
+import org.sjhstudio.lostark.ui.search.adapter.SearchHistoryAdapter
 import org.sjhstudio.lostark.util.setEquipmentSetSummary
 import javax.inject.Inject
 
@@ -29,6 +31,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val prgDialog by lazy { PrgDialog.newInstance() }
 
+    private val searchHistoryAdapter by lazy {
+        SearchHistoryAdapter(
+            viewType = SearchHistoryAdapter.SUMMARY_VIEW_TYPE,
+            onClick = {},
+            onDelete = { history -> mainViewModel.deleteSearchHistory(history) }
+        )
+    }
     private val engravingAdapter by lazy { EngravingAdapter() }
     private val braceletEffectAdapter by lazy { BraceletEffectAdapter() }
     private val gemSummaryAdapter by lazy { GemSummaryAdapter() }
@@ -82,6 +91,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         with(binding) {
             prgDialog.show(supportFragmentManager, "prg_dialog")
 
+            rvSearchHistory.adapter = searchHistoryAdapter
             layoutProfile.rvEngraving.adapter = engravingAdapter
             layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
             layoutGem.rvGemSummary.adapter = gemSummaryAdapter
@@ -101,6 +111,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     imm.hideSoftInputFromWindow(etNickname.windowToken, 0)
                 }
                 false
+            }
+            etNickname.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+                rvSearchHistory.isVisible = hasFocus
             }
             layoutEquipment.layoutEquipmentTop.setOnClickListener { mainViewModel.changeEquipmentDetail() }
             layoutEquipment.layoutAccessoryTop.setOnClickListener { mainViewModel.changeAccessoryDetail() }
@@ -215,6 +228,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             lifecycleScope.launchWhenStarted {
                 searchHistoryList.collectLatest { list ->
                     Log.e(LOG, "search history: $list")
+                    searchHistoryAdapter.submitList(list)
                 }
             }
 
