@@ -24,13 +24,12 @@ class SearchHistoryAdapter(
             override fun areContentsTheSame(oldItem: History, newItem: History) =
                 oldItem == newItem
         }
+
         const val DETAIL_VIEW_TYPE = 0
         const val SUMMARY_VIEW_TYPE = 1
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return viewType
-    }
+    override fun getItemViewType(position: Int) = viewType
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == DETAIL_VIEW_TYPE) {
@@ -87,6 +86,7 @@ class SearchHistoryAdapter(
 
     inner class SearchHistorySummaryViewHolder(private val binding: ItemSearchHistorySummaryBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         init {
             itemView.setOnClickListener { click(onClick) }
             binding.ivDelete.setOnClickListener { click(onDelete) }

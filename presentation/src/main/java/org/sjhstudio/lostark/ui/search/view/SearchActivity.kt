@@ -55,7 +55,9 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
 
                 v.getLocationOnScreen(outLocation)
 
-                if (x < outLocation[0] || x > outLocation[0] + view.width || y < outLocation[1] || y > outLocation[1] + view.height) {
+                if (x < outLocation[0] || x > outLocation[0] + view.width ||
+                    y < outLocation[1] || y > outLocation[1] + view.height
+                ) {
                     v.clearFocus()
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
                 }
@@ -74,10 +76,14 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     private fun initViews() {
         with(binding) {
             rvSearchHistory.adapter = searchHistoryAdapter
+
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    navigateToMainActivity(etNickname.text.toString())
-                    etNickname.text?.clear()
+                    etNickname.text?.also { nickname ->
+                        navigateToMainActivity(nickname.trim().toString())
+                    }?.run {
+                        clear()
+                    }
                 }
                 false
             }
@@ -95,9 +101,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
     }
 
     private fun navigateToMainActivity(nickname: String) {
-        val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra(EXTRA_NICKNAME, nickname)
-        }
+        val intent = Intent(this, MainActivity::class.java)
+            .apply { putExtra(EXTRA_NICKNAME, nickname) }
         startActivity(intent)
     }
 }
