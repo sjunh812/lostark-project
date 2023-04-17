@@ -34,7 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val searchHistoryAdapter by lazy {
         SearchHistoryAdapter(
             viewType = SearchHistoryAdapter.SUMMARY_VIEW_TYPE,
-            onClick = {},
+            onClick = { history -> search(history.name) },
             onDelete = { history -> mainViewModel.deleteSearchHistory(history) }
         )
     }
@@ -51,6 +51,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     companion object {
         private const val LOG = "MainActivity"
+        private const val PRG_DIALOG = "progress_dialog"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         bind()
         initViews()
         observeData()
+        search(mainViewModel.nickname)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -67,13 +69,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             if (v is TextInputEditText && ev?.action == MotionEvent.ACTION_UP) {
                 val x = ev.rawX
                 val y = ev.rawY
-                val outLocation = IntArray(2)
+                val etOutLocation = IntArray(2)
+                val rvOutLocation = IntArray(2)
 
-                v.getLocationOnScreen(outLocation)
+                v.getLocationOnScreen(etOutLocation)
+                binding.rvSearchHistory.getLocationOnScreen(rvOutLocation)
 
-                if (x < outLocation[0] || x > outLocation[0] + view.width || y < outLocation[1] || y > outLocation[1] + view.height) {
-                    v.clearFocus()
-                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+                if (x < etOutLocation[0] || x > etOutLocation[0] + view.width ||
+                    y < etOutLocation[1] || y > etOutLocation[1] + view.height
+                ) {
+                    if (x < rvOutLocation[0] || x > rvOutLocation[0] + binding.rvSearchHistory.width ||
+                        y < rvOutLocation[1] || y > rvOutLocation[1] + binding.rvSearchHistory.height
+                    ) {
+                        v.clearFocus()
+                        imm.hideSoftInputFromWindow(view.windowToken, 0)
+                    }
                 }
             }
         }
@@ -89,8 +99,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initViews() {
         with(binding) {
-            prgDialog.show(supportFragmentManager, "prg_dialog")
-
             rvSearchHistory.adapter = searchHistoryAdapter
             layoutProfile.rvEngraving.adapter = engravingAdapter
             layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
@@ -105,10 +113,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-//                    initAdapters()
-                    mainViewModel.search(etNickname.text.toString())
-                    etNickname.text?.clear()
-                    imm.hideSoftInputFromWindow(etNickname.windowToken, 0)
+                    etNickname.text?.also { nickname ->
+                        search(nickname.trim().toString())
+                    }?.run {
+                        clear()
+                    }
                 }
                 false
             }
@@ -131,7 +140,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                         if (result.success) {
                             Log.d(LOG, "profile success")
+                            binding.scrollView.scrollTo(0, 0)
                             initAdapters()
+
                             result.data?.let { data ->
                                 updateStatViews(data.stats)
                                 insertSearchHistory(data)
@@ -260,6 +271,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     binding.layoutCard.rvCardEffectDetail.isVisible = !collapse
                 }
             }
+        }
+    }
+
+    private fun search(nickname: String) {
+        binding.etNickname.clearFocus()
+        imm.hideSoftInputFromWindow(binding.etNickname.windowToken, 0)
+
+        if (mainViewModel.profile.value?.data?.characterName != nickname) {
+            prgDialog.show(supportFragmentManager, PRG_DIALOG)
+            mainViewModel.search(nickname)
         }
     }
 
