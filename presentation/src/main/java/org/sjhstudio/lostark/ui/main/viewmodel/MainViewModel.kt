@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
     private val historyRepository: HistoryRepository
 ) : ViewModel() {
 
-    private val nickname: String = savedStateHandle[EXTRA_NICKNAME] ?: throw IllegalStateException()
+    var nickname: String = savedStateHandle[EXTRA_NICKNAME] ?: throw IllegalStateException()
 
     private var _profile = MutableStateFlow<LostArkApiResult<Profile>?>(null)
     val profile = _profile.asStateFlow()
@@ -52,11 +52,13 @@ class MainViewModel @Inject constructor(
     private var _collapseCard = MutableStateFlow<Boolean>(true)
     val collapseCard = _collapseCard.asStateFlow()
 
-    init {
-        search(nickname)    // 캐릭터 검색
-    }
+//    init {
+//        search(nickname)    // 캐릭터 검색
+//    }
 
     fun search(characterName: String) {
+        nickname = characterName
+
         getSearchHistoryList()  // 캐릭터 검색기록
         getProfile(characterName)   // 프로필
         changeEquipmentDetail(true) // 장비세부창 접기
