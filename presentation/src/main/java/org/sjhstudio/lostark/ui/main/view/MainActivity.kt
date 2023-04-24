@@ -63,16 +63,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        val view = currentFocus
-
-        view?.let { v ->
-            if (v is TextInputEditText && ev?.action == MotionEvent.ACTION_UP) {
+        currentFocus?.let { view ->
+            if (view is TextInputEditText && ev?.action == MotionEvent.ACTION_UP) {
                 val x = ev.rawX
                 val y = ev.rawY
-                val etOutLocation = IntArray(2)
-                val rvOutLocation = IntArray(2)
+                val etOutLocation = IntArray(2) // 검색창 시작지점
+                val rvOutLocation = IntArray(2) // 검색기록창 시작지점
 
-                v.getLocationOnScreen(etOutLocation)
+                view.getLocationOnScreen(etOutLocation)
                 binding.rvSearchHistory.getLocationOnScreen(rvOutLocation)
 
                 if (x < etOutLocation[0] || x > etOutLocation[0] + view.width ||
@@ -81,7 +79,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     if (x < rvOutLocation[0] || x > rvOutLocation[0] + binding.rvSearchHistory.width ||
                         y < rvOutLocation[1] || y > rvOutLocation[1] + binding.rvSearchHistory.height
                     ) {
-                        v.clearFocus()
+                        view.clearFocus()
                         imm.hideSoftInputFromWindow(view.windowToken, 0)
                     }
                 }
@@ -104,12 +102,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             layoutEquipment.rvBraceletSpecialEffect.adapter = braceletEffectAdapter
             layoutGem.rvGemSummary.adapter = gemSummaryAdapter
             layoutGem.rvGemDetail.adapter = gemDetailAdapter
+            layoutCard.rvCardEffectSummary.adapter = cardEffectSummaryAdapter
+            layoutCard.rvCardEffectDetail.adapter = cardEffectDetailAdapter
             layoutCard.rvCard.apply {
                 adapter = cardAdapter
                 itemAnimator?.changeDuration = 0
             }
-            layoutCard.rvCardEffectSummary.adapter = cardEffectSummaryAdapter
-            layoutCard.rvCardEffectDetail.adapter = cardEffectDetailAdapter
 
             etNickname.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -121,7 +119,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
                 false
             }
-            etNickname.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
+            etNickname.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
                 rvSearchHistory.isVisible = hasFocus
             }
             layoutEquipment.layoutEquipmentTop.setOnClickListener { mainViewModel.changeEquipmentDetail() }
@@ -140,23 +138,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
                         if (result.success) {
                             Log.d(LOG, "profile success")
-                            binding.scrollView.scrollTo(0, 0)
-                            initAdapters()
+                            binding.scrollView.scrollTo(0, 0)   // 최상단 스크롤
+                            initAdapters()  // 모든 어뎁터 초기화
 
                             result.data?.let { data ->
                                 updateStatViews(data.stats)
                                 insertSearchHistory(data)
                                 binding.layoutFail.isVisible = false
-//                                binding.layoutProfile.container.isVisible = true
                             }
                         } else {
                             Log.d(LOG, "profile fail")
                             Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
                             binding.layoutFail.isVisible = true
-//                            binding.layoutProfile.container.isVisible = false
                         }
-
-                        binding.layoutProfile.executePendingBindings()
                     }
                 }
             }
@@ -167,7 +161,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         if (result.success) {
                             Log.e(LOG, "engraving success")
                             engravingAdapter.submitList(result.data?.effects)
-                            binding.layoutProfile.executePendingBindings()
                         } else {
                             Log.e(LOG, "engraving fail")
                         }
@@ -180,19 +173,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     apiResult?.let { result ->
                         if (result.success) {
                             Log.e(LOG, "equipment success")
-                            result.data?.let { equipmentMap ->
-                                if (equipmentMap.containsKey("팔찌")) {
+                            result.data?.let { map ->
+                                if (map.containsKey("팔찌")) {
                                     val effectList = result.data!!["팔찌"]?.effects
                                     braceletEffectAdapter.submitList(effectList?.filter { effect -> effect.isSpecial })
                                 }
                                 binding.layoutEquipment.tvEquipmentSetSummary.setEquipmentSetSummary(
-                                    equipmentMap
+                                    map
                                 )
-//                                binding.layoutEquipment.container.isVisible = true
                             }
                         } else {
                             Log.e(LOG, "equipment fail")
-//                            binding.layoutEquipment.container.isVisible = false
                         }
                     }
                 }
@@ -205,10 +196,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             Log.d(LOG, "gem success")
                             gemSummaryAdapter.submitList(result.data?.gems)
                             gemDetailAdapter.submitList(result.data?.gems)
-//                            binding.layoutGem.layoutGem.isVisible = true
                         } else {
                             Log.e(LOG, "gem fail")
-//                            binding.layoutGem.layoutGem.isVisible = false
                         }
                     }
                 }
@@ -227,10 +216,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 cardEffectSummaryAdapter.submitList(this)
                                 cardEffectDetailAdapter.submitList(this)
                             }
-//                            binding.layoutCard.layoutCard.isVisible = true
                         } else {
                             Log.e(LOG, "card fail")
-//                            binding.layoutCard.layoutCard.isVisible = false
                         }
                     }
                 }
