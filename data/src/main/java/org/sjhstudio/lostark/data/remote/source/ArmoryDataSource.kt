@@ -1,6 +1,5 @@
 package org.sjhstudio.lostark.data.remote.source
 
-import org.sjhstudio.lostark.data.exception.ClientErrorException
 import org.sjhstudio.lostark.data.exception.NetworkErrorException
 import org.sjhstudio.lostark.data.remote.api.ArmoryService
 import org.sjhstudio.lostark.data.remote.model.armory.*
@@ -24,77 +23,52 @@ internal class ArmoryDataSourceImpl @Inject constructor(
 ) : ArmoryDataSource {
 
     override suspend fun getProfile(characterName: String): ProfileDto? {
-        try {
-            val response = armoryApi.getProfile(characterName)
+        val response = armoryApi.getProfile(characterName)
 
-            if (response.isSuccessful) {
-                return response.body()
-            } else {
-                throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw ClientErrorException(e.message)
+        if (response.isSuccessful) {
+            return response.body()
+        } else {
+            throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
         }
     }
 
     override suspend fun getEngraving(characterName: String): EngravingDto? {
-        try {
-            val response = armoryApi.getEngraving(characterName)
+        val response = armoryApi.getEngraving(characterName)
 
-            if (response.isSuccessful) {
-                return response.body()
-            } else {
-                throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw ClientErrorException(e.message)
+        if (response.isSuccessful) {
+            return response.body()
+        } else {
+            throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
         }
     }
 
     override suspend fun getEquipment(characterName: String): List<EquipmentDto>? {
-        try {
-            val response = armoryApi.getEquipment(characterName)
+        val response = armoryApi.getEquipment(characterName)
 
-            if (response.isSuccessful) {
-                return response.body()
-            } else {
-                throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw ClientErrorException(e.message)
+        if (response.isSuccessful) {
+            return response.body()
+        } else {
+            throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
         }
     }
 
     override suspend fun getGem(characterName: String): GemDto? {
-        try {
-            val response = armoryApi.getGem(characterName)
+        val response = armoryApi.getGem(characterName)
 
-            if (response.isSuccessful) {
-                return response.body()
-            } else {
-                throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw ClientErrorException(e.message)
+        if (response.isSuccessful) {
+            return response.body()
+        } else {
+            throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
         }
     }
 
     override suspend fun getCard(characterName: String): CardDto? {
-        try {
-            val response = armoryApi.getCard(characterName)
+        val response = armoryApi.getCard(characterName)
 
-            if (response.isSuccessful) {
-                return response.body()
-            } else {
-                throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw ClientErrorException(e.message)
+        if (response.isSuccessful) {
+            return response.body()
+        } else {
+            throw NetworkErrorException("[${response.code()}] : ${response.raw()}")
         }
     }
 }

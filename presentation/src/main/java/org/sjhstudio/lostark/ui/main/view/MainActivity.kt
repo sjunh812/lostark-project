@@ -132,6 +132,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun observeData() {
         with(mainViewModel) {
             lifecycleScope.launchWhenStarted {
+                errorMessage.collectLatest { errorMessage ->
+                    prgDialog.dismissAllowingStateLoss()
+                    binding.layoutFail.isVisible = true
+                    Snackbar.make(binding.root, errorMessage, 1500).show()
+                }
+            }
+
+            lifecycleScope.launchWhenStarted {
                 profile.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         prgDialog.dismiss()
@@ -146,10 +154,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 insertSearchHistory(data)
                                 binding.layoutFail.isVisible = false
                             }
-                        } else {
-                            Log.d(LOG, "profile fail")
-                            Snackbar.make(binding.root, "검색 결과가 없습니다..\uD83E\uDEE0", 1500).show()
-                            binding.layoutFail.isVisible = true
                         }
                     }
                 }
@@ -193,7 +197,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 gem.collectLatest { apiResult ->
                     apiResult?.let { result ->
                         if (result.success) {
-                            Log.d(LOG, "gem success")
+                            Log.e(LOG, "gem success")
                             gemSummaryAdapter.submitList(result.data?.gems)
                             gemDetailAdapter.submitList(result.data?.gems)
                         } else {
@@ -265,9 +269,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.etNickname.clearFocus()
         imm.hideSoftInputFromWindow(binding.etNickname.windowToken, 0)
 
-        if (mainViewModel.profile.value?.data?.characterName != nickname) {
-            prgDialog.show(supportFragmentManager, PRG_DIALOG)
+        if (mainViewModel.profile.value?.data?.characterName != nickname &&
+            nickname.trim().isNotEmpty()
+        ) {
             mainViewModel.search(nickname)
+            if (!prgDialog.isVisible) prgDialog.show(supportFragmentManager, PRG_DIALOG)
         }
     }
 
