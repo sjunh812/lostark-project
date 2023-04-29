@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.sjhstudio.lostark.data.exception.NetworkErrorException
 import org.sjhstudio.lostark.domain.model.LostArkApiResult
 import org.sjhstudio.lostark.domain.model.response.*
 import org.sjhstudio.lostark.domain.repository.ArmoryRepository
@@ -52,6 +53,9 @@ class MainViewModel @Inject constructor(
     private var _collapseCard = MutableStateFlow<Boolean>(true)
     val collapseCard = _collapseCard.asStateFlow()
 
+    private var _errorMessage = MutableSharedFlow<String>()
+    val errorMessage = _errorMessage.asSharedFlow()
+
     fun search(characterName: String) {
         nickname = characterName
         getSearchHistoryList()  // 캐릭터 검색기록
@@ -63,12 +67,19 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getProfile(characterName: String) = viewModelScope.launch {
-        _profile.value = null
+        _profile.emit(null)
 
         armoryRepository.getProfile(characterName)
             .onStart { }
             .onCompletion { }
-            .catch { e -> e.printStackTrace() }
+            .catch { e ->
+                e.printStackTrace()
+
+                when (e) {
+                    is NetworkErrorException -> _errorMessage.emit("서버 연결 상태가 좋지 않습니다.")
+                    else -> _errorMessage.emit("네트워크 연결 상태가 좋지 않습니다.")
+                }
+            }
             .collectLatest { apiResult ->
                 _profile.emit(apiResult)
 
@@ -77,11 +88,15 @@ class MainViewModel @Inject constructor(
                     getEquipment(characterName) // 장비
                     getGem(characterName)   // 보석
                     getCard(characterName)  // 카드
+                } else {
+                    _errorMessage.emit("검색 결과가 없습니다 \uD83E\uDEE0")
                 }
             }
     }
 
     private fun getEngraving(characterName: String) = viewModelScope.launch {
+        _engraving.emit(null)
+
         armoryRepository.getEngraving(characterName)
             .onStart { }
             .onCompletion { }
@@ -92,6 +107,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getEquipment(characterName: String) = viewModelScope.launch {
+        _equipment.emit(null)
+
         armoryRepository.getEquipment(characterName)
             .onStart { }
             .onCompletion { }
@@ -102,6 +119,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getGem(characterName: String) = viewModelScope.launch {
+        _gem.emit(null)
+
         armoryRepository.getGem(characterName)
             .onStart { }
             .onCompletion { }
@@ -112,6 +131,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getCard(characterName: String) = viewModelScope.launch {
+        _card.emit(null)
+
         armoryRepository.getCard(characterName)
             .onStart { }
             .onCompletion { }
